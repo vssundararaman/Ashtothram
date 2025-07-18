@@ -1,0 +1,144 @@
+App Requirements for Poem Explanation App
+
+1. General Requirements
+Develop a React Native Expo app for iOS (Apple Store) and Android (Google Play Store).
+Support English and Tamil languages.
+Ensure compliance with Apple App Store and Google Play Store requirements.
+Implement a responsive and accessible UI/UX.
+2. Features & Functionality
+A. Navigation & UI
+Side Navigation Bar
+Categories of poems (e.g., Classic, Modern, Tamil Literature, etc.).
+Subheadings within categories.
+Settings Page.
+About Page.
+Main Page Layout
+Two-panel view:
+Left Panel: Displays the poem.
+Right Panel: Displays the explanation.
+Supports dynamic font resizing for accessibility.
+Settings Page
+Language selection (English/Tamil).
+Text size adjustments.
+Theme selection (Light/Dark Mode).
+About Page
+Developer details.
+Version info.
+Contact/Feedback options.
+
+
+
+3. Technical Requirements
+
+Framework: React Native with Expo.
+
+
+
+Navigation: React Navigation for seamless page transitions.
+
+
+
+Localization: Use react-native-localization for multi-language support.
+
+
+
+State Management: Redux or React Context API.
+
+
+
+Storage: AsyncStorage for user preferences (e.g., selected language, font size).
+
+
+
+API/Database: Firebase or a local SQLite database for storing poems and explanations.
+
+
+
+Offline Support: Ability to access poems without an internet connection.
+
+
+
+UI Library: Use React Native Paper or NativeBase for a polished UI.
+
+
+
+4. Compliance with App Store & Play Store
+
+Follow Apple’s Human Interface Guidelines.
+
+
+
+Ensure App Store Review Guidelines compliance.
+
+
+
+Google Play Material Design best practices.
+
+
+
+Include a Privacy Policy & Terms of Service.
+
+
+
+GDPR Compliance for data privacy.
+
+
+
+5. Deployment & Maintenance
+
+Testing:
+
+
+
+Use Expo Go for testing.
+
+
+
+Perform UI/UX testing on different devices.
+
+
+
+Automate testing with Jest & React Native Testing Library.
+
+
+
+Deployment:
+
+
+
+Build iOS app using expo build:ios (EAS Build).
+
+
+
+Build Android app using expo build:android.
+
+
+
+Submit to App Store Connect and Google Play Console.
+
+
+
+Future Enhancements:
+
+
+
+User favorites/bookmark feature.
+
+
+
+Social sharing options.
+
+
+
+Text-to-speech for accessibility.
+
+
+
+I want to generate expo react native app which will have tamil poems with mean in 2 different panel. 
+I want to add the feature like choose language and based on that the whole app will change the language. 
+I want to use side navigation bar with each poem heading and I can select the navigation bar  based on the select the corresponding the poem and high lights and I can select by clicking the mouse to each poem also should select the poem and corresponding the meaning of the poem. 
+I need one for introduction page and navigation menu which corresponds to that page. and 
+I need one for settings page and one for about us page. which will have copy right info etc. also, 
+I need 2 to 3 navigation page which will have 3 different sets of poem, 
+I also need scrolling features and based on the selection the side navigation bar also should highlight the side menu. also, scrolling feature for each poem page.
+I need to add the feature like add the poem and mean in the app and also add the image to the poem. 
