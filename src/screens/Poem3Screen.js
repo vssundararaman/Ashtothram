@@ -1,52 +1,17 @@
-import React, { useContext } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { Text, Card } from 'react-native-paper';
-import { AppContext } from '../constants/AppContext';
-import i18n from '../services/i18n';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
-const Poem3Screen = () => {
-  const { fontSize } = useContext(AppContext);
-
+export default function Poem3Screen() {
   return (
     <View style={styles.container}>
-      <View style={styles.panel}>
-        <Card style={styles.card}>
-          <Card.Content>
-            <ScrollView>
-              <Text style={{ fontSize }}>
-                This is the third poem.
-              </Text>
-            </ScrollView>
-          </Card.Content>
-        </Card>
-      </View>
-      <View style={styles.panel}>
-        <Card style={styles.card}>
-          <Card.Content>
-            <ScrollView>
-              <Text style={{ fontSize }}>
-                This is the explanation for the third poem.
-              </Text>
-            </ScrollView>
-          </Card.Content>
-        </Card>
-      </View>
+      <Text style={styles.title}>Poem 3</Text>
+      <Text>Poem text goes here.</Text>
+      <Text>Meaning goes here.</Text>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  panel: {
-    flex: 1,
-    padding: 10,
-  },
-  card: {
-    flex: 1,
-  },
-});
-
-export default Poem3Screen; 
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 16 },
+}); 

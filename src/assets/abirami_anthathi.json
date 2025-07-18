@@ -1,0 +1,709 @@
+[
+  {
+    "number": 1,
+    "lines_ta": ["தமிழ் வரி 1-1", "தமிழ் வரி 1-2", "தமிழ் வரி 1-3", "தமிழ் வரி 1-4"],
+    "lines_en": ["English line 1-1", "English line 1-2", "English line 1-3", "English line 1-4"],
+    "meaning_ta": "விளக்கம் 1 (தமிழ்)",
+    "meaning_en": "Explanation 1 (English)"
+  },
+  {
+    "number": 2,
+    "lines_ta": ["தமிழ் வரி 2-1", "தமிழ் வரி 2-2", "தமிழ் வரி 2-3", "தமிழ் வரி 2-4"],
+    "lines_en": ["English line 2-1", "English line 2-2", "English line 2-3", "English line 2-4"],
+    "meaning_ta": "விளக்கம் 2 (தமிழ்)",
+    "meaning_en": "Explanation 2 (English)"
+  },
+  {
+    "number": 3,
+    "lines_ta": ["தமிழ் வரி 3-1", "தமிழ் வரி 3-2", "தமிழ் வரி 3-3", "தமிழ் வரி 3-4"],
+    "lines_en": ["English line 3-1", "English line 3-2", "English line 3-3", "English line 3-4"],
+    "meaning_ta": "விளக்கம் 3 (தமிழ்)",
+    "meaning_en": "Explanation 3 (English)"
+  },
+  {
+    "number": 4,
+    "lines_ta": ["தமிழ் வரி 4-1", "தமிழ் வரி 4-2", "தமிழ் வரி 4-3", "தமிழ் வரி 4-4"],
+    "lines_en": ["English line 4-1", "English line 4-2", "English line 4-3", "English line 4-4"],
+    "meaning_ta": "விளக்கம் 4 (தமிழ்)",
+    "meaning_en": "Explanation 4 (English)"
+  },
+  {
+    "number": 5,
+    "lines_ta": ["தமிழ் வரி 5-1", "தமிழ் வரி 5-2", "தமிழ் வரி 5-3", "தமிழ் வரி 5-4"],
+    "lines_en": ["English line 5-1", "English line 5-2", "English line 5-3", "English line 5-4"],
+    "meaning_ta": "விளக்கம் 5 (தமிழ்)",
+    "meaning_en": "Explanation 5 (English)"
+  },
+  {
+    "number": 6,
+    "lines_ta": ["தமிழ் வரி 6-1", "தமிழ் வரி 6-2", "தமிழ் வரி 6-3", "தமிழ் வரி 6-4"],
+    "lines_en": ["English line 6-1", "English line 6-2", "English line 6-3", "English line 6-4"],
+    "meaning_ta": "விளக்கம் 6 (தமிழ்)",
+    "meaning_en": "Explanation 6 (English)"
+  },
+  {
+    "number": 7,
+    "lines_ta": ["தமிழ் வரி 7-1", "தமிழ் வரி 7-2", "தமிழ் வரி 7-3", "தமிழ் வரி 7-4"],
+    "lines_en": ["English line 7-1", "English line 7-2", "English line 7-3", "English line 7-4"],
+    "meaning_ta": "விளக்கம் 7 (தமிழ்)",
+    "meaning_en": "Explanation 7 (English)"
+  },
+  {
+    "number": 8,
+    "lines_ta": ["தமிழ் வரி 8-1", "தமிழ் வரி 8-2", "தமிழ் வரி 8-3", "தமிழ் வரி 8-4"],
+    "lines_en": ["English line 8-1", "English line 8-2", "English line 8-3", "English line 8-4"],
+    "meaning_ta": "விளக்கம் 8 (தமிழ்)",
+    "meaning_en": "Explanation 8 (English)"
+  },
+  {
+    "number": 9,
+    "lines_ta": ["தமிழ் வரி 9-1", "தமிழ் வரி 9-2", "தமிழ் வரி 9-3", "தமிழ் வரி 9-4"],
+    "lines_en": ["English line 9-1", "English line 9-2", "English line 9-3", "English line 9-4"],
+    "meaning_ta": "விளக்கம் 9 (தமிழ்)",
+    "meaning_en": "Explanation 9 (English)"
+  },
+  {
+    "number": 10,
+    "lines_ta": ["தமிழ் வரி 10-1", "தமிழ் வரி 10-2", "தமிழ் வரி 10-3", "தமிழ் வரி 10-4"],
+    "lines_en": ["English line 10-1", "English line 10-2", "English line 10-3", "English line 10-4"],
+    "meaning_ta": "விளக்கம் 10 (தமிழ்)",
+    "meaning_en": "Explanation 10 (English)"
+  },
+  {
+    "number": 11,
+    "lines_ta": ["தமிழ் வரி 11-1", "தமிழ் வரி 11-2", "தமிழ் வரி 11-3", "தமிழ் வரி 11-4"],
+    "lines_en": ["English line 11-1", "English line 11-2", "English line 11-3", "English line 11-4"],
+    "meaning_ta": "விளக்கம் 11 (தமிழ்)",
+    "meaning_en": "Explanation 11 (English)"
+  },
+  {
+    "number": 12,
+    "lines_ta": ["தமிழ் வரி 12-1", "தமிழ் வரி 12-2", "தமிழ் வரி 12-3", "தமிழ் வரி 12-4"],
+    "lines_en": ["English line 12-1", "English line 12-2", "English line 12-3", "English line 12-4"],
+    "meaning_ta": "விளக்கம் 12 (தமிழ்)",
+    "meaning_en": "Explanation 12 (English)"
+  },
+  {
+    "number": 13,
+    "lines_ta": ["தமிழ் வரி 13-1", "தமிழ் வரி 13-2", "தமிழ் வரி 13-3", "தமிழ் வரி 13-4"],
+    "lines_en": ["English line 13-1", "English line 13-2", "English line 13-3", "English line 13-4"],
+    "meaning_ta": "விளக்கம் 13 (தமிழ்)",
+    "meaning_en": "Explanation 13 (English)"
+  },
+  {
+    "number": 14,
+    "lines_ta": ["தமிழ் வரி 14-1", "தமிழ் வரி 14-2", "தமிழ் வரி 14-3", "தமிழ் வரி 14-4"],
+    "lines_en": ["English line 14-1", "English line 14-2", "English line 14-3", "English line 14-4"],
+    "meaning_ta": "விளக்கம் 14 (தமிழ்)",
+    "meaning_en": "Explanation 14 (English)"
+  },
+  {
+    "number": 15,
+    "lines_ta": ["தமிழ் வரி 15-1", "தமிழ் வரி 15-2", "தமிழ் வரி 15-3", "தமிழ் வரி 15-4"],
+    "lines_en": ["English line 15-1", "English line 15-2", "English line 15-3", "English line 15-4"],
+    "meaning_ta": "விளக்கம் 15 (தமிழ்)",
+    "meaning_en": "Explanation 15 (English)"
+  },
+  {
+    "number": 16,
+    "lines_ta": ["தமிழ் வரி 16-1", "தமிழ் வரி 16-2", "தமிழ் வரி 16-3", "தமிழ் வரி 16-4"],
+    "lines_en": ["English line 16-1", "English line 16-2", "English line 16-3", "English line 16-4"],
+    "meaning_ta": "விளக்கம் 16 (தமிழ்)",
+    "meaning_en": "Explanation 16 (English)"
+  },
+  {
+    "number": 17,
+    "lines_ta": ["தமிழ் வரி 17-1", "தமிழ் வரி 17-2", "தமிழ் வரி 17-3", "தமிழ் வரி 17-4"],
+    "lines_en": ["English line 17-1", "English line 17-2", "English line 17-3", "English line 17-4"],
+    "meaning_ta": "விளக்கம் 17 (தமிழ்)",
+    "meaning_en": "Explanation 17 (English)"
+  },
+  {
+    "number": 18,
+    "lines_ta": ["தமிழ் வரி 18-1", "தமிழ் வரி 18-2", "தமிழ் வரி 18-3", "தமிழ் வரி 18-4"],
+    "lines_en": ["English line 18-1", "English line 18-2", "English line 18-3", "English line 18-4"],
+    "meaning_ta": "விளக்கம் 18 (தமிழ்)",
+    "meaning_en": "Explanation 18 (English)"
+  },
+  {
+    "number": 19,
+    "lines_ta": ["தமிழ் வரி 19-1", "தமிழ் வரி 19-2", "தமிழ் வரி 19-3", "தமிழ் வரி 19-4"],
+    "lines_en": ["English line 19-1", "English line 19-2", "English line 19-3", "English line 19-4"],
+    "meaning_ta": "விளக்கம் 19 (தமிழ்)",
+    "meaning_en": "Explanation 19 (English)"
+  },
+  {
+    "number": 20,
+    "lines_ta": ["தமிழ் வரி 20-1", "தமிழ் வரி 20-2", "தமிழ் வரி 20-3", "தமிழ் வரி 20-4"],
+    "lines_en": ["English line 20-1", "English line 20-2", "English line 20-3", "English line 20-4"],
+    "meaning_ta": "விளக்கம் 20 (தமிழ்)",
+    "meaning_en": "Explanation 20 (English)"
+  },
+  {
+    "number": 21,
+    "lines_ta": ["தமிழ் வரி 21-1", "தமிழ் வரி 21-2", "தமிழ் வரி 21-3", "தமிழ் வரி 21-4"],
+    "lines_en": ["English line 21-1", "English line 21-2", "English line 21-3", "English line 21-4"],
+    "meaning_ta": "விளக்கம் 21 (தமிழ்)",
+    "meaning_en": "Explanation 21 (English)"
+  },
+  {
+    "number": 22,
+    "lines_ta": ["தமிழ் வரி 22-1", "தமிழ் வரி 22-2", "தமிழ் வரி 22-3", "தமிழ் வரி 22-4"],
+    "lines_en": ["English line 22-1", "English line 22-2", "English line 22-3", "English line 22-4"],
+    "meaning_ta": "விளக்கம் 22 (தமிழ்)",
+    "meaning_en": "Explanation 22 (English)"
+  },
+  {
+    "number": 23,
+    "lines_ta": ["தமிழ் வரி 23-1", "தமிழ் வரி 23-2", "தமிழ் வரி 23-3", "தமிழ் வரி 23-4"],
+    "lines_en": ["English line 23-1", "English line 23-2", "English line 23-3", "English line 23-4"],
+    "meaning_ta": "விளக்கம் 23 (தமிழ்)",
+    "meaning_en": "Explanation 23 (English)"
+  },
+  {
+    "number": 24,
+    "lines_ta": ["தமிழ் வரி 24-1", "தமிழ் வரி 24-2", "தமிழ் வரி 24-3", "தமிழ் வரி 24-4"],
+    "lines_en": ["English line 24-1", "English line 24-2", "English line 24-3", "English line 24-4"],
+    "meaning_ta": "விளக்கம் 24 (தமிழ்)",
+    "meaning_en": "Explanation 24 (English)"
+  },
+  {
+    "number": 25,
+    "lines_ta": ["தமிழ் வரி 25-1", "தமிழ் வரி 25-2", "தமிழ் வரி 25-3", "தமிழ் வரி 25-4"],
+    "lines_en": ["English line 25-1", "English line 25-2", "English line 25-3", "English line 25-4"],
+    "meaning_ta": "விளக்கம் 25 (தமிழ்)",
+    "meaning_en": "Explanation 25 (English)"
+  },
+  {
+    "number": 26,
+    "lines_ta": ["தமிழ் வரி 26-1", "தமிழ் வரி 26-2", "தமிழ் வரி 26-3", "தமிழ் வரி 26-4"],
+    "lines_en": ["English line 26-1", "English line 26-2", "English line 26-3", "English line 26-4"],
+    "meaning_ta": "விளக்கம் 26 (தமிழ்)",
+    "meaning_en": "Explanation 26 (English)"
+  },
+  {
+    "number": 27,
+    "lines_ta": ["தமிழ் வரி 27-1", "தமிழ் வரி 27-2", "தமிழ் வரி 27-3", "தமிழ் வரி 27-4"],
+    "lines_en": ["English line 27-1", "English line 27-2", "English line 27-3", "English line 27-4"],
+    "meaning_ta": "விளக்கம் 27 (தமிழ்)",
+    "meaning_en": "Explanation 27 (English)"
+  },
+  {
+    "number": 28,
+    "lines_ta": ["தமிழ் வரி 28-1", "தமிழ் வரி 28-2", "தமிழ் வரி 28-3", "தமிழ் வரி 28-4"],
+    "lines_en": ["English line 28-1", "English line 28-2", "English line 28-3", "English line 28-4"],
+    "meaning_ta": "விளக்கம் 28 (தமிழ்)",
+    "meaning_en": "Explanation 28 (English)"
+  },
+  {
+    "number": 29,
+    "lines_ta": ["தமிழ் வரி 29-1", "தமிழ் வரி 29-2", "தமிழ் வரி 29-3", "தமிழ் வரி 29-4"],
+    "lines_en": ["English line 29-1", "English line 29-2", "English line 29-3", "English line 29-4"],
+    "meaning_ta": "விளக்கம் 29 (தமிழ்)",
+    "meaning_en": "Explanation 29 (English)"
+  },
+  {
+    "number": 30,
+    "lines_ta": ["தமிழ் வரி 30-1", "தமிழ் வரி 30-2", "தமிழ் வரி 30-3", "தமிழ் வரி 30-4"],
+    "lines_en": ["English line 30-1", "English line 30-2", "English line 30-3", "English line 30-4"],
+    "meaning_ta": "விளக்கம் 30 (தமிழ்)",
+    "meaning_en": "Explanation 30 (English)"
+  },
+  {
+    "number": 31,
+    "lines_ta": ["தமிழ் வரி 31-1", "தமிழ் வரி 31-2", "தமிழ் வரி 31-3", "தமிழ் வரி 31-4"],
+    "lines_en": ["English line 31-1", "English line 31-2", "English line 31-3", "English line 31-4"],
+    "meaning_ta": "விளக்கம் 31 (தமிழ்)",
+    "meaning_en": "Explanation 31 (English)"
+  },
+  {
+    "number": 32,
+    "lines_ta": ["தமிழ் வரி 32-1", "தமிழ் வரி 32-2", "தமிழ் வரி 32-3", "தமிழ் வரி 32-4"],
+    "lines_en": ["English line 32-1", "English line 32-2", "English line 32-3", "English line 32-4"],
+    "meaning_ta": "விளக்கம் 32 (தமிழ்)",
+    "meaning_en": "Explanation 32 (English)"
+  },
+  {
+    "number": 33,
+    "lines_ta": ["தமிழ் வரி 33-1", "தமிழ் வரி 33-2", "தமிழ் வரி 33-3", "தமிழ் வரி 33-4"],
+    "lines_en": ["English line 33-1", "English line 33-2", "English line 33-3", "English line 33-4"],
+    "meaning_ta": "விளக்கம் 33 (தமிழ்)",
+    "meaning_en": "Explanation 33 (English)"
+  },
+  {
+    "number": 34,
+    "lines_ta": ["தமிழ் வரி 34-1", "தமிழ் வரி 34-2", "தமிழ் வரி 34-3", "தமிழ் வரி 34-4"],
+    "lines_en": ["English line 34-1", "English line 34-2", "English line 34-3", "English line 34-4"],
+    "meaning_ta": "விளக்கம் 34 (தமிழ்)",
+    "meaning_en": "Explanation 34 (English)"
+  },
+  {
+    "number": 35,
+    "lines_ta": ["தமிழ் வரி 35-1", "தமிழ் வரி 35-2", "தமிழ் வரி 35-3", "தமிழ் வரி 35-4"],
+    "lines_en": ["English line 35-1", "English line 35-2", "English line 35-3", "English line 35-4"],
+    "meaning_ta": "விளக்கம் 35 (தமிழ்)",
+    "meaning_en": "Explanation 35 (English)"
+  },
+  {
+    "number": 36,
+    "lines_ta": ["தமிழ் வரி 36-1", "தமிழ் வரி 36-2", "தமிழ் வரி 36-3", "தமிழ் வரி 36-4"],
+    "lines_en": ["English line 36-1", "English line 36-2", "English line 36-3", "English line 36-4"],
+    "meaning_ta": "விளக்கம் 36 (தமிழ்)",
+    "meaning_en": "Explanation 36 (English)"
+  },
+  {
+    "number": 37,
+    "lines_ta": ["தமிழ் வரி 37-1", "தமிழ் வரி 37-2", "தமிழ் வரி 37-3", "தமிழ் வரி 37-4"],
+    "lines_en": ["English line 37-1", "English line 37-2", "English line 37-3", "English line 37-4"],
+    "meaning_ta": "விளக்கம் 37 (தமிழ்)",
+    "meaning_en": "Explanation 37 (English)"
+  },
+  {
+    "number": 38,
+    "lines_ta": ["தமிழ் வரி 38-1", "தமிழ் வரி 38-2", "தமிழ் வரி 38-3", "தமிழ் வரி 38-4"],
+    "lines_en": ["English line 38-1", "English line 38-2", "English line 38-3", "English line 38-4"],
+    "meaning_ta": "விளக்கம் 38 (தமிழ்)",
+    "meaning_en": "Explanation 38 (English)"
+  },
+  {
+    "number": 39,
+    "lines_ta": ["தமிழ் வரி 39-1", "தமிழ் வரி 39-2", "தமிழ் வரி 39-3", "தமிழ் வரி 39-4"],
+    "lines_en": ["English line 39-1", "English line 39-2", "English line 39-3", "English line 39-4"],
+    "meaning_ta": "விளக்கம் 39 (தமிழ்)",
+    "meaning_en": "Explanation 39 (English)"
+  },
+  {
+    "number": 40,
+    "lines_ta": ["தமிழ் வரி 40-1", "தமிழ் வரி 40-2", "தமிழ் வரி 40-3", "தமிழ் வரி 40-4"],
+    "lines_en": ["English line 40-1", "English line 40-2", "English line 40-3", "English line 40-4"],
+    "meaning_ta": "விளக்கம் 40 (தமிழ்)",
+    "meaning_en": "Explanation 40 (English)"
+  },
+  {
+    "number": 41,
+    "lines_ta": ["தமிழ் வரி 41-1", "தமிழ் வரி 41-2", "தமிழ் வரி 41-3", "தமிழ் வரி 41-4"],
+    "lines_en": ["English line 41-1", "English line 41-2", "English line 41-3", "English line 41-4"],
+    "meaning_ta": "விளக்கம் 41 (தமிழ்)",
+    "meaning_en": "Explanation 41 (English)"
+  },
+  {
+    "number": 42,
+    "lines_ta": ["தமிழ் வரி 42-1", "தமிழ் வரி 42-2", "தமிழ் வரி 42-3", "தமிழ் வரி 42-4"],
+    "lines_en": ["English line 42-1", "English line 42-2", "English line 42-3", "English line 42-4"],
+    "meaning_ta": "விளக்கம் 42 (தமிழ்)",
+    "meaning_en": "Explanation 42 (English)"
+  },
+  {
+    "number": 43,
+    "lines_ta": ["தமிழ் வரி 43-1", "தமிழ் வரி 43-2", "தமிழ் வரி 43-3", "தமிழ் வரி 43-4"],
+    "lines_en": ["English line 43-1", "English line 43-2", "English line 43-3", "English line 43-4"],
+    "meaning_ta": "விளக்கம் 43 (தமிழ்)",
+    "meaning_en": "Explanation 43 (English)"
+  },
+  {
+    "number": 44,
+    "lines_ta": ["தமிழ் வரி 44-1", "தமிழ் வரி 44-2", "தமிழ் வரி 44-3", "தமிழ் வரி 44-4"],
+    "lines_en": ["English line 44-1", "English line 44-2", "English line 44-3", "English line 44-4"],
+    "meaning_ta": "விளக்கம் 44 (தமிழ்)",
+    "meaning_en": "Explanation 44 (English)"
+  },
+  {
+    "number": 45,
+    "lines_ta": ["தமிழ் வரி 45-1", "தமிழ் வரி 45-2", "தமிழ் வரி 45-3", "தமிழ் வரி 45-4"],
+    "lines_en": ["English line 45-1", "English line 45-2", "English line 45-3", "English line 45-4"],
+    "meaning_ta": "விளக்கம் 45 (தமிழ்)",
+    "meaning_en": "Explanation 45 (English)"
+  },
+  {
+    "number": 46,
+    "lines_ta": ["தமிழ் வரி 46-1", "தமிழ் வரி 46-2", "தமிழ் வரி 46-3", "தமிழ் வரி 46-4"],
+    "lines_en": ["English line 46-1", "English line 46-2", "English line 46-3", "English line 46-4"],
+    "meaning_ta": "விளக்கம் 46 (தமிழ்)",
+    "meaning_en": "Explanation 46 (English)"
+  },
+  {
+    "number": 47,
+    "lines_ta": ["தமிழ் வரி 47-1", "தமிழ் வரி 47-2", "தமிழ் வரி 47-3", "தமிழ் வரி 47-4"],
+    "lines_en": ["English line 47-1", "English line 47-2", "English line 47-3", "English line 47-4"],
+    "meaning_ta": "விளக்கம் 47 (தமிழ்)",
+    "meaning_en": "Explanation 47 (English)"
+  },
+  {
+    "number": 48,
+    "lines_ta": ["தமிழ் வரி 48-1", "தமிழ் வரி 48-2", "தமிழ் வரி 48-3", "தமிழ் வரி 48-4"],
+    "lines_en": ["English line 48-1", "English line 48-2", "English line 48-3", "English line 48-4"],
+    "meaning_ta": "விளக்கம் 48 (தமிழ்)",
+    "meaning_en": "Explanation 48 (English)"
+  },
+  {
+    "number": 49,
+    "lines_ta": ["தமிழ் வரி 49-1", "தமிழ் வரி 49-2", "தமிழ் வரி 49-3", "தமிழ் வரி 49-4"],
+    "lines_en": ["English line 49-1", "English line 49-2", "English line 49-3", "English line 49-4"],
+    "meaning_ta": "விளக்கம் 49 (தமிழ்)",
+    "meaning_en": "Explanation 49 (English)"
+  },
+  {
+    "number": 50,
+    "lines_ta": ["தமிழ் வரி 50-1", "தமிழ் வரி 50-2", "தமிழ் வரி 50-3", "தமிழ் வரி 50-4"],
+    "lines_en": ["English line 50-1", "English line 50-2", "English line 50-3", "English line 50-4"],
+    "meaning_ta": "விளக்கம் 50 (தமிழ்)",
+    "meaning_en": "Explanation 50 (English)"
+  },
+  {
+    "number": 51,
+    "lines_ta": ["தமிழ் வரி 51-1", "தமிழ் வரி 51-2", "தமிழ் வரி 51-3", "தமிழ் வரி 51-4"],
+    "lines_en": ["English line 51-1", "English line 51-2", "English line 51-3", "English line 51-4"],
+    "meaning_ta": "விளக்கம் 51 (தமிழ்)",
+    "meaning_en": "Explanation 51 (English)"
+  },
+  {
+    "number": 52,
+    "lines_ta": ["தமிழ் வரி 52-1", "தமிழ் வரி 52-2", "தமிழ் வரி 52-3", "தமிழ் வரி 52-4"],
+    "lines_en": ["English line 52-1", "English line 52-2", "English line 52-3", "English line 52-4"],
+    "meaning_ta": "விளக்கம் 52 (தமிழ்)",
+    "meaning_en": "Explanation 52 (English)"
+  },
+  {
+    "number": 53,
+    "lines_ta": ["தமிழ் வரி 53-1", "தமிழ் வரி 53-2", "தமிழ் வரி 53-3", "தமிழ் வரி 53-4"],
+    "lines_en": ["English line 53-1", "English line 53-2", "English line 53-3", "English line 53-4"],
+    "meaning_ta": "விளக்கம் 53 (தமிழ்)",
+    "meaning_en": "Explanation 53 (English)"
+  },
+  {
+    "number": 54,
+    "lines_ta": ["தமிழ் வரி 54-1", "தமிழ் வரி 54-2", "தமிழ் வரி 54-3", "தமிழ் வரி 54-4"],
+    "lines_en": ["English line 54-1", "English line 54-2", "English line 54-3", "English line 54-4"],
+    "meaning_ta": "விளக்கம் 54 (தமிழ்)",
+    "meaning_en": "Explanation 54 (English)"
+  },
+  {
+    "number": 55,
+    "lines_ta": ["தமிழ் வரி 55-1", "தமிழ் வரி 55-2", "தமிழ் வரி 55-3", "தமிழ் வரி 55-4"],
+    "lines_en": ["English line 55-1", "English line 55-2", "English line 55-3", "English line 55-4"],
+    "meaning_ta": "விளக்கம் 55 (தமிழ்)",
+    "meaning_en": "Explanation 55 (English)"
+  },
+  {
+    "number": 56,
+    "lines_ta": ["தமிழ் வரி 56-1", "தமிழ் வரி 56-2", "தமிழ் வரி 56-3", "தமிழ் வரி 56-4"],
+    "lines_en": ["English line 56-1", "English line 56-2", "English line 56-3", "English line 56-4"],
+    "meaning_ta": "விளக்கம் 56 (தமிழ்)",
+    "meaning_en": "Explanation 56 (English)"
+  },
+  {
+    "number": 57,
+    "lines_ta": ["தமிழ் வரி 57-1", "தமிழ் வரி 57-2", "தமிழ் வரி 57-3", "தமிழ் வரி 57-4"],
+    "lines_en": ["English line 57-1", "English line 57-2", "English line 57-3", "English line 57-4"],
+    "meaning_ta": "விளக்கம் 57 (தமிழ்)",
+    "meaning_en": "Explanation 57 (English)"
+  },
+  {
+    "number": 58,
+    "lines_ta": ["தமிழ் வரி 58-1", "தமிழ் வரி 58-2", "தமிழ் வரி 58-3", "தமிழ் வரி 58-4"],
+    "lines_en": ["English line 58-1", "English line 58-2", "English line 58-3", "English line 58-4"],
+    "meaning_ta": "விளக்கம் 58 (தமிழ்)",
+    "meaning_en": "Explanation 58 (English)"
+  },
+  {
+    "number": 59,
+    "lines_ta": ["தமிழ் வரி 59-1", "தமிழ் வரி 59-2", "தமிழ் வரி 59-3", "தமிழ் வரி 59-4"],
+    "lines_en": ["English line 59-1", "English line 59-2", "English line 59-3", "English line 59-4"],
+    "meaning_ta": "விளக்கம் 59 (தமிழ்)",
+    "meaning_en": "Explanation 59 (English)"
+  },
+  {
+    "number": 60,
+    "lines_ta": ["தமிழ் வரி 60-1", "தமிழ் வரி 60-2", "தமிழ் வரி 60-3", "தமிழ் வரி 60-4"],
+    "lines_en": ["English line 60-1", "English line 60-2", "English line 60-3", "English line 60-4"],
+    "meaning_ta": "விளக்கம் 60 (தமிழ்)",
+    "meaning_en": "Explanation 60 (English)"
+  },
+  {
+    "number": 61,
+    "lines_ta": ["தமிழ் வரி 61-1", "தமிழ் வரி 61-2", "தமிழ் வரி 61-3", "தமிழ் வரி 61-4"],
+    "lines_en": ["English line 61-1", "English line 61-2", "English line 61-3", "English line 61-4"],
+    "meaning_ta": "விளக்கம் 61 (தமிழ்)",
+    "meaning_en": "Explanation 61 (English)"
+  },
+  {
+    "number": 62,
+    "lines_ta": ["தமிழ் வரி 62-1", "தமிழ் வரி 62-2", "தமிழ் வரி 62-3", "தமிழ் வரி 62-4"],
+    "lines_en": ["English line 62-1", "English line 62-2", "English line 62-3", "English line 62-4"],
+    "meaning_ta": "விளக்கம் 62 (தமிழ்)",
+    "meaning_en": "Explanation 62 (English)"
+  },
+  {
+    "number": 63,
+    "lines_ta": ["தமிழ் வரி 63-1", "தமிழ் வரி 63-2", "தமிழ் வரி 63-3", "தமிழ் வரி 63-4"],
+    "lines_en": ["English line 63-1", "English line 63-2", "English line 63-3", "English line 63-4"],
+    "meaning_ta": "விளக்கம் 63 (தமிழ்)",
+    "meaning_en": "Explanation 63 (English)"
+  },
+  {
+    "number": 64,
+    "lines_ta": ["தமிழ் வரி 64-1", "தமிழ் வரி 64-2", "தமிழ் வரி 64-3", "தமிழ் வரி 64-4"],
+    "lines_en": ["English line 64-1", "English line 64-2", "English line 64-3", "English line 64-4"],
+    "meaning_ta": "விளக்கம் 64 (தமிழ்)",
+    "meaning_en": "Explanation 64 (English)"
+  },
+  {
+    "number": 65,
+    "lines_ta": ["தமிழ் வரி 65-1", "தமிழ் வரி 65-2", "தமிழ் வரி 65-3", "தமிழ் வரி 65-4"],
+    "lines_en": ["English line 65-1", "English line 65-2", "English line 65-3", "English line 65-4"],
+    "meaning_ta": "விளக்கம் 65 (தமிழ்)",
+    "meaning_en": "Explanation 65 (English)"
+  },
+  {
+    "number": 66,
+    "lines_ta": ["தமிழ் வரி 66-1", "தமிழ் வரி 66-2", "தமிழ் வரி 66-3", "தமிழ் வரி 66-4"],
+    "lines_en": ["English line 66-1", "English line 66-2", "English line 66-3", "English line 66-4"],
+    "meaning_ta": "விளக்கம் 66 (தமிழ்)",
+    "meaning_en": "Explanation 66 (English)"
+  },
+  {
+    "number": 67,
+    "lines_ta": ["தமிழ் வரி 67-1", "தமிழ் வரி 67-2", "தமிழ் வரி 67-3", "தமிழ் வரி 67-4"],
+    "lines_en": ["English line 67-1", "English line 67-2", "English line 67-3", "English line 67-4"],
+    "meaning_ta": "விளக்கம் 67 (தமிழ்)",
+    "meaning_en": "Explanation 67 (English)"
+  },
+  {
+    "number": 68,
+    "lines_ta": ["தமிழ் வரி 68-1", "தமிழ் வரி 68-2", "தமிழ் வரி 68-3", "தமிழ் வரி 68-4"],
+    "lines_en": ["English line 68-1", "English line 68-2", "English line 68-3", "English line 68-4"],
+    "meaning_ta": "விளக்கம் 68 (தமிழ்)",
+    "meaning_en": "Explanation 68 (English)"
+  },
+  {
+    "number": 69,
+    "lines_ta": ["தமிழ் வரி 69-1", "தமிழ் வரி 69-2", "தமிழ் வரி 69-3", "தமிழ் வரி 69-4"],
+    "lines_en": ["English line 69-1", "English line 69-2", "English line 69-3", "English line 69-4"],
+    "meaning_ta": "விளக்கம் 69 (தமிழ்)",
+    "meaning_en": "Explanation 69 (English)"
+  },
+  {
+    "number": 70,
+    "lines_ta": ["தமிழ் வரி 70-1", "தமிழ் வரி 70-2", "தமிழ் வரி 70-3", "தமிழ் வரி 70-4"],
+    "lines_en": ["English line 70-1", "English line 70-2", "English line 70-3", "English line 70-4"],
+    "meaning_ta": "விளக்கம் 70 (தமிழ்)",
+    "meaning_en": "Explanation 70 (English)"
+  },
+  {
+    "number": 71,
+    "lines_ta": ["தமிழ் வரி 71-1", "தமிழ் வரி 71-2", "தமிழ் வரி 71-3", "தமிழ் வரி 71-4"],
+    "lines_en": ["English line 71-1", "English line 71-2", "English line 71-3", "English line 71-4"],
+    "meaning_ta": "விளக்கம் 71 (தமிழ்)",
+    "meaning_en": "Explanation 71 (English)"
+  },
+  {
+    "number": 72,
+    "lines_ta": ["தமிழ் வரி 72-1", "தமிழ் வரி 72-2", "தமிழ் வரி 72-3", "தமிழ் வரி 72-4"],
+    "lines_en": ["English line 72-1", "English line 72-2", "English line 72-3", "English line 72-4"],
+    "meaning_ta": "விளக்கம் 72 (தமிழ்)",
+    "meaning_en": "Explanation 72 (English)"
+  },
+  {
+    "number": 73,
+    "lines_ta": ["தமிழ் வரி 73-1", "தமிழ் வரி 73-2", "தமிழ் வரி 73-3", "தமிழ் வரி 73-4"],
+    "lines_en": ["English line 73-1", "English line 73-2", "English line 73-3", "English line 73-4"],
+    "meaning_ta": "விளக்கம் 73 (தமிழ்)",
+    "meaning_en": "Explanation 73 (English)"
+  },
+  {
+    "number": 74,
+    "lines_ta": ["தமிழ் வரி 74-1", "தமிழ் வரி 74-2", "தமிழ் வரி 74-3", "தமிழ் வரி 74-4"],
+    "lines_en": ["English line 74-1", "English line 74-2", "English line 74-3", "English line 74-4"],
+    "meaning_ta": "விளக்கம் 74 (தமிழ்)",
+    "meaning_en": "Explanation 74 (English)"
+  },
+  {
+    "number": 75,
+    "lines_ta": ["தமிழ் வரி 75-1", "தமிழ் வரி 75-2", "தமிழ் வரி 75-3", "தமிழ் வரி 75-4"],
+    "lines_en": ["English line 75-1", "English line 75-2", "English line 75-3", "English line 75-4"],
+    "meaning_ta": "விளக்கம் 75 (தமிழ்)",
+    "meaning_en": "Explanation 75 (English)"
+  },
+  {
+    "number": 76,
+    "lines_ta": ["தமிழ் வரி 76-1", "தமிழ் வரி 76-2", "தமிழ் வரி 76-3", "தமிழ் வரி 76-4"],
+    "lines_en": ["English line 76-1", "English line 76-2", "English line 76-3", "English line 76-4"],
+    "meaning_ta": "விளக்கம் 76 (தமிழ்)",
+    "meaning_en": "Explanation 76 (English)"
+  },
+  {
+    "number": 77,
+    "lines_ta": ["தமிழ் வரி 77-1", "தமிழ் வரி 77-2", "தமிழ் வரி 77-3", "தமிழ் வரி 77-4"],
+    "lines_en": ["English line 77-1", "English line 77-2", "English line 77-3", "English line 77-4"],
+    "meaning_ta": "விளக்கம் 77 (தமிழ்)",
+    "meaning_en": "Explanation 77 (English)"
+  },
+  {
+    "number": 78,
+    "lines_ta": ["தமிழ் வரி 78-1", "தமிழ் வரி 78-2", "தமிழ் வரி 78-3", "தமிழ் வரி 78-4"],
+    "lines_en": ["English line 78-1", "English line 78-2", "English line 78-3", "English line 78-4"],
+    "meaning_ta": "விளக்கம் 78 (தமிழ்)",
+    "meaning_en": "Explanation 78 (English)"
+  },
+  {
+    "number": 79,
+    "lines_ta": ["தமிழ் வரி 79-1", "தமிழ் வரி 79-2", "தமிழ் வரி 79-3", "தமிழ் வரி 79-4"],
+    "lines_en": ["English line 79-1", "English line 79-2", "English line 79-3", "English line 79-4"],
+    "meaning_ta": "விளக்கம் 79 (தமிழ்)",
+    "meaning_en": "Explanation 79 (English)"
+  },
+  {
+    "number": 80,
+    "lines_ta": ["தமிழ் வரி 80-1", "தமிழ் வரி 80-2", "தமிழ் வரி 80-3", "தமிழ் வரி 80-4"],
+    "lines_en": ["English line 80-1", "English line 80-2", "English line 80-3", "English line 80-4"],
+    "meaning_ta": "விளக்கம் 80 (தமிழ்)",
+    "meaning_en": "Explanation 80 (English)"
+  },
+  {
+    "number": 81,
+    "lines_ta": ["தமிழ் வரி 81-1", "தமிழ் வரி 81-2", "தமிழ் வரி 81-3", "தமிழ் வரி 81-4"],
+    "lines_en": ["English line 81-1", "English line 81-2", "English line 81-3", "English line 81-4"],
+    "meaning_ta": "விளக்கம் 81 (தமிழ்)",
+    "meaning_en": "Explanation 81 (English)"
+  },
+  {
+    "number": 82,
+    "lines_ta": ["தமிழ் வரி 82-1", "தமிழ் வரி 82-2", "தமிழ் வரி 82-3", "தமிழ் வரி 82-4"],
+    "lines_en": ["English line 82-1", "English line 82-2", "English line 82-3", "English line 82-4"],
+    "meaning_ta": "விளக்கம் 82 (தமிழ்)",
+    "meaning_en": "Explanation 82 (English)"
+  },
+  {
+    "number": 83,
+    "lines_ta": ["தமிழ் வரி 83-1", "தமிழ் வரி 83-2", "தமிழ் வரி 83-3", "தமிழ் வரி 83-4"],
+    "lines_en": ["English line 83-1", "English line 83-2", "English line 83-3", "English line 83-4"],
+    "meaning_ta": "விளக்கம் 83 (தமிழ்)",
+    "meaning_en": "Explanation 83 (English)"
+  },
+  {
+    "number": 84,
+    "lines_ta": ["தமிழ் வரி 84-1", "தமிழ் வரி 84-2", "தமிழ் வரி 84-3", "தமிழ் வரி 84-4"],
+    "lines_en": ["English line 84-1", "English line 84-2", "English line 84-3", "English line 84-4"],
+    "meaning_ta": "விளக்கம் 84 (தமிழ்)",
+    "meaning_en": "Explanation 84 (English)"
+  },
+  {
+    "number": 85,
+    "lines_ta": ["தமிழ் வரி 85-1", "தமிழ் வரி 85-2", "தமிழ் வரி 85-3", "தமிழ் வரி 85-4"],
+    "lines_en": ["English line 85-1", "English line 85-2", "English line 85-3", "English line 85-4"],
+    "meaning_ta": "விளக்கம் 85 (தமிழ்)",
+    "meaning_en": "Explanation 85 (English)"
+  },
+  {
+    "number": 86,
+    "lines_ta": ["தமிழ் வரி 86-1", "தமிழ் வரி 86-2", "தமிழ் வரி 86-3", "தமிழ் வரி 86-4"],
+    "lines_en": ["English line 86-1", "English line 86-2", "English line 86-3", "English line 86-4"],
+    "meaning_ta": "விளக்கம் 86 (தமிழ்)",
+    "meaning_en": "Explanation 86 (English)"
+  },
+  {
+    "number": 87,
+    "lines_ta": ["தமிழ் வரி 87-1", "தமிழ் வரி 87-2", "தமிழ் வரி 87-3", "தமிழ் வரி 87-4"],
+    "lines_en": ["English line 87-1", "English line 87-2", "English line 87-3", "English line 87-4"],
+    "meaning_ta": "விளக்கம் 87 (தமிழ்)",
+    "meaning_en": "Explanation 87 (English)"
+  },
+  {
+    "number": 88,
+    "lines_ta": ["தமிழ் வரி 88-1", "தமிழ் வரி 88-2", "தமிழ் வரி 88-3", "தமிழ் வரி 88-4"],
+    "lines_en": ["English line 88-1", "English line 88-2", "English line 88-3", "English line 88-4"],
+    "meaning_ta": "விளக்கம் 88 (தமிழ்)",
+    "meaning_en": "Explanation 88 (English)"
+  },
+  {
+    "number": 89,
+    "lines_ta": ["தமிழ் வரி 89-1", "தமிழ் வரி 89-2", "தமிழ் வரி 89-3", "தமிழ் வரி 89-4"],
+    "lines_en": ["English line 89-1", "English line 89-2", "English line 89-3", "English line 89-4"],
+    "meaning_ta": "விளக்கம் 89 (தமிழ்)",
+    "meaning_en": "Explanation 89 (English)"
+  },
+  {
+    "number": 90,
+    "lines_ta": ["தமிழ் வரி 90-1", "தமிழ் வரி 90-2", "தமிழ் வரி 90-3", "தமிழ் வரி 90-4"],
+    "lines_en": ["English line 90-1", "English line 90-2", "English line 90-3", "English line 90-4"],
+    "meaning_ta": "விளக்கம் 90 (தமிழ்)",
+    "meaning_en": "Explanation 90 (English)"
+  },
+  {
+    "number": 91,
+    "lines_ta": ["தமிழ் வரி 91-1", "தமிழ் வரி 91-2", "தமிழ் வரி 91-3", "தமிழ் வரி 91-4"],
+    "lines_en": ["English line 91-1", "English line 91-2", "English line 91-3", "English line 91-4"],
+    "meaning_ta": "விளக்கம் 91 (தமிழ்)",
+    "meaning_en": "Explanation 91 (English)"
+  },
+  {
+    "number": 92,
+    "lines_ta": ["தமிழ் வரி 92-1", "தமிழ் வரி 92-2", "தமிழ் வரி 92-3", "தமிழ் வரி 92-4"],
+    "lines_en": ["English line 92-1", "English line 92-2", "English line 92-3", "English line 92-4"],
+    "meaning_ta": "விளக்கம் 92 (தமிழ்)",
+    "meaning_en": "Explanation 92 (English)"
+  },
+  {
+    "number": 93,
+    "lines_ta": ["தமிழ் வரி 93-1", "தமிழ் வரி 93-2", "தமிழ் வரி 93-3", "தமிழ் வரி 93-4"],
+    "lines_en": ["English line 93-1", "English line 93-2", "English line 93-3", "English line 93-4"],
+    "meaning_ta": "விளக்கம் 93 (தமிழ்)",
+    "meaning_en": "Explanation 93 (English)"
+  },
+  {
+    "number": 94,
+    "lines_ta": ["தமிழ் வரி 94-1", "தமிழ் வரி 94-2", "தமிழ் வரி 94-3", "தமிழ் வரி 94-4"],
+    "lines_en": ["English line 94-1", "English line 94-2", "English line 94-3", "English line 94-4"],
+    "meaning_ta": "விளக்கம் 94 (தமிழ்)",
+    "meaning_en": "Explanation 94 (English)"
+  },
+  {
+    "number": 95,
+    "lines_ta": ["தமிழ் வரி 95-1", "தமிழ் வரி 95-2", "தமிழ் வரி 95-3", "தமிழ் வரி 95-4"],
+    "lines_en": ["English line 95-1", "English line 95-2", "English line 95-3", "English line 95-4"],
+    "meaning_ta": "விளக்கம் 95 (தமிழ்)",
+    "meaning_en": "Explanation 95 (English)"
+  },
+  {
+    "number": 96,
+    "lines_ta": ["தமிழ் வரி 96-1", "தமிழ் வரி 96-2", "தமிழ் வரி 96-3", "தமிழ் வரி 96-4"],
+    "lines_en": ["English line 96-1", "English line 96-2", "English line 96-3", "English line 96-4"],
+    "meaning_ta": "விளக்கம் 96 (தமிழ்)",
+    "meaning_en": "Explanation 96 (English)"
+  },
+  {
+    "number": 97,
+    "lines_ta": ["தமிழ் வரி 97-1", "தமிழ் வரி 97-2", "தமிழ் வரி 97-3", "தமிழ் வரி 97-4"],
+    "lines_en": ["English line 97-1", "English line 97-2", "English line 97-3", "English line 97-4"],
+    "meaning_ta": "விளக்கம் 97 (தமிழ்)",
+    "meaning_en": "Explanation 97 (English)"
+  },
+  {
+    "number": 98,
+    "lines_ta": ["தமிழ் வரி 98-1", "தமிழ் வரி 98-2", "தமிழ் வரி 98-3", "தமிழ் வரி 98-4"],
+    "lines_en": ["English line 98-1", "English line 98-2", "English line 98-3", "English line 98-4"],
+    "meaning_ta": "விளக்கம் 98 (தமிழ்)",
+    "meaning_en": "Explanation 98 (English)"
+  },
+  {
+    "number": 99,
+    "lines_ta": ["தமிழ் வரி 99-1", "தமிழ் வரி 99-2", "தமிழ் வரி 99-3", "தமிழ் வரி 99-4"],
+    "lines_en": ["English line 99-1", "English line 99-2", "English line 99-3", "English line 99-4"],
+    "meaning_ta": "விளக்கம் 99 (தமிழ்)",
+    "meaning_en": "Explanation 99 (English)"
+  },
+  {
+    "number": 100,
+    "lines_ta": ["தமிழ் வரி 100-1", "தமிழ் வரி 100-2", "தமிழ் வரி 100-3", "தமிழ் வரி 100-4"],
+    "lines_en": ["English line 100-1", "English line 100-2", "English line 100-3", "English line 100-4"],
+    "meaning_ta": "விளக்கம் 100 (தமிழ்)",
+    "meaning_en": "Explanation 100 (English)"
+  },
+  {
+    "number": 101,
+    "lines_ta": ["தமிழ் வரி 101-1", "தமிழ் வரி 101-2", "தமிழ் வரி 101-3", "தமிழ் வரி 101-4"],
+    "lines_en": ["English line 101-1", "English line 101-2", "English line 101-3", "English line 101-4"],
+    "meaning_ta": "விளக்கம் 101 (தமிழ்)",
+    "meaning_en": "Explanation 101 (English)"
+  }
+] 

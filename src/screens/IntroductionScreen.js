@@ -1,26 +1,16 @@
-import React, { useContext } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text } from 'react-native-paper';
-import { AppContext } from '../constants/AppContext';
-import i18n from '../services/i18n';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
-const IntroductionScreen = () => {
-  const { fontSize } = useContext(AppContext);
-
+export default function IntroductionScreen() {
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize }}>{i18n.t('introduction')}</Text>
+      <Text style={styles.title}>Introduction</Text>
+      <Text>Welcome to the Poem Explanation App!</Text>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-});
-
-export default IntroductionScreen; 
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 16 },
+}); 

@@ -1,32 +1,17 @@
-import React, { useContext } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text } from 'react-native-paper';
-import { AppContext } from '../constants/AppContext';
-import i18n from '../services/i18n';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
-const AboutScreen = () => {
-  const { fontSize } = useContext(AppContext);
-
+export default function AboutScreen() {
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, { fontSize: fontSize + 4 }]}>{i18n.t('appName')}</Text>
-      <Text style={{ fontSize }}>{i18n.t('version')}: 1.0.0</Text>
-      <Text style={{ fontSize }}>{i18n.t('developer')}: Your Name</Text>
-      <Text style={{ fontSize }}>{i18n.t('contact')}: your.email@example.com</Text>
+      <Text style={styles.title}>About</Text>
+      <Text>Poem Explanation App v1.0</Text>
+      <Text>© 2024 Your Name</Text>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  title: {
-    marginBottom: 20,
-  },
-});
-
-export default AboutScreen; 
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 16 },
+}); 

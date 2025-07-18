@@ -1,30 +1,57 @@
 import 'react-native-gesture-handler';
-import React, { useEffect } from 'react';
-import { AppProvider } from './src/constants/AppContext';
-import AppNavigator from './src/navigation/AppNavigator';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import i18n from './src/services/i18n';
-import * as Localization from 'expo-localization';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import IntroductionScreen from './src/screens/IntroductionScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
+import AboutScreen from './src/screens/AboutScreen';
+import AbiramiAnthathiScreen from './src/screens/AbiramiAnthathiScreen';
+import Poem2Screen from './src/screens/Poem2Screen';
+import Poem3Screen from './src/screens/Poem3Screen';
+import { SettingsProvider, useSettings } from './src/SettingsContext';
+
+const Drawer = createDrawerNavigator();
+
+const translations = {
+  ta: {
+    introduction: 'அறிமுகம்',
+    abirami: 'அபிராமி அந்தாதி',
+    poem2: 'கவிதை 2',
+    poem3: 'கவிதை 3',
+    settings: 'அமைப்புகள்',
+    about: 'பற்றி',
+  },
+  en: {
+    introduction: 'Introduction',
+    abirami: 'Abirami Anthathi',
+    poem2: 'Poem 2',
+    poem3: 'Poem 3',
+    settings: 'Settings',
+    about: 'About',
+  },
+};
+
+function AppShell() {
+  const { language } = useSettings();
+  const t = translations[language];
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Introduction">
+        <Drawer.Screen name="Introduction" component={IntroductionScreen} options={{ title: t.introduction }} />
+        <Drawer.Screen name="AbiramiAnthathi" component={AbiramiAnthathiScreen} options={{ title: t.abirami }} />
+        <Drawer.Screen name="Poem2" component={Poem2Screen} options={{ title: t.poem2 }} />
+        <Drawer.Screen name="Poem3" component={Poem3Screen} options={{ title: t.poem3 }} />
+        <Drawer.Screen name="Settings" component={SettingsScreen} options={{ title: t.settings }} />
+        <Drawer.Screen name="About" component={AboutScreen} options={{ title: t.about }} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
 
 export default function App() {
-
-  useEffect(() => {
-    const loadSettings = async () => {
-      const savedLang = await AsyncStorage.getItem('language');
-
-      if (savedLang) {
-        i18n.locale = savedLang;
-      } else {
-        i18n.locale = Localization.locale.split('-')[0];
-      }
-    };
-
-    loadSettings();
-  }, []);
-
   return (
-    <AppProvider>
-      <AppNavigator />
-    </AppProvider>
+    <SettingsProvider>
+      <AppShell />
+    </SettingsProvider>
   );
 }
