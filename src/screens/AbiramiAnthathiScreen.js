@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TextInput, useWindowDimensions } from 'react-native';
 import { List, Button } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSettings } from '../SettingsContext';
@@ -12,6 +12,8 @@ export default function AbiramiAnthathiScreen() {
   const { language } = useSettings();
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const window = useWindowDimensions();
+  const isWide = window.width >= 600; // Responsive breakpoint
 
   const heading = language === 'ta' ? 'அபிராமி அந்தாதி' : 'Abirami Anthathi';
   const verseLabel = language === 'ta' ? 'பாடல்' : 'Verse';
@@ -23,9 +25,9 @@ export default function AbiramiAnthathiScreen() {
     if (!search.trim()) return poems;
     const s = search.toLowerCase();
     return poems.filter(poem =>
-      poem.number.toString().includes(s) ||
-      poem.lines_ta.join(' ').toLowerCase().includes(s) ||
-      poem.lines_en.join(' ').toLowerCase().includes(s)
+      poem.title.toLowerCase().includes(s) ||
+      poem.lines.join(' ').toLowerCase().includes(s) ||
+      (poem.meaning && poem.meaning.join(' ').toLowerCase().includes(s))
     );
   }, [search]);
 
@@ -54,21 +56,21 @@ export default function AbiramiAnthathiScreen() {
         onChangeText={setSearch}
       />
       {paginatedPoems.map((item, idx) => (
-        <View key={item.number} style={styles.poemBlock}>
-          <Text style={styles.poemHeading}>{`${verseLabel} ${item.number}`}</Text>
+        <View key={idx + 1 + (page - 1) * POEMS_PER_PAGE} style={styles.poemBlock}>
+          <Text style={styles.poemHeading}>{item.title}</Text>
           <View style={styles.linesPanel}>
-            {(language === 'ta' ? item.lines_ta : item.lines_en).map((line, i) => (
+            {item.lines.map((line, i) => (
               <Text key={i} style={styles.poemLine}>{line}</Text>
             ))}
           </View>
-          <List.Accordion
-            title={explanationLabel}
-            expanded={expanded === idx}
-            onPress={() => setExpanded(expanded === idx ? null : idx)}
-            style={styles.accordion}
-          >
-            <Text style={styles.meaningText}>{language === 'ta' ? item.meaning_ta : item.meaning_en}</Text>
-          </List.Accordion>
+          {item.meaning && item.meaning.length > 0 && (
+            <View style={styles.accordion}>
+              {item.meaning.map((meaningLine, i) => (
+                <Text key={i} style={styles.meaningText}>{meaningLine}</Text>
+              ))}
+            </View>
+          )}
+          <Text style={styles.blankLine}>{' '}</Text>
         </View>
       ))}
       {/* Pagination Controls */}
@@ -132,7 +134,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     backgroundColor: '#f9f9f9',
     borderRadius: 8,
-    padding: 12,
+    padding: 16,
     elevation: 1,
   },
   poemHeading: {
@@ -174,5 +176,8 @@ const styles = StyleSheet.create({
   iconBtn: {
     minWidth: 40,
     justifyContent: 'center',
+  },
+  blankLine: {
+    marginBottom: 8,
   },
 }); 
