@@ -4,8 +4,7 @@ import { List, Button } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSettings } from '../SettingsProvider';
 import poems from '../assets/abirami_anthathi.json';
-import { Image as RNImage } from 'react-native';
-import icon from '../../assets/icon.png';
+import icon from '../assets/images/Abirami.png';
 
 const POEMS_PER_PAGE = 10;
 
@@ -51,26 +50,14 @@ export default function AbiramiAnthathiScreen() {
 
   return (
     <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}>
-      <RNImage
+      <Image
         source={icon}
-        style={{ width: 48, height: 48, borderRadius: 24, marginTop: 12, marginBottom: 8 }}
+        style={{ width: 80, height: 80, borderRadius: 24, marginTop: 12, marginBottom: 8 }}
         resizeMode="cover"
       />
-      <Image
-        source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Abirami.jpg' }}
-        style={styles.image}
-        resizeMode="contain"
-      />
       <Text style={[styles.title, { color: currentTheme.text }]}>{heading}</Text>
-      {/* Zoom Controls */}
-      <View style={{ flexDirection: 'row', justifyContent: 'flex-end', width: '100%', maxWidth: 600, marginBottom: 8 }}>
-        <Button onPress={() => setFontSize(f => Math.max(12, f - 2))} mode="outlined" style={{ marginRight: 8 }}>
-          A-
-        </Button>
-        <Button onPress={() => setFontSize(f => Math.min(36, f + 2))} mode="outlined">
-          A+
-        </Button>
-      </View>
+      {/* Test local image */}
+      {/* Test different remote image */}
       <TextInput
         style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
         placeholder={searchPlaceholder}
@@ -110,8 +97,8 @@ export default function AbiramiAnthathiScreen() {
           </View>
         );
       })}
-      {/* Pagination Controls */}
-      <View style={styles.pagination}>
+      {/* Pagination Controls and Zoom */}
+      <View style={[styles.pagination, { flexWrap: 'wrap' }]}>
         <Button
           disabled={page === 1}
           onPress={() => setPage(page - 1)}
@@ -128,6 +115,13 @@ export default function AbiramiAnthathiScreen() {
           contentStyle={[styles.iconBtn, { backgroundColor: currentTheme.accent }]}
         >
           <MaterialIcons name="chevron-right" size={28} color={currentTheme.primary} />
+        </Button>
+        {/* Zoom Controls */}
+        <Button onPress={() => setFontSize(f => Math.max(12, f - 2))} mode="outlined" style={{ marginLeft: 16, minWidth: 40 }}>
+          A-
+        </Button>
+        <Button onPress={() => setFontSize(f => Math.min(36, f + 2))} mode="outlined" style={{ minWidth: 40 }}>
+          A+
         </Button>
       </View>
     </ScrollView>
