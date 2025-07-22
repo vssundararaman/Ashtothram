@@ -8,6 +8,7 @@ import AboutScreen from './src/screens/AboutScreen';
 import AbiramiAnthathiScreen from './src/screens/AbiramiAnthathiScreen';
 import Poem2Screen from './src/screens/Poem2Screen';
 import Poem3Screen from './src/screens/Poem3Screen';
+import KolaruPathigamScreen from './src/screens/KolaruPathigam';
 import { SettingsProvider, useSettings } from './src/SettingsProvider';
 
 const Drawer = createDrawerNavigator();
@@ -16,7 +17,7 @@ const translations = {
   ta: {
     introduction: 'அறிமுகம்',
     abirami: 'அபிராமி அந்தாதி',
-    poem2: 'கவிதை 2',
+    kolaru: 'கோளறு பதிகம்',
     poem3: 'கவிதை 3',
     settings: 'அமைப்புகள்',
     about: 'பற்றி',
@@ -24,7 +25,7 @@ const translations = {
   en: {
     introduction: 'Introduction',
     abirami: 'Abirami Anthathi',
-    poem2: 'Poem 2',
+    kolaru: 'Kolaru Pathigam',
     poem3: 'Poem 3',
     settings: 'Settings',
     about: 'About',
@@ -39,7 +40,7 @@ function AppShell() {
       <Drawer.Navigator initialRouteName="Introduction">
         <Drawer.Screen name="Introduction" component={IntroductionScreen} options={{ title: t.introduction }} />
         <Drawer.Screen name="AbiramiAnthathi" component={AbiramiAnthathiScreen} options={{ title: t.abirami }} />
-        <Drawer.Screen name="Poem2" component={Poem2Screen} options={{ title: t.poem2 }} />
+        <Drawer.Screen name="KolaruPathigam" component={KolaruPathigamScreen} options={{ title: t.kolaru }} />
         <Drawer.Screen name="Poem3" component={Poem3Screen} options={{ title: t.poem3 }} />
         <Drawer.Screen name="Settings" component={SettingsScreen} options={{ title: t.settings }} />
         <Drawer.Screen name="About" component={AboutScreen} options={{ title: t.about }} />
