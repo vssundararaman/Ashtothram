@@ -8,7 +8,7 @@ import AboutScreen from './src/screens/AboutScreen';
 import AbiramiAnthathiScreen from './src/screens/AbiramiAnthathiScreen';
 import Poem2Screen from './src/screens/Poem2Screen';
 import Poem3Screen from './src/screens/Poem3Screen';
-import { SettingsProvider, useSettings } from './src/SettingsContext';
+import { SettingsProvider, useSettings } from './src/SettingsProvider';
 
 const Drawer = createDrawerNavigator();
 

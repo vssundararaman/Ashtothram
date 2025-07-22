@@ -2,14 +2,14 @@ import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TextInput, useWindowDimensions } from 'react-native';
 import { List, Button } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useSettings } from '../SettingsContext';
+import { useSettings } from '../SettingsProvider';
 import poems from '../assets/abirami_anthathi.json';
 
 const POEMS_PER_PAGE = 10;
 
 export default function AbiramiAnthathiScreen() {
   const [expanded, setExpanded] = useState(null);
-  const { language } = useSettings();
+  const { language, theme, themes } = useSettings();
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const window = useWindowDimensions();
@@ -41,56 +41,73 @@ export default function AbiramiAnthathiScreen() {
   // Fix expanded index when page changes
   React.useEffect(() => { setExpanded(null); }, [page, search]);
 
+  const currentTheme = themes[theme] || themes.light;
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}>
       <Image
         source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Abirami.jpg' }}
         style={styles.image}
         resizeMode="contain"
       />
-      <Text style={styles.title}>{heading}</Text>
+      <Text style={[styles.title, { color: currentTheme.text }]}>{heading}</Text>
       <TextInput
-        style={styles.search}
+        style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
         placeholder={searchPlaceholder}
         value={search}
         onChangeText={setSearch}
+        placeholderTextColor={currentTheme.accent}
       />
-      {paginatedPoems.map((item, idx) => (
-        <View key={idx + 1 + (page - 1) * POEMS_PER_PAGE} style={styles.poemBlock}>
-          <Text style={styles.poemHeading}>{item.title}</Text>
-          <View style={styles.linesPanel}>
-            {item.lines.map((line, i) => (
-              <Text key={i} style={styles.poemLine}>{line}</Text>
-            ))}
-          </View>
-          {item.meaning && item.meaning.length > 0 && (
-            <View style={styles.accordion}>
-              {item.meaning.map((meaningLine, i) => (
-                <Text key={i} style={styles.meaningText}>{meaningLine}</Text>
+      {paginatedPoems.map((item, idx) => {
+        const poemIndex = idx + 1 + (page - 1) * POEMS_PER_PAGE;
+        const isExpanded = expanded === poemIndex;
+        return (
+          <View key={poemIndex} style={[styles.poemBlock, { backgroundColor: currentTheme.card }]}>
+            <Text style={[styles.poemHeading, { color: currentTheme.primary }]}>{item.title}</Text>
+            <View style={styles.linesPanel}>
+              {item.lines.map((line, i) => (
+                <Text key={i} style={[styles.poemLine, { color: currentTheme.text }]}>{line}</Text>
               ))}
             </View>
-          )}
-          <Text style={styles.blankLine}>{' '}</Text>
-        </View>
-      ))}
+            {item.meaning && item.meaning.length > 0 && (
+              <View>
+                <Text
+                  style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold' }}
+                  onPress={() => setExpanded(isExpanded ? null : poemIndex)}
+                >
+                  {isExpanded ? (language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning') : (language === 'ta' ? 'விளக்கம்' : 'Show Meaning')}
+                </Text>
+                {isExpanded && (
+                  <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}>
+                    {item.meaning.map((meaningLine, i) => (
+                      <Text key={i} style={[styles.meaningText, { color: currentTheme.text }]}>{meaningLine}</Text>
+                    ))}
+                  </View>
+                )}
+              </View>
+            )}
+            <Text style={styles.blankLine}>{' '}</Text>
+          </View>
+        );
+      })}
       {/* Pagination Controls */}
       <View style={styles.pagination}>
         <Button
           disabled={page === 1}
           onPress={() => setPage(page - 1)}
           accessibilityLabel={language === 'ta' ? 'முந்தைய பக்கம்' : 'Previous page'}
-          contentStyle={styles.iconBtn}
+          contentStyle={[styles.iconBtn, { backgroundColor: currentTheme.accent }]}
         >
-          <MaterialIcons name="chevron-left" size={28} />
+          <MaterialIcons name="chevron-left" size={28} color={currentTheme.primary} />
         </Button>
-        <Text style={styles.pageNum}>{page} / {totalPages}</Text>
+        <Text style={[styles.pageNum, { color: currentTheme.text }]}>{page} / {totalPages}</Text>
         <Button
           disabled={page === totalPages}
           onPress={() => setPage(page + 1)}
           accessibilityLabel={language === 'ta' ? 'அடுத்த பக்கம்' : 'Next page'}
-          contentStyle={styles.iconBtn}
+          contentStyle={[styles.iconBtn, { backgroundColor: currentTheme.accent }]}
         >
-          <MaterialIcons name="chevron-right" size={28} />
+          <MaterialIcons name="chevron-right" size={28} color={currentTheme.primary} />
         </Button>
       </View>
     </ScrollView>
