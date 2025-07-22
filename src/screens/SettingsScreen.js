@@ -5,14 +5,14 @@ import { useSettings } from '../SettingsProvider';
 import { Picker } from '@react-native-picker/picker';
 
 export default function SettingsScreen() {
-  const { language, setLanguage, theme, setTheme, themes } = useSettings();
+  const { language, changeLanguage, theme, setTheme, themes } = useSettings();
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Settings</Text>
       <Text style={styles.label}>Language</Text>
       <View style={styles.langToggle}>
-        <Button mode={language === 'ta' ? 'contained' : 'outlined'} onPress={() => setLanguage('ta')}>தமிழ்</Button>
-        <Button mode={language === 'en' ? 'contained' : 'outlined'} onPress={() => setLanguage('en')}>English</Button>
+        <Button mode={language === 'ta' ? 'contained' : 'outlined'} onPress={() => changeLanguage('ta')}>தமிழ்</Button>
+        <Button mode={language === 'en' ? 'contained' : 'outlined'} onPress={() => changeLanguage('en')}>English</Button>
       </View>
       <Text style={styles.label}>Theme</Text>
       <View style={styles.themePicker}>

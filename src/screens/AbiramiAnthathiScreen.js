@@ -4,6 +4,8 @@ import { List, Button } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSettings } from '../SettingsProvider';
 import poems from '../assets/abirami_anthathi.json';
+import { Image as RNImage } from 'react-native';
+import icon from '../../assets/icon.png';
 
 const POEMS_PER_PAGE = 10;
 
@@ -12,6 +14,7 @@ export default function AbiramiAnthathiScreen() {
   const { language, theme, themes } = useSettings();
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [fontSize, setFontSize] = useState(16);
   const window = useWindowDimensions();
   const isWide = window.width >= 600; // Responsive breakpoint
 
@@ -41,16 +44,33 @@ export default function AbiramiAnthathiScreen() {
   // Fix expanded index when page changes
   React.useEffect(() => { setExpanded(null); }, [page, search]);
 
+  // Reset font size when page changes
+  React.useEffect(() => { setFontSize(16); }, [page]);
+
   const currentTheme = themes[theme] || themes.light;
 
   return (
     <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}>
+      <RNImage
+        source={icon}
+        style={{ width: 48, height: 48, borderRadius: 24, marginTop: 12, marginBottom: 8 }}
+        resizeMode="cover"
+      />
       <Image
         source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Abirami.jpg' }}
         style={styles.image}
         resizeMode="contain"
       />
       <Text style={[styles.title, { color: currentTheme.text }]}>{heading}</Text>
+      {/* Zoom Controls */}
+      <View style={{ flexDirection: 'row', justifyContent: 'flex-end', width: '100%', maxWidth: 600, marginBottom: 8 }}>
+        <Button onPress={() => setFontSize(f => Math.max(12, f - 2))} mode="outlined" style={{ marginRight: 8 }}>
+          A-
+        </Button>
+        <Button onPress={() => setFontSize(f => Math.min(36, f + 2))} mode="outlined">
+          A+
+        </Button>
+      </View>
       <TextInput
         style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
         placeholder={searchPlaceholder}
@@ -63,16 +83,16 @@ export default function AbiramiAnthathiScreen() {
         const isExpanded = expanded === poemIndex;
         return (
           <View key={poemIndex} style={[styles.poemBlock, { backgroundColor: currentTheme.card }]}>
-            <Text style={[styles.poemHeading, { color: currentTheme.primary }]}>{item.title}</Text>
+            <Text style={[styles.poemHeading, { color: currentTheme.primary, fontSize: fontSize + 2 }]}>{item.title}</Text>
             <View style={styles.linesPanel}>
               {item.lines.map((line, i) => (
-                <Text key={i} style={[styles.poemLine, { color: currentTheme.text }]}>{line}</Text>
+                <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize }]}>{line}</Text>
               ))}
             </View>
             {item.meaning && item.meaning.length > 0 && (
               <View>
                 <Text
-                  style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold' }}
+                  style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold', fontSize }}
                   onPress={() => setExpanded(isExpanded ? null : poemIndex)}
                 >
                   {isExpanded ? (language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning') : (language === 'ta' ? 'விளக்கம்' : 'Show Meaning')}
@@ -80,7 +100,7 @@ export default function AbiramiAnthathiScreen() {
                 {isExpanded && (
                   <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}>
                     {item.meaning.map((meaningLine, i) => (
-                      <Text key={i} style={[styles.meaningText, { color: currentTheme.text }]}>{meaningLine}</Text>
+                      <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}>{meaningLine}</Text>
                     ))}
                   </View>
                 )}
@@ -119,6 +139,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     paddingBottom: 32,
+    width: '100%',
   },
   image: {
     width: 100,
@@ -135,7 +156,7 @@ const styles = StyleSheet.create({
   },
   search: {
     width: '100%',
-    maxWidth: 400,
+    maxWidth: 600,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 8,
@@ -146,7 +167,7 @@ const styles = StyleSheet.create({
   },
   poemBlock: {
     width: '100%',
-    maxWidth: 500,
+    maxWidth: 600,
     alignSelf: 'center',
     marginBottom: 16,
     backgroundColor: '#f9f9f9',
@@ -158,7 +179,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     marginBottom: 8,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   linesPanel: {
     marginBottom: 8,
@@ -166,7 +187,7 @@ const styles = StyleSheet.create({
   poemLine: {
     fontSize: 16,
     color: '#333',
-    textAlign: 'center',
+    textAlign: 'left',
   },
   accordion: {
     backgroundColor: '#e0e0e0',
@@ -177,7 +198,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#555',
     padding: 10,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   pagination: {
     flexDirection: 'row',
