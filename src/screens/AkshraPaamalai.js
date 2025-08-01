@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import i18n from '../services/i18n';
 
-const Page3 = () => (
+const AkshraPaamalaiScreen = () => (
   <View style={styles.container}>
-    <Text>{i18n.t('page3')}</Text>
+    <Text>{i18n.t('akshraPaamalai')}</Text>
   </View>
 );
 
@@ -16,4 +16,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Page3; 
+export default AkshraPaamalaiScreen; 

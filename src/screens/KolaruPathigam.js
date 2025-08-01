@@ -69,23 +69,29 @@ export default function KolaruPathigamScreen() {
               ))}
             </View>
             {item.meaning && item.meaning.length > 0 && (
-              <View>
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginVertical: 0 }}>
                 <Text
-                  style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold', fontSize }}
+                  style={{ padding: 0, margin: 0 }}
                   onPress={() => setExpanded(isExpanded ? null : poemIndex)}
+                  accessibilityLabel={isExpanded
+                    ? (language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning')
+                    : (language === 'ta' ? 'விளக்கம்' : 'Show Meaning')}
                 >
-                  {isExpanded ? (language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning') : (language === 'ta' ? 'விளக்கம்' : 'Show Meaning')}
+                  <MaterialIcons
+                    name={isExpanded ? 'expand-less' : 'expand-more'}
+                    size={28}
+                    color={currentTheme.primary}
+                  />
                 </Text>
-                {isExpanded && (
-                  <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
-                    {item.meaning.map((meaningLine, i) => (
-                      <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}>{meaningLine}</Text>
-                    ))}
-                  </View>
-                )}
               </View>
             )}
-            <Text style={styles.blankLine}>{' '}</Text>
+            {isExpanded && (
+              <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
+                {item.meaning.map((meaningLine, i) => (
+                  <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}>{meaningLine}</Text>
+                ))}
+              </View>
+            )}
           </View>
         );
       })}

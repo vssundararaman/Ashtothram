@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, Image, ScrollView, TextInput, useWindowDimensio
 import { List, Button } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSettings } from '../SettingsProvider';
-import poems from '../assets/abirami_anthathi.json';
+import poems_ta from '../assets/abirami_anthathi_ta.json';
+import poems_en from '../assets/abirami_anthathi_en.json';
 import icon from '../assets/images/Abirami.png';
 
 const POEMS_PER_PAGE = 10;
@@ -22,6 +23,8 @@ export default function AbiramiAnthathiScreen() {
   const explanationLabel = language === 'ta' ? 'விளக்கம்' : 'Explanation';
   const searchPlaceholder = language === 'ta' ? 'தேடு...' : 'Search...';
 
+  const poems = language === 'ta' ? poems_ta : poems_en;
+
   // Filter poems by search
   const filteredPoems = useMemo(() => {
     if (!search.trim()) return poems;
@@ -31,7 +34,7 @@ export default function AbiramiAnthathiScreen() {
       poem.lines.join(' ').toLowerCase().includes(s) ||
       (poem.meaning && poem.meaning.join(' ').toLowerCase().includes(s))
     );
-  }, [search]);
+  }, [search, poems]);
 
   // Pagination
   const totalPages = Math.max(1, Math.ceil(filteredPoems.length / POEMS_PER_PAGE));
@@ -85,8 +88,8 @@ export default function AbiramiAnthathiScreen() {
                   {isExpanded ? (language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning') : (language === 'ta' ? 'விளக்கம்' : 'Show Meaning')}
                 </Text>
                 {isExpanded && (
-                  <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}>
-                    {item.meaning.map((meaningLine, i) => (
+                  <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
+                    {(Array.isArray(item.meaning) ? item.meaning : [item.meaning]).map((meaningLine, i) => (
                       <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}>{meaningLine}</Text>
                     ))}
                   </View>
