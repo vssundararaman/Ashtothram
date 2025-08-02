@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 import IntroductionScreen from './src/screens/IntroductionScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import AboutScreen from './src/screens/AboutScreen';
@@ -10,11 +10,14 @@ import AbiramiAnthathiScreen from './src/screens/AbiramiAnthathiScreen';
 import AksharaPaamalaiScreen from './src/screens/AksharaPaamalaiScreen';
 import KolaruPathigamScreen from './src/screens/KolaruPathigam';
 import AshtaAiswaryaSidhiManthramScreen from './src/screens/AshtaAiswaryaSidhiManthramScreen';
+import BairavaRundramScreen from './src/screens/BairavaRundramScreen';
 import { SettingsProvider, useSettings } from './src/SettingsProvider';
 import abiramiImg from './src/assets/images/Abirami.png';
 import mahaperiyavaImg from './src/assets/images/Mahaperiyava.jpg';
 import iconImg from './assets/icon.png';
 import shivaImg from './src/assets/images/shiva.png';
+import aboutImg from './src/assets/images/abount.png';
+import introImg from './src/assets/images/Intro.png';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const Drawer = createDrawerNavigator();
@@ -58,8 +61,8 @@ function AppShell() {
           component={IntroductionScreen}
           options={{
             title: t.introduction,
-            drawerIcon: ({ size, color }) => (
-              <MaterialIcons name="info" size={size} color={color || '#007bff'} />
+            drawerIcon: ({ size }) => (
+              <Image source={introImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
             ),
           }}
         />
@@ -104,12 +107,22 @@ function AppShell() {
           }}
         />
         <Drawer.Screen
+          name="BairavaRundram"
+          component={BairavaRundramScreen}
+          options={{
+            title: language === 'ta' ? 'பைரவர் ருந்திரம்' : 'Bairava Rundram',
+            drawerIcon: ({ size }) => (
+              <Image source={shivaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+            ),
+          }}
+        />
+        <Drawer.Screen
           name="About"
           component={AboutScreen}
           options={{
             title: t.about,
             drawerIcon: ({ size }) => (
-              <Image source={iconImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+              <Image source={aboutImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
             ),
           }}
         />
