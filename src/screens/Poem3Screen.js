@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function Poem3Screen() {
+export default function AksharaPaamalaiScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Poem 3</Text>

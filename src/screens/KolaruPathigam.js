@@ -5,6 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useSettings } from '../SettingsProvider';
 import poems_ta from '../assets/kolaru_pathigam_ta.json';
 import poems_en from '../assets/kolaru_pathigam_en.json';
+import shivaImg from '../assets/images/shiva.png';
 
 const POEMS_PER_PAGE = 10;
 
@@ -49,6 +50,7 @@ export default function KolaruPathigamScreen() {
 
   return (
     <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}> 
+      <Image source={shivaImg} style={styles.image} resizeMode="cover" />
       <Text style={[styles.title, { color: currentTheme.text }]}>{heading}</Text>
       <TextInput
         style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
@@ -133,6 +135,7 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
     width: '100%',
   },
+  image: { width: 120, height: 120, borderRadius: 60, marginTop: 12, marginBottom: 16 },
   title: {
     fontSize: 22,
     fontWeight: 'bold',
