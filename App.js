@@ -15,6 +15,7 @@ import abiramiImg from './src/assets/images/Abirami.png';
 import mahaperiyavaImg from './src/assets/images/Mahaperiyava.jpg';
 import iconImg from './assets/icon.png';
 import shivaImg from './src/assets/images/shiva.png';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const Drawer = createDrawerNavigator();
 
@@ -40,18 +41,25 @@ const translations = {
 };
 
 function AppShell() {
-  const { language } = useSettings();
+  const { language, theme, themes } = useSettings();
   const t = translations[language];
+  const currentTheme = themes?.[theme] || themes.light;
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Introduction">
+      <Drawer.Navigator
+        initialRouteName="Introduction"
+        screenOptions={{
+          headerStyle: { backgroundColor: currentTheme.primary },
+          headerTintColor: '#fff',
+        }}
+      >
         <Drawer.Screen
           name="Introduction"
           component={IntroductionScreen}
           options={{
             title: t.introduction,
-            drawerIcon: ({ size }) => (
-              <Image source={iconImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+            drawerIcon: ({ size, color }) => (
+              <MaterialIcons name="info" size={size} color={color || '#007bff'} />
             ),
           }}
         />
@@ -96,22 +104,22 @@ function AppShell() {
           }}
         />
         <Drawer.Screen
-          name="Settings"
-          component={SettingsScreen}
-          options={{
-            title: t.settings,
-            drawerIcon: ({ size }) => (
-              <Image source={iconImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
-            ),
-          }}
-        />
-        <Drawer.Screen
           name="About"
           component={AboutScreen}
           options={{
             title: t.about,
             drawerIcon: ({ size }) => (
               <Image source={iconImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{
+            title: t.settings,
+            drawerIcon: ({ size, color }) => (
+              <MaterialIcons name="settings" size={size} color={color || '#007bff'} />
             ),
           }}
         />

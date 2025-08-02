@@ -19,6 +19,7 @@ export default function AksharaPaamalaiScreen() {
 
   const [expanded, setExpanded] = useState(null);
   const [search, setSearch] = useState('');
+  const [fontSize, setFontSize] = useState(17);
 
   // For single-poem array: filter lines and meaning lines by search
   const filteredPoem = useMemo(() => {
@@ -46,27 +47,41 @@ export default function AksharaPaamalaiScreen() {
       />
       {filteredPoem && (
         <View style={[styles.poemBlock, { backgroundColor: currentTheme.card, width: isWide ? 600 : '100%' }]}> 
-          <Text style={[styles.poemHeading, { color: currentTheme.primary }]}>{filteredPoem.title}</Text>
+          <Text
+            style={[
+              styles.poemHeading,
+              {
+                backgroundColor: currentTheme.primary,
+                color: '#fff',
+                borderRadius: 6,
+                paddingVertical: 6,
+                paddingHorizontal: 8,
+                fontSize: fontSize + 3,
+              },
+            ]}
+          >
+            {filteredPoem.title}
+          </Text>
           <View style={styles.linesPanel}>
             {filteredPoem.lines.length > 0 ? (
               filteredPoem.lines.map((line, i) => (
-                <Text key={i} style={[styles.poemLine, { color: currentTheme.text }]}>{line}</Text>
+                <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize }]}>{line}</Text>
               ))
             ) : (
-              <Text style={[styles.poemLine, { color: currentTheme.text, fontStyle: 'italic' }]}>{language === 'ta' ? 'பாடல் இல்லை' : 'No matching lines'}</Text>
+              <Text style={[styles.poemLine, { color: currentTheme.text, fontStyle: 'italic', fontSize }]}>{language === 'ta' ? 'பாடல் இல்லை' : 'No matching lines'}</Text>
             )}
           </View>
           {filteredPoem.meaning && filteredPoem.meaning.length > 0 && (
             <View>
               <TouchableOpacity onPress={() => setExpanded(expanded === 0 ? null : 0)}>
-                <Text style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold' }}>
+                <Text style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold', fontSize }}>
                   {expanded === 0 ? hideLabel : showLabel}
                 </Text>
               </TouchableOpacity>
               {expanded === 0 && (
                 <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
                   {filteredPoem.meaning.map((meaningLine, i) => (
-                    <Text key={i} style={[styles.meaningText, { color: currentTheme.text }]}>{meaningLine}</Text>
+                    <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}>{meaningLine}</Text>
                   ))}
                 </View>
               )}
@@ -75,6 +90,14 @@ export default function AksharaPaamalaiScreen() {
           <Text style={styles.blankLine}>{' '}</Text>
         </View>
       )}
+      <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 12, marginBottom: 8 }}>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={{ marginHorizontal: 8, padding: 6, backgroundColor: currentTheme.accent, borderRadius: 6 }}>
+          <Text style={{ fontSize: 18, color: currentTheme.text }}>A-</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={{ marginHorizontal: 8, padding: 6, backgroundColor: currentTheme.accent, borderRadius: 6 }}>
+          <Text style={{ fontSize: 22, color: currentTheme.text }}>A+</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
@@ -97,8 +120,8 @@ const styles = StyleSheet.create({
   poemBlock: { borderRadius: 12, padding: 16, marginBottom: 18, shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 4, elevation: 2 },
   poemHeading: { fontSize: 20, fontWeight: 'bold', marginBottom: 8, textAlign: 'center' },
   linesPanel: { marginBottom: 8 },
-  poemLine: { fontSize: 17, marginVertical: 1, textAlign: 'left', alignSelf: 'stretch' },
+  poemLine: { fontSize: 17, marginVertical: 1, textAlign: 'left', alignSelf: 'stretch', lineHeight: 28 },
   accordion: { borderRadius: 8, padding: 10, marginTop: 4 },
-  meaningText: { fontSize: 15, marginBottom: 2, textAlign: 'left', alignSelf: 'stretch' },
+  meaningText: { fontSize: 15, marginBottom: 2, textAlign: 'left', alignSelf: 'stretch', lineHeight: 26 },
   blankLine: { height: 8 },
 }); 
