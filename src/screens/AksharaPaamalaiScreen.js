@@ -64,9 +64,35 @@ export default function AksharaPaamalaiScreen() {
           </Text>
           <View style={styles.linesPanel}>
             {filteredPoem.lines.length > 0 ? (
-              filteredPoem.lines.map((line, i) => (
-                <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize }]}>{line}</Text>
-              ))
+              filteredPoem.lines.map((line, i) => {
+                if (language === 'en' && line.includes('I will come')) {
+                  const parts = line.split(/(I will come)/);
+                  return (
+                    <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize }]}> 
+                      {parts.map((part, idx) =>
+                        part === 'I will come'
+                          ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
+                          : part
+                      )}
+                    </Text>
+                  );
+                }
+                if (language === 'ta' && line.includes('வருவேன்')) {
+                  const parts = line.split(/(வருவேன்)/);
+                  return (
+                    <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize }]}> 
+                      {parts.map((part, idx) =>
+                        part === 'வருவேன்'
+                          ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
+                          : part
+                      )}
+                    </Text>
+                  );
+                }
+                return (
+                  <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize }]}>{line}</Text>
+                );
+              })
             ) : (
               <Text style={[styles.poemLine, { color: currentTheme.text, fontStyle: 'italic', fontSize }]}>{language === 'ta' ? 'பாடல் இல்லை' : 'No matching lines'}</Text>
             )}
@@ -80,9 +106,35 @@ export default function AksharaPaamalaiScreen() {
               </TouchableOpacity>
               {expanded === 0 && (
                 <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
-                  {filteredPoem.meaning.map((meaningLine, i) => (
-                    <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}>{meaningLine}</Text>
-                  ))}
+                  {filteredPoem.meaning.map((meaningLine, i) => {
+                    if (language === 'en' && meaningLine.includes('I will come')) {
+                      const parts = meaningLine.split(/(I will come)/);
+                      return (
+                        <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}> 
+                          {parts.map((part, idx) =>
+                            part === 'I will come'
+                              ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
+                              : part
+                          )}
+                        </Text>
+                      );
+                    }
+                    if (language === 'ta' && meaningLine.includes('வருவேன்')) {
+                      const parts = meaningLine.split(/(வருவேன்)/);
+                      return (
+                        <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}> 
+                          {parts.map((part, idx) =>
+                            part === 'வருவேன்'
+                              ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
+                              : part
+                          )}
+                        </Text>
+                      );
+                    }
+                    return (
+                      <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}>{meaningLine}</Text>
+                    );
+                  })}
                 </View>
               )}
             </View>

@@ -15,7 +15,7 @@ export default function IntroductionScreen() {
   const isTamil = language === 'ta';
 
   const labels = {
-    title: isTamil ? 'அறிமுகம்' : 'Introduction',
+    title: isTamil ? 'மந்திரங்கள்' : 'Mandiram',
     subtitle: isTamil ? 'மந்திரம் செயலிக்கு வரவேற்கிறோம்!' : 'Welcome to the Mandiram App!',
     abirami: isTamil ? 'அபிராமி அந்தாதி' : 'Abirami Anthathi',
     kolaru: isTamil ? 'கோளறு பதிகம்' : 'Kolaru Pathigam',
