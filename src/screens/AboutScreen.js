@@ -1,63 +1,132 @@
-import React, { useState } from 'react';
-import { ScrollView, View, Text, StyleSheet, Button } from 'react-native';
+import React from 'react';
+import { ScrollView, Text, StyleSheet } from 'react-native';
 import { useSettings } from '../SettingsProvider';
 
 export default function AboutScreen() {
   const { language } = useSettings();
   const isTamil = language === 'ta';
-  const [fontSize, setFontSize] = useState(15);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>{isTamil ? 'பற்றி' : 'About'}</Text>
-      <View style={styles.fontAdjustRow}>
-        <Button title="A-" onPress={() => setFontSize(f => Math.max(10, f - 2))} />
-        <Button title="A+" onPress={() => setFontSize(f => Math.min(36, f + 2))} />
-      </View>
-      <View style={{ width: '90%' }}>
-        <Text style={{ fontWeight: 'bold', fontSize: fontSize + 3, marginBottom: 8 }}>
-          {isTamil ? 'இந்த செயலியின் பற்றி' : 'About This App'}
-        </Text>
-        <Text style={{ fontSize, color: '#555', marginBottom: 12 }}>
-          {isTamil
-            ? 'தமிழ் கவிதை எக்ஸ்ப்ளோரர் என்பது பழமையான மற்றும் நவீன தமிழ் கவிதைகளை இருமொழி விளக்கங்களுடன் (தமிழ் மற்றும் ஆங்கிலம்) அறிந்து கொள்ள உதவும் செயலி. மாணவர்கள், ஆசிரியர்கள் மற்றும் இலக்கிய ஆர்வலர்களுக்காக வடிவமைக்கப்பட்டுள்ளது. வகைப்படுத்தப்பட்ட தொகுப்புகள், இடைமுக வழிசெலுத்தல் மற்றும் தமிழ் இலக்கியத்தின் ஆழமான பகுப்பாய்வை வழங்குகிறது.'
-            : 'Tamil Poetry Explorer is a mobile application designed to help users discover and learn ancient and modern Tamil poems with bilingual explanations in Tamil and English. Ideal for students, educators, and literary enthusiasts, the app offers categorized collections, interactive navigation, and in-depth analysis of classic Tamil literature.'}
-        </Text>
-        <Text style={{ fontWeight: 'bold', fontSize: fontSize + 1, marginTop: 12 }}>
-          {isTamil ? 'பயன்பாட்டை உருவாக்கியவர் தகவல்' : 'Developer Information'}
-        </Text>
-        <Text style={{ fontSize, color: '#555' }}>{isTamil ? 'டெவலப்பர்: வித்யாசங்கர் சுந்தரராமன்' : 'Developer: Vidyasankar Sundararaman'}</Text>
-        <Text style={{ fontSize, color: '#555' }}>{isTamil ? 'மின்னஞ்சல்: support@tamilexplorer.app' : 'Email: support@tamilexplorer.app'}</Text>
-        <Text style={{ fontSize, color: '#555' }}>{isTamil ? 'இணையதளம்: https://tamilexplorer.app' : 'Website: https://tamilexplorer.app'}</Text>
-        <Text style={{ fontSize, color: '#555', marginBottom: 12 }}>{isTamil ? 'இடம்: டல்லாஸ், டெக்சாஸ், அமெரிக்கா' : 'Location: Dallas, Texas, USA'}</Text>
-        <Text style={{ fontWeight: 'bold', fontSize: fontSize + 1, marginTop: 12 }}>{isTamil ? 'பதிப்புரிமை' : 'Copyright'}</Text>
-        <Text style={{ fontSize, color: '#555', marginBottom: 12 }}>
-          {isTamil
-            ? '© 2025 வித்யாசங்கர் சுந்தரராமன். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.\nஅனைத்து கவிதை மொழிபெயர்ப்புகள் மற்றும் விளக்கங்கள் அசல் படைப்புகள் அல்லது பொதுமக்கள் உரிமை அல்லது கிரியேட்டிவ் காமன்ஸ் உரிமங்களின் கீழ் பெறப்பட்டவை.'
-            : '© 2025 Vidyasankar Sundararaman. All rights reserved.\nAll poem translations and explanations are original work or sourced under appropriate public domain or Creative Commons licenses.'}
-        </Text>
-        <Text style={{ fontWeight: 'bold', fontSize: fontSize + 1, marginTop: 12 }}>{isTamil ? 'பதிப்பு' : 'Version'}</Text>
-        <Text style={{ fontSize, color: '#555' }}>{isTamil ? 'செயலி பதிப்பு: 1.0.0' : 'App Version: 1.0.0'}</Text>
-        <Text style={{ fontSize, color: '#555', marginBottom: 12 }}>{isTamil ? 'கடைசியாக புதுப்பிக்கப்பட்டது: ஆகஸ்ட் 2, 2025' : 'Last Updated: August 2, 2025'}</Text>
-        <Text style={{ fontWeight: 'bold', fontSize: fontSize + 1, marginTop: 12 }}>{isTamil ? 'சட்டம்' : 'Legal'}</Text>
-        <Text style={{ fontSize, color: '#555', marginBottom: 12 }}>
-          {isTamil
-            ? 'இந்த செயலியை பயன்படுத்துவதன் மூலம், நீங்கள் எங்கள்:\nதனியுரிமைக் கொள்கை\nபயன்பாட்டு விதிகள்\nஏற்கின்றீர்கள்.'
-            : 'By using this app, you agree to our:\nPrivacy Policy\nTerms of Use'}
-        </Text>
-        <Text style={{ fontWeight: 'bold', fontSize: fontSize + 1, marginTop: 12 }}>{isTamil ? 'அறிவிப்பு' : 'Disclaimer'}</Text>
-        <Text style={{ fontSize, color: '#555', marginBottom: 24 }}>
-          {isTamil
-            ? 'இந்த செயலி கல்வி நோக்கங்களுக்காக மட்டுமே. துல்லியத்திற்காக அனைத்து முயற்சிகளும் மேற்கொள்ளப்பட்டுள்ளன, இருப்பினும் உள்ளடக்கத்துடன் தொடர்புடைய எந்தவொரு விளக்கம் அல்லது கல்வி விவாதங்களுக்கும் நாங்கள் பொறுப்பல்ல.'
-            : 'This app is intended for educational purposes. While every effort has been made to ensure accuracy, we are not responsible for any interpretation or scholarly disputes related to the content.'}
-        </Text>
-      </View>
+      <Text style={styles.heading}>🧘 Slogan Mantra / ஸ்லோகன் மந்திரா</Text>
+      {isTamil ? (
+        <>
+          <Text style={styles.body}>
+            ஸ்லோகன் மந்திரா என்பது உங்கள் உள்ளார்ந்த அமைதி மற்றும் ஆன்மிக உன்னதத்திற்காக உருவாக்கப்பட்ட ஓர் செயலி. இது தினசரி தியானம், ஜபம் மற்றும் சிந்தனைக்காக ஆழமான அர்த்தம் கொண்ட மந்திரங்களை (வாசகங்கள்) வழங்குகிறது. பாரம்பரியத்தையும் நவீனத்தையும் இணைக்கும் இந்த செயலி உங்களுக்கு நேர்மறை ஆற்றலை அளிக்கும்.
+          </Text>
+          <Text style={styles.sectionTitle}>முக்கிய அம்சங்கள்</Text>
+          <Text style={styles.body}>
+            • தினசரி ஜப மந்திரங்கள்
+            {'\n'}• அமைதி, வளம், கவனம், தைரியம்
+            {'\n'}• விருப்பமான வாசகங்களை சேமிக்கவும்
+            {'\n'}• விளம்பரமில்லா, மனநிலையுடன் கூடிய அனுபவம்
+            {'\n'}• உள் அமைதிக்காக வடிவமைக்கப்பட்டது
+          </Text>
+          <Text style={styles.sectionTitle}>அப்ளிக்கேஷன் உருவாக்குநர் விவரங்கள்</Text>
+          <Text style={styles.body}>
+            பெயர்: Vidyasankar Sundararaman
+            {'\n'}மின்னஞ்சல்: support@[yourdomain].com
+            {'\n'}இருப்பிடம்: [City, State, Country]
+            {'\n'}இணையதளம்: [yourdomain].com
+          </Text>
+          <Text style={styles.body}>
+            நாம் ஒவ்வொரு நாளையும் நல்ல உந்துதலுடன் ஆரம்பிக்க, புனிதமான சொற்கள் மூலமாக உள்ளத்தை ஊக்குவிக்க நம்புகிறோம்.
+          </Text>
+          <Text style={styles.sectionTitle}>சட்ட மற்றும் பதிப்புரிமை அறிவிப்பு</Text>
+          <Text style={styles.body}>
+            © 2025 வித்யாசங்கர் சுந்தரராமன். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.\nஇந்த செயலியில் உள்ள மந்திரங்கள், வடிவமைப்புகள் மற்றும் உள்ளடக்கங்கள் சட்டபூர்வமான மற்றும் ஆன்மீக அடிப்படையில் பாதுகாக்கப்பட்டவை. இவை முறையற்ற விதத்தில் பயன்படுத்தக்கூடாது.
+          </Text>
+          <Text style={styles.sectionTitle}>மறுப்பு அறிவிப்பு</Text>
+          <Text style={styles.body}>
+            இந்த செயலி உங்களின் ஆன்மீக வளர்ச்சி மற்றும் மன அமைதிக்காக மந்திரங்களை வழங்குகிறது. இது எந்தவொரு மருத்துவ அல்லது உளவியல் ஆலோசனையின் மாற்றாக இல்லை. உங்கள் சூழ்நிலைப் பொருத்தமாக பயன்படுத்தவும்.
+          </Text>
+          <Text style={styles.sectionTitle}>பதிப்பு விவரம்</Text>
+          <Text style={styles.body}>
+            பதிப்பு: 1.0.0
+            {'\n'}வெளியீடு: August 2025
+            {'\n'}ஆதரிக்கப்படும் சாதனங்கள்: Android & iOS
+          </Text>
+          <Text style={styles.sectionTitle}>தனியுரிமை மற்றும் தரவு</Text>
+          <Text style={styles.body}>
+            நாங்கள் உங்களின் எந்தவொரு தனிப்பட்ட தகவலையும் சேகரிக்கவோ பகிரவோ இல்லைய. நீங்கள் சேமிக்கும் மந்திரங்கள் உங்கள் சாதனத்தில் மட்டுமே இருக்கின்றன.
+          </Text>
+          <Text style={styles.body}>
+            முழு கொள்கைகள்:
+            {'\n'}Privacy Policy: [yourdomain.com/privacy-policy]
+            {'\n'}Terms of Use: [yourdomain.com/terms-of-use]
+          </Text>
+          <Text style={styles.sectionTitle}>கருத்துகள் மற்றும் ஆசீர்வாதங்கள்</Text>
+          <Text style={styles.body}>
+            உங்கள் ஆன்மீக பயணத்தில் இந்த செயலி உதவுகிறது எனில், தயவுசெய்து ஒரு நல்ல மதிப்பீடு வழங்குங்கள். உங்கள் கருத்துகள் எங்களை மேலும் சிறப்பாக செயல்பட ஊக்குவிக்கும்.
+          </Text>
+          <Text style={styles.body}>
+            📧 Email: support@[yourdomain].com
+            {'\n'}🌐 Website: https://yourdomain.com
+          </Text>
+        </>
+      ) : (
+        <>
+          <Text style={styles.body}>
+            Slogan Mantra is a spiritual and wellness-focused app that helps you discover meaningful, powerful, and meditative slogans (mantras) for chanting, reflection, and daily inspiration. Rooted in traditional wisdom and modern simplicity, our app is your daily companion for inner peace, focus, and strength.
+          </Text>
+          <Text style={styles.sectionTitle}>Key Features</Text>
+          <Text style={styles.body}>
+            • Daily chanting mantras
+            {'\n'}• Themes: Peace, Prosperity, Focus, Strength
+            {'\n'}• Save & bookmark your favorite chants
+            {'\n'}• No ads, no distractions – just mindfulness
+            {'\n'}• Designed for inner clarity and calm
+          </Text>
+          <Text style={styles.sectionTitle}>Developer Information</Text>
+          <Text style={styles.body}>
+            Name: Vidyasankar Sundararaman
+            {'\n'}Email: support@[yourdomain].com
+            {'\n'}Location: [City, State, Country]
+            {'\n'}Website: [yourdomain].com
+          </Text>
+          <Text style={styles.body}>
+            We believe in empowering minds through sacred sound and daily intention.
+          </Text>
+          <Text style={styles.sectionTitle}>Copyright & Legal</Text>
+          <Text style={styles.body}>
+            © 2025 Vidyasankar Sundararaman. All rights reserved.\nThis app and its content (texts, designs, mantras) are protected by copyright and spiritual integrity. Any misuse, modification, or redistribution is prohibited. Use of mantras should be done with respect and discretion.
+          </Text>
+          <Text style={styles.sectionTitle}>Disclaimer</Text>
+          <Text style={styles.body}>
+            This app provides mantras and chants for personal wellness and spiritual growth. It does not replace any medical or psychological treatment. Use at your discretion and with intention.
+          </Text>
+          <Text style={styles.sectionTitle}>Version Info</Text>
+          <Text style={styles.body}>
+            Version: 1.0.0
+            {'\n'}Released on: August 2025
+            {'\n'}Supported platforms: Android & iOS
+          </Text>
+          <Text style={styles.sectionTitle}>Privacy & Data</Text>
+          <Text style={styles.body}>
+            We do not collect or share any personal data. Your saved mantras are stored locally and never shared without your action.
+          </Text>
+          <Text style={styles.body}>
+            Full policies:
+            {'\n'}Privacy Policy: [yourdomain.com/privacy-policy]
+            {'\n'}Terms of Use: [yourdomain.com/terms-of-use]
+          </Text>
+          <Text style={styles.sectionTitle}>Feedback & Blessings</Text>
+          <Text style={styles.body}>
+            If this app supports your spiritual journey, please leave us a kind review. Your feedback encourages us to serve better.
+          </Text>
+          <Text style={styles.body}>
+            📧 Email: support@[yourdomain].com
+            {'\n'}🌐 Website: https://yourdomain.com
+          </Text>
+        </>
+      )}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, alignItems: 'center', padding: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 16 },
-  fontAdjustRow: { flexDirection: 'row', justifyContent: 'center', marginBottom: 12, gap: 12 },
+  container: { flexGrow: 1, alignItems: 'flex-start', padding: 20 },
+  heading: { fontSize: 22, fontWeight: 'bold', marginBottom: 12, alignSelf: 'center', textAlign: 'center' },
+  sectionTitle: { fontSize: 17, fontWeight: 'bold', marginTop: 18, marginBottom: 6 },
+  body: { fontSize: 15, color: '#444', marginBottom: 8, lineHeight: 22 },
 }); 
