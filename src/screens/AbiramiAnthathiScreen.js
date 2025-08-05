@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TextInput, useWindowDimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TextInput, useWindowDimensions, TouchableOpacity } from 'react-native';
 import { List, Button } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSettings } from '../SettingsProvider';
@@ -105,35 +105,23 @@ export default function AbiramiAnthathiScreen() {
         );
       })}
       {/* Pagination Controls and Zoom */}
-      <View style={[styles.pagination, { flexDirection: 'row', alignItems: 'center' }]}> 
-        <Button
-          disabled={page === 1}
-          onPress={() => setPage(page - 1)}
-          accessibilityLabel={language === 'ta' ? 'முந்தைய பக்கம்' : 'Previous page'}
-          contentStyle={[styles.iconBtn, { backgroundColor: currentTheme.accent }]}
-          style={{ minWidth: 28, height: 28, justifyContent: 'center', alignItems: 'center' }}
-        >
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 16 }}>
+        <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} style={styles.roundControl}>
           <MaterialIcons name="chevron-left" size={18} color={currentTheme.primary} />
-        </Button>
+        </TouchableOpacity>
         <Text style={[styles.pageNum, { color: currentTheme.text, marginLeft: 4, fontSize: 13 }]}>{page} / {totalPages}</Text>
-        <Button
-          disabled={page === totalPages}
-          onPress={() => setPage(page + 1)}
-          accessibilityLabel={language === 'ta' ? 'அடுத்த பக்கம்' : 'Next page'}
-          contentStyle={[styles.iconBtn, { backgroundColor: currentTheme.accent }]}
-          style={{ minWidth: 28, height: 28, justifyContent: 'center', alignItems: 'center', marginLeft: 4 }}
-        >
+        <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)} style={[styles.roundControl, { marginLeft: 4 }]}>
           <MaterialIcons name="chevron-right" size={18} color={currentTheme.primary} />
-        </Button>
-        <Button onPress={() => setFontSize(f => Math.max(12, f - 2))} mode="outlined" style={{ minWidth: 28, height: 28, justifyContent: 'center', alignItems: 'center', marginLeft: 4, borderRadius: 14 }}>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
           <Text style={{ fontSize: 13 }}>A-</Text>
-        </Button>
-        <Button onPress={() => setFontSize(f => Math.min(36, f + 2))} mode="outlined" style={{ minWidth: 28, height: 28, justifyContent: 'center', alignItems: 'center', marginLeft: 4, borderRadius: 14 }}>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
           <Text style={{ fontSize: 13 }}>A+</Text>
-        </Button>
-        <Button onPress={() => setBold(b => !b)} mode={bold ? 'contained' : 'outlined'} style={{ minWidth: 28, height: 28, justifyContent: 'center', alignItems: 'center', marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', paddingVertical: 0, paddingHorizontal: 0, borderRadius: 14 }}>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
           <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
-        </Button>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -222,5 +210,15 @@ const styles = StyleSheet.create({
   },
   blankLine: {
     marginBottom: 8,
+  },
+  roundControl: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#aaa',
+    padding: 0,
   },
 }); 

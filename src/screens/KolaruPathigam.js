@@ -102,36 +102,23 @@ export default function KolaruPathigamScreen() {
         );
       })}
       {/* Pagination Controls and Zoom */}
-      <View style={[styles.pagination, { flexWrap: 'wrap' }]}> 
-        <Button
-          disabled={page === 1}
-          onPress={() => setPage(page - 1)}
-          accessibilityLabel={language === 'ta' ? 'முந்தைய பக்கம்' : 'Previous page'}
-          contentStyle={[styles.iconBtn, { backgroundColor: currentTheme.accent }]}
-        >
-          <MaterialIcons name="chevron-left" size={28} color={currentTheme.primary} />
-        </Button>
-        <Text style={[styles.pageNum, { color: currentTheme.text }]}>{page} / {totalPages}</Text>
-        <Button
-          disabled={page === totalPages}
-          onPress={() => setPage(page + 1)}
-          accessibilityLabel={language === 'ta' ? 'அடுத்த பக்கம்' : 'Next page'}
-          contentStyle={[styles.iconBtn, { backgroundColor: currentTheme.accent }]}
-        >
-          <MaterialIcons name="chevron-right" size={28} color={currentTheme.primary} />
-        </Button>
-        {/* Zoom Controls */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 16 }}>
-          <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={styles.roundControl}>
-            <Text style={{ fontSize: 13 }}>A-</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-            <Text style={{ fontSize: 13 }}>A+</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
-            <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
-          </TouchableOpacity>
-        </View>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 16 }}>
+        <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} style={styles.roundControl}>
+          <MaterialIcons name="chevron-left" size={18} color={currentTheme.primary} />
+        </TouchableOpacity>
+        <Text style={[styles.pageNum, { color: currentTheme.text, marginLeft: 4, fontSize: 13 }]}>{page} / {totalPages}</Text>
+        <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)} style={[styles.roundControl, { marginLeft: 4 }]}>
+          <MaterialIcons name="chevron-right" size={18} color={currentTheme.primary} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+          <Text style={{ fontSize: 13 }}>A-</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+          <Text style={{ fontSize: 13 }}>A+</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
+          <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
