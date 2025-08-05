@@ -94,13 +94,13 @@ export default function AshtaAiswaryaSidhiManthramScreen() {
         </View>
       )}
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 16 }}>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={styles.roundControl}>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={styles.roundControl} accessibilityLabel={language === 'ta' ? 'எழுத்து அளவு குறை' : 'Decrease font size'} accessibilityHint={language === 'ta' ? 'எழுத்து அளவை குறைக்கும்' : 'Decrease the font size'}>
           <Text style={{ fontSize: 13 }}>A-</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]} accessibilityLabel={language === 'ta' ? 'எழுத்து அளவு அதிகரிக்க' : 'Increase font size'} accessibilityHint={language === 'ta' ? 'எழுத்து அளவை அதிகரிக்கும்' : 'Increase the font size'}>
           <Text style={{ fontSize: 13 }}>A+</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? '#007AFF' : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
+        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? '#007AFF' : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]} accessibilityLabel={language === 'ta' ? 'தடித்த எழுத்து' : 'Bold text'} accessibilityHint={language === 'ta' ? 'எழுத்தை தடித்தமாக மாற்றும்' : 'Toggle bold text'}>
           <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? '#007AFF' : '#333', textAlign: 'center' }}>B</Text>
         </TouchableOpacity>
       </View>

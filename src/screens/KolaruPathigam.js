@@ -16,6 +16,8 @@ export default function KolaruPathigamScreen() {
   const [page, setPage] = useState(1);
   const [fontSize, setFontSize] = useState(16);
   const [bold, setBold] = useState(false);
+  const [showExplanation, setShowExplanation] = useState(false);
+  const [showGeneralInfo, setShowGeneralInfo] = useState(false);
   const window = useWindowDimensions();
   const isWide = window.width >= 600;
 
@@ -52,6 +54,16 @@ export default function KolaruPathigamScreen() {
 
   const currentTheme = themes[theme] || themes.light;
 
+  const explanation_ta = `மதுரை பாண்டிய மன்னன் நின்ற சீர்நெடுமாறன் சமண மதத்தில் பற்று கொண்டு, மற்ற சமயங்களைப் புறக்கணித்து வந்தார். அவர் மனைவி மங்கையர்க்கரசியார் சைவ சமயத்தில் பற்று கொண்டிருந்தார். சமணர்களின் அடாத செயல்களால் நாட்டில் குழப்பங்கள் நிலவ, அதைத் தடுக்கும் பொருட்டு திருஞான சம்பந்தர் மதுரைக்கு எழுந்தருளி சைவம் தழைக்கவும் நாட்டில் நல்லாட்சி நிலவவும் அழைப்பு விடுத்தார். திருஞான சம்பந்தரும், திருநாவுக்கரச பெருமானும் அப்போது திருமறைக்காட்டில் இருந்தனர்.
+
+மதுரையம்பதி அரசியாரின் வேண்டுகோளை ஏற்று திருஞான சம்பந்தர் மதுரை செல்ல விரும்பி திருநாவுக்கரசரிடம் விடைபெறச் சென்றார். திருநாவுக்கரசரோ, அச்சமயம் நிலவிய கோள்களின் அமைப்பும் போக்கும் தீமை பயக்கும் என்று கூறி சம்பந்தரின் பயணத்தை ஒத்திப்போடச் சொன்னார்.`;
+  const explanation_en = `King Nedumaran of Madurai, a Pandya ruler, became attached to Jainism and disregarded other faiths. His wife, Mangayarkkarasiyar, remained devoted to Saivism. Due to the improper actions of the Jains, confusion prevailed in the kingdom. To restore order and promote Saivism, Thirugnana Sambandar was invited to Madurai. At that time, both Sambandar and Thirunavukkarasar were at Thirumaraikkaadu.
+
+Accepting the queen's request, Sambandar wished to go to Madurai and went to bid farewell to Thirunavukkarasar. Thirunavukkarasar, however, warned that the planetary positions at that time were inauspicious and advised Sambandar to postpone his journey.`;
+
+  const generalInfo_ta = `கோளறு பதிகம் என்பது திருஞானசம்பந்தர் அருளிய பதிகமாகும். இது நவகிரகங்களின் தீமைகளை நீக்கி, பக்தர்களுக்கு நன்மை செய்யும் பாடல்களாகும். இந்த பதிகம் சிவபெருமானின் மகிமையைப் புகழ்ந்து, பக்தர்களுக்கு வாழ்வில் நல்லது நிகழும் என்று உறுதி அளிக்கிறது.`;
+  const generalInfo_en = `Kolaru Pathigam is a hymn composed by Thirugnana Sambandar. It is believed to remove the malefic effects of the nine planets and bring good fortune to devotees. The hymn praises Lord Shiva and assures devotees of auspiciousness and well-being.`;
+
   return (
     <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}> 
       <Image source={shivaImg} style={styles.image} resizeMode="cover" />
@@ -63,6 +75,20 @@ export default function KolaruPathigamScreen() {
         onChangeText={setSearch}
         placeholderTextColor={currentTheme.accent}
       />
+      {/* Explanation Section */}
+      <View style={{ width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 12 }}>
+        <TouchableOpacity onPress={() => setShowExplanation(v => !v)} style={[styles.roundControl, { alignSelf: 'flex-end', marginBottom: 4, borderWidth: showExplanation ? 2 : 1, borderColor: showExplanation ? currentTheme.primary : '#aaa', backgroundColor: showExplanation ? '#e6f0ff' : 'transparent' }]}> 
+          <Text style={{ fontWeight: 'bold', fontSize: 13, color: showExplanation ? currentTheme.primary : currentTheme.text }}>?</Text>
+        </TouchableOpacity>
+        {showExplanation && (
+          <View style={{ backgroundColor: currentTheme.card, borderRadius: 8, padding: 12, borderWidth: 1, borderColor: '#eee' }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'விளக்கம்' : 'Explanation'}</Text>
+            <Text style={{ fontSize: 15, color: currentTheme.text, lineHeight: 22 }}>
+              {language === 'ta' ? explanation_ta : explanation_en}
+            </Text>
+          </View>
+        )}
+      </View>
       {paginatedPoems.map((item, idx) => {
         const poemIndex = idx + 1 + (page - 1) * POEMS_PER_PAGE;
         const isExpanded = expanded === poemIndex;
@@ -103,23 +129,37 @@ export default function KolaruPathigamScreen() {
       })}
       {/* Pagination Controls and Zoom */}
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 16 }}>
-        <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} style={styles.roundControl}>
+        <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} style={styles.roundControl} accessibilityLabel={language === 'ta' ? 'முந்தைய பக்கம்' : 'Previous page'} accessibilityHint={language === 'ta' ? 'முந்தைய பக்கத்திற்குச் செல்ல' : 'Go to previous page'}>
           <MaterialIcons name="chevron-left" size={18} color={currentTheme.primary} />
         </TouchableOpacity>
         <Text style={[styles.pageNum, { color: currentTheme.text, marginLeft: 4, fontSize: 13 }]}>{page} / {totalPages}</Text>
-        <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)} style={[styles.roundControl, { marginLeft: 4 }]}>
+        <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)} style={[styles.roundControl, { marginLeft: 4 }]} accessibilityLabel={language === 'ta' ? 'அடுத்த பக்கம்' : 'Next page'} accessibilityHint={language === 'ta' ? 'அடுத்த பக்கத்திற்குச் செல்ல' : 'Go to next page'}>
           <MaterialIcons name="chevron-right" size={18} color={currentTheme.primary} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]} accessibilityLabel={language === 'ta' ? 'எழுத்து அளவு குறை' : 'Decrease font size'} accessibilityHint={language === 'ta' ? 'எழுத்து அளவை குறைக்கும்' : 'Decrease the font size'}>
           <Text style={{ fontSize: 13 }}>A-</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]} accessibilityLabel={language === 'ta' ? 'எழுத்து அளவு அதிகரிக்க' : 'Increase font size'} accessibilityHint={language === 'ta' ? 'எழுத்து அளவை அதிகரிக்கும்' : 'Increase the font size'}>
           <Text style={{ fontSize: 13 }}>A+</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
+        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]} accessibilityLabel={language === 'ta' ? 'தடித்த எழுத்து' : 'Bold text'} accessibilityHint={language === 'ta' ? 'எழுத்தை தடித்தமாக மாற்றும்' : 'Toggle bold text'}>
           <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]} accessibilityLabel={language === 'ta' ? 'பொது தகவல்' : 'General info'} accessibilityHint={language === 'ta' ? 'பொது தகவலை காண' : 'Show general information about the poem'}> 
+          <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
+        </TouchableOpacity>
       </View>
+      {/* General Info Section at the bottom */}
+      {showGeneralInfo && (
+        <View style={{ width: isWide ? 600 : '100%', alignSelf: 'center', marginTop: 20, marginBottom: 16 }}>
+          <View style={{ backgroundColor: currentTheme.card, borderRadius: 8, padding: 12, borderWidth: 1, borderColor: '#eee' }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'பொது தகவல்' : 'General Info'}</Text>
+            <Text style={{ fontSize: 15, color: currentTheme.text, lineHeight: 22 }}>
+              {language === 'ta' ? generalInfo_ta : generalInfo_en}
+            </Text>
+          </View>
+        </View>
+      )}
     </ScrollView>
   );
 }
