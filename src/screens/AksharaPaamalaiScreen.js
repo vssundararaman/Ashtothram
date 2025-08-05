@@ -20,6 +20,7 @@ export default function AksharaPaamalaiScreen() {
   const [expanded, setExpanded] = useState(null);
   const [search, setSearch] = useState('');
   const [fontSize, setFontSize] = useState(17);
+  const [bold, setBold] = useState(false);
 
   // For single-poem array: filter lines and meaning lines by search
   const filteredPoem = useMemo(() => {
@@ -37,7 +38,7 @@ export default function AksharaPaamalaiScreen() {
   return (
     <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}> 
       <Image source={mahaperiyavaImg} style={styles.image} resizeMode="cover" />
-      <Text style={[styles.title, { color: currentTheme.text }]}>{heading}</Text>
+      <Text style={[styles.title, { color: currentTheme.text, fontWeight: bold ? 'bold' : 'normal' }]}>{heading}</Text>
       <TextInput
         style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
         placeholder={searchPlaceholder}
@@ -68,7 +69,7 @@ export default function AksharaPaamalaiScreen() {
                 if (language === 'en' && line.includes('I will come')) {
                   const parts = line.split(/(I will come)/);
                   return (
-                    <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize }]}> 
+                    <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
                       {parts.map((part, idx) =>
                         part === 'I will come'
                           ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
@@ -80,7 +81,7 @@ export default function AksharaPaamalaiScreen() {
                 if (language === 'ta' && line.includes('வருவேன்')) {
                   const parts = line.split(/(வருவேன்)/);
                   return (
-                    <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize }]}> 
+                    <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
                       {parts.map((part, idx) =>
                         part === 'வருவேன்'
                           ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
@@ -90,7 +91,7 @@ export default function AksharaPaamalaiScreen() {
                   );
                 }
                 return (
-                  <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize }]}>{line}</Text>
+                  <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
                 );
               })
             ) : (
@@ -110,7 +111,7 @@ export default function AksharaPaamalaiScreen() {
                     if (language === 'en' && meaningLine.includes('I will come')) {
                       const parts = meaningLine.split(/(I will come)/);
                       return (
-                        <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}> 
+                        <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
                           {parts.map((part, idx) =>
                             part === 'I will come'
                               ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
@@ -122,7 +123,7 @@ export default function AksharaPaamalaiScreen() {
                     if (language === 'ta' && meaningLine.includes('வருவேன்')) {
                       const parts = meaningLine.split(/(வருவேன்)/);
                       return (
-                        <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}> 
+                        <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
                           {parts.map((part, idx) =>
                             part === 'வருவேன்'
                               ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
@@ -132,7 +133,7 @@ export default function AksharaPaamalaiScreen() {
                       );
                     }
                     return (
-                      <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}>{meaningLine}</Text>
+                      <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{meaningLine}</Text>
                     );
                   })}
                 </View>
@@ -142,12 +143,15 @@ export default function AksharaPaamalaiScreen() {
           <Text style={styles.blankLine}>{' '}</Text>
         </View>
       )}
-      <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 12, marginBottom: 8 }}>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={{ marginHorizontal: 8, padding: 6, backgroundColor: currentTheme.accent, borderRadius: 6 }}>
-          <Text style={{ fontSize: 18, color: currentTheme.text }}>A-</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 16 }}>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={styles.roundControl}>
+          <Text style={{ fontSize: 13 }}>A-</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={{ marginHorizontal: 8, padding: 6, backgroundColor: currentTheme.accent, borderRadius: 6 }}>
-          <Text style={{ fontSize: 22, color: currentTheme.text }}>A+</Text>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+          <Text style={{ fontSize: 13 }}>A+</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? '#007AFF' : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
+          <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? '#007AFF' : '#333', textAlign: 'center' }}>B</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -176,4 +180,14 @@ const styles = StyleSheet.create({
   accordion: { borderRadius: 8, padding: 10, marginTop: 4 },
   meaningText: { fontSize: 15, marginBottom: 2, textAlign: 'left', alignSelf: 'stretch', lineHeight: 26 },
   blankLine: { height: 8 },
+  roundControl: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#aaa',
+    padding: 0,
+  },
 }); 

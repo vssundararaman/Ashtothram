@@ -15,6 +15,7 @@ export default function AbiramiAnthathiScreen() {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [fontSize, setFontSize] = useState(16);
+  const [bold, setBold] = useState(false);
   const window = useWindowDimensions();
   const isWide = window.width >= 600; // Responsive breakpoint
 
@@ -28,12 +29,15 @@ export default function AbiramiAnthathiScreen() {
   // Filter poems by search
   const filteredPoems = useMemo(() => {
     if (!search.trim()) return poems;
-    const s = search.toLowerCase();
-    return poems.filter(poem =>
-      poem.title.toLowerCase().includes(s) ||
-      poem.lines.join(' ').toLowerCase().includes(s) ||
-      (poem.meaning && poem.meaning.join(' ').toLowerCase().includes(s))
-    );
+    const words = search.toLowerCase().split(/\s+/).filter(Boolean);
+    return poems.filter(poem => {
+      const haystack = [
+        poem.title,
+        poem.lines.join(' '),
+        poem.meaning ? poem.meaning.join(' ') : ''
+      ].join(' ').toLowerCase();
+      return words.every(word => haystack.includes(word));
+    });
   }, [search, poems]);
 
   // Pagination
@@ -73,16 +77,16 @@ export default function AbiramiAnthathiScreen() {
         const isExpanded = expanded === poemIndex;
         return (
           <View key={poemIndex} style={[styles.poemBlock, { backgroundColor: currentTheme.card }]}>
-            <Text style={[styles.poemHeading, { color: currentTheme.primary, fontSize: fontSize + 2 }]}>{item.title}</Text>
+            <Text style={[styles.poemHeading, { color: currentTheme.primary, fontSize: fontSize + 2, fontWeight: bold ? 'bold' : 'normal' }]}>{item.title}</Text>
             <View style={styles.linesPanel}>
               {item.lines.map((line, i) => (
-                <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize }]}>{line}</Text>
+                <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
               ))}
             </View>
             {item.meaning && item.meaning.length > 0 && (
               <View>
                 <Text
-                  style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold', fontSize }}
+                  style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: bold ? 'bold' : 'normal', fontSize }}
                   onPress={() => setExpanded(isExpanded ? null : poemIndex)}
                 >
                   {isExpanded ? (language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning') : (language === 'ta' ? 'விளக்கம்' : 'Show Meaning')}
@@ -90,7 +94,7 @@ export default function AbiramiAnthathiScreen() {
                 {isExpanded && (
                   <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
                     {(Array.isArray(item.meaning) ? item.meaning : [item.meaning]).map((meaningLine, i) => (
-                      <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}>{meaningLine}</Text>
+                      <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{meaningLine}</Text>
                     ))}
                   </View>
                 )}
@@ -101,30 +105,34 @@ export default function AbiramiAnthathiScreen() {
         );
       })}
       {/* Pagination Controls and Zoom */}
-      <View style={[styles.pagination, { flexWrap: 'wrap' }]}>
+      <View style={[styles.pagination, { flexDirection: 'row', alignItems: 'center' }]}> 
         <Button
           disabled={page === 1}
           onPress={() => setPage(page - 1)}
           accessibilityLabel={language === 'ta' ? 'முந்தைய பக்கம்' : 'Previous page'}
           contentStyle={[styles.iconBtn, { backgroundColor: currentTheme.accent }]}
+          style={{ minWidth: 28, height: 28, justifyContent: 'center', alignItems: 'center' }}
         >
-          <MaterialIcons name="chevron-left" size={28} color={currentTheme.primary} />
+          <MaterialIcons name="chevron-left" size={18} color={currentTheme.primary} />
         </Button>
-        <Text style={[styles.pageNum, { color: currentTheme.text }]}>{page} / {totalPages}</Text>
+        <Text style={[styles.pageNum, { color: currentTheme.text, marginLeft: 4, fontSize: 13 }]}>{page} / {totalPages}</Text>
         <Button
           disabled={page === totalPages}
           onPress={() => setPage(page + 1)}
           accessibilityLabel={language === 'ta' ? 'அடுத்த பக்கம்' : 'Next page'}
           contentStyle={[styles.iconBtn, { backgroundColor: currentTheme.accent }]}
+          style={{ minWidth: 28, height: 28, justifyContent: 'center', alignItems: 'center', marginLeft: 4 }}
         >
-          <MaterialIcons name="chevron-right" size={28} color={currentTheme.primary} />
+          <MaterialIcons name="chevron-right" size={18} color={currentTheme.primary} />
         </Button>
-        {/* Zoom Controls */}
-        <Button onPress={() => setFontSize(f => Math.max(12, f - 2))} mode="outlined" style={{ marginLeft: 16, minWidth: 40 }}>
-          A-
+        <Button onPress={() => setFontSize(f => Math.max(12, f - 2))} mode="outlined" style={{ minWidth: 28, height: 28, justifyContent: 'center', alignItems: 'center', marginLeft: 4, borderRadius: 14 }}>
+          <Text style={{ fontSize: 13 }}>A-</Text>
         </Button>
-        <Button onPress={() => setFontSize(f => Math.min(36, f + 2))} mode="outlined" style={{ minWidth: 40 }}>
-          A+
+        <Button onPress={() => setFontSize(f => Math.min(36, f + 2))} mode="outlined" style={{ minWidth: 28, height: 28, justifyContent: 'center', alignItems: 'center', marginLeft: 4, borderRadius: 14 }}>
+          <Text style={{ fontSize: 13 }}>A+</Text>
+        </Button>
+        <Button onPress={() => setBold(b => !b)} mode={bold ? 'contained' : 'outlined'} style={{ minWidth: 28, height: 28, justifyContent: 'center', alignItems: 'center', marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', paddingVertical: 0, paddingHorizontal: 0, borderRadius: 14 }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
         </Button>
       </View>
     </ScrollView>

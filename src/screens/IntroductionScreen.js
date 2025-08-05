@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSettings } from '../SettingsProvider';
@@ -13,6 +13,8 @@ export default function IntroductionScreen() {
   const navigation = useNavigation();
   const { language } = useSettings();
   const isTamil = language === 'ta';
+  const [fontSize, setFontSize] = useState(16);
+  const [bold, setBold] = useState(false);
 
   const labels = {
     title: isTamil ? 'மந்திரங்கள்' : 'Mandiram',
@@ -29,44 +31,56 @@ export default function IntroductionScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Image source={introImg} style={styles.introImage} />
-      <Text style={styles.title}>{labels.title}</Text>
-      <Text style={styles.subtitle}>{labels.subtitle}</Text>
+      <Text style={[styles.title, { fontSize: fontSize + 8, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.title}</Text>
+      <Text style={[styles.subtitle, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.subtitle}</Text>
       <View style={styles.iconRow}>
         <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('AbiramiAnthathi')}>
           <Image source={abiramiImg} style={styles.iconImg} />
-          <Text style={styles.iconLabel}>{labels.abirami}</Text>
+          <Text style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.abirami}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('KolaruPathigam')}>
           <Image source={shivaImg} style={styles.iconImg} />
-          <Text style={styles.iconLabel}>{labels.kolaru}</Text>
+          <Text style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.kolaru}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.iconRow}>
         <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('AksharaPaamalai')}>
           <Image source={mahaperiyavaImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
-          <Text style={styles.iconLabel}>{labels.akshara}</Text>
+          <Text style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.akshara}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('AshtaAiswaryaSidhiManthram')}>
           <Image source={mahaperiyavaImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
-          <Text style={styles.iconLabel}>{labels.aiswarya}</Text>
+          <Text style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.aiswarya}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.iconRow}>
         <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('BairavaRundram')}>
           <Image source={shivaImg} style={styles.iconImg} />
-          <Text style={styles.iconLabel}>{labels.bairava}</Text>
+          <Text style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.bairava}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('About')}>
           <Image source={aboutImg} style={styles.iconImg} />
-          <Text style={styles.iconLabel}>{labels.about}</Text>
+          <Text style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.about}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.iconRow}>
         <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('Settings')}>
           <Image source={settingsImg} style={styles.iconImg} />
-          <Text style={styles.iconLabel}>{labels.settings}</Text>
+          <Text style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.settings}</Text>
         </TouchableOpacity>
         <View style={styles.iconBlock} />
+      </View>
+      {/* Font size controls at the bottom */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: 16, marginBottom: 8 }}>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={styles.roundControl}>
+          <Text style={{ fontSize: 13 }}>A-</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginHorizontal: 4 }]}>
+          <Text style={{ fontSize: 13 }}>A+</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginHorizontal: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? '#007AFF' : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
+          <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? '#007AFF' : '#333', textAlign: 'center' }}>B</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -99,4 +113,14 @@ const styles = StyleSheet.create({
   iconImg: { width: 64, height: 64, borderRadius: 32, marginBottom: 8 },
   iconLabel: { fontSize: 14, textAlign: 'center', color: '#333' },
   mahaperiyavaImg: { width: 80, height: 80 },
+  roundControl: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#aaa',
+    padding: 0,
+  },
 }); 

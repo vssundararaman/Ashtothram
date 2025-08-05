@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TextInput, useWindowDimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TextInput, useWindowDimensions, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSettings } from '../SettingsProvider';
@@ -15,6 +15,7 @@ export default function KolaruPathigamScreen() {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [fontSize, setFontSize] = useState(16);
+  const [bold, setBold] = useState(false);
   const window = useWindowDimensions();
   const isWide = window.width >= 600;
 
@@ -25,12 +26,15 @@ export default function KolaruPathigamScreen() {
   // Filter poems by search
   const filteredPoems = useMemo(() => {
     if (!search.trim()) return poems;
-    const s = search.toLowerCase();
-    return poems.filter(poem =>
-      poem.title.toLowerCase().includes(s) ||
-      poem.lines.join(' ').toLowerCase().includes(s) ||
-      (poem.meaning && poem.meaning.join(' ').toLowerCase().includes(s))
-    );
+    const words = search.toLowerCase().split(/\s+/).filter(Boolean);
+    return poems.filter(poem => {
+      const haystack = [
+        poem.title,
+        poem.lines.join(' '),
+        poem.meaning ? poem.meaning.join(' ') : ''
+      ].join(' ').toLowerCase();
+      return words.every(word => haystack.includes(word));
+    });
   }, [search, poems]);
 
   // Pagination
@@ -64,10 +68,10 @@ export default function KolaruPathigamScreen() {
         const isExpanded = expanded === poemIndex;
         return (
           <View key={poemIndex} style={[styles.poemBlock, { backgroundColor: currentTheme.card }]}> 
-            <Text style={[styles.poemHeading, { color: currentTheme.primary, fontSize: fontSize + 2 }]}>{item.title}</Text>
+            <Text style={[styles.poemHeading, { color: currentTheme.primary, fontSize: fontSize + 2, fontWeight: bold ? 'bold' : 'normal' }]}>{item.title}</Text>
             <View style={styles.linesPanel}>
               {item.lines.map((line, i) => (
-                <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize }]}>{line}</Text>
+                <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
               ))}
             </View>
             {item.meaning && item.meaning.length > 0 && (
@@ -90,7 +94,7 @@ export default function KolaruPathigamScreen() {
             {isExpanded && (
               <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
                 {item.meaning.map((meaningLine, i) => (
-                  <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}>{meaningLine}</Text>
+                  <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{meaningLine}</Text>
                 ))}
               </View>
             )}
@@ -117,12 +121,17 @@ export default function KolaruPathigamScreen() {
           <MaterialIcons name="chevron-right" size={28} color={currentTheme.primary} />
         </Button>
         {/* Zoom Controls */}
-        <Button onPress={() => setFontSize(f => Math.max(12, f - 2))} mode="outlined" style={{ marginLeft: 16, minWidth: 40 }}>
-          A-
-        </Button>
-        <Button onPress={() => setFontSize(f => Math.min(36, f + 2))} mode="outlined" style={{ minWidth: 40 }}>
-          A+
-        </Button>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 16 }}>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={styles.roundControl}>
+            <Text style={{ fontSize: 13 }}>A-</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+            <Text style={{ fontSize: 13 }}>A+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
+            <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );
@@ -205,5 +214,15 @@ const styles = StyleSheet.create({
   },
   blankLine: {
     marginBottom: 8,
+  },
+  roundControl: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#aaa',
+    padding: 0,
   },
 }); 

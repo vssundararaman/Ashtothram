@@ -4,6 +4,7 @@ import { useSettings } from '../SettingsProvider';
 import content_en from '../assets/BairavaRundram_en.json';
 import content_ta from '../assets/BairavaRundram_ta.json';
 import shivaImg from '../assets/images/shiva.png';
+import { Button } from 'react-native-paper';
 
 export default function BairavaRundramScreen() {
   const { language, theme, themes } = useSettings();
@@ -20,6 +21,7 @@ export default function BairavaRundramScreen() {
   const [expanded, setExpanded] = useState(null);
   const [search, setSearch] = useState('');
   const [fontSize, setFontSize] = useState(17);
+  const [bold, setBold] = useState(false);
 
   const filteredPoem = useMemo(() => {
     if (!poems.length) return null;
@@ -36,7 +38,7 @@ export default function BairavaRundramScreen() {
   return (
     <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}> 
       <Image source={shivaImg} style={styles.image} resizeMode="cover" />
-      <Text style={[styles.title, { color: currentTheme.text }]}>{heading}</Text>
+      <Text style={[styles.title, { color: currentTheme.text, fontWeight: bold ? 'bold' : 'normal' }]}>{heading}</Text>
       <TextInput
         style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
         placeholder={searchPlaceholder}
@@ -56,6 +58,7 @@ export default function BairavaRundramScreen() {
                 paddingVertical: 6,
                 paddingHorizontal: 8,
                 fontSize: fontSize + 3,
+                fontWeight: bold ? 'bold' : 'normal',
               },
             ]}
           >
@@ -64,23 +67,23 @@ export default function BairavaRundramScreen() {
           <View style={styles.linesPanel}>
             {filteredPoem.lines.length > 0 ? (
               filteredPoem.lines.map((line, i) => (
-                <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize }]}>{line}</Text>
+                <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
               ))
             ) : (
-              <Text style={[styles.poemLine, { color: currentTheme.text, fontStyle: 'italic', fontSize }]}>{language === 'ta' ? 'பாடல் இல்லை' : 'No matching lines'}</Text>
+              <Text style={[styles.poemLine, { color: currentTheme.text, fontStyle: 'italic', fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{language === 'ta' ? 'பாடல் இல்லை' : 'No matching lines'}</Text>
             )}
           </View>
           {filteredPoem.meaning && filteredPoem.meaning.length > 0 && (
             <View>
               <TouchableOpacity onPress={() => setExpanded(expanded === 0 ? null : 0)}>
-                <Text style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold', fontSize }}>
+                <Text style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold', fontSize, fontWeight: bold ? 'bold' : 'normal' }}>
                   {expanded === 0 ? hideLabel : showLabel}
                 </Text>
               </TouchableOpacity>
               {expanded === 0 && (
                 <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
                   {filteredPoem.meaning.map((meaningLine, i) => (
-                    <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize }]}>{meaningLine}</Text>
+                    <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{meaningLine}</Text>
                   ))}
                 </View>
               )}
@@ -89,12 +92,15 @@ export default function BairavaRundramScreen() {
           <Text style={styles.blankLine}>{' '}</Text>
         </View>
       )}
-      <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 12, marginBottom: 8 }}>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={{ marginHorizontal: 8, padding: 6, backgroundColor: currentTheme.accent, borderRadius: 6 }}>
-          <Text style={{ fontSize: 18, color: currentTheme.text }}>A-</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 16 }}>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={styles.roundControl}>
+          <Text style={{ fontSize: 13 }}>A-</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={{ marginHorizontal: 8, padding: 6, backgroundColor: currentTheme.accent, borderRadius: 6 }}>
-          <Text style={{ fontSize: 22, color: currentTheme.text }}>A+</Text>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+          <Text style={{ fontSize: 13 }}>A+</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? '#007AFF' : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
+          <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? '#007AFF' : '#333', textAlign: 'center' }}>B</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -123,4 +129,14 @@ const styles = StyleSheet.create({
   accordion: { borderRadius: 8, padding: 10, marginTop: 4 },
   meaningText: { fontSize: 15, marginBottom: 2, textAlign: 'left', alignSelf: 'stretch', lineHeight: 26 },
   blankLine: { height: 8 },
+  roundControl: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#aaa',
+    padding: 0,
+  },
 });
