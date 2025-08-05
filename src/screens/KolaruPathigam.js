@@ -129,23 +129,23 @@ Accepting the queen's request, Sambandar wished to go to Madurai and went to bid
       })}
       {/* Pagination Controls and Zoom */}
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 16 }}>
-        <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} style={styles.roundControl} accessibilityLabel={language === 'ta' ? 'முந்தைய பக்கம்' : 'Previous page'} accessibilityHint={language === 'ta' ? 'முந்தைய பக்கத்திற்குச் செல்ல' : 'Go to previous page'}>
+        <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} style={styles.roundControl}>
           <MaterialIcons name="chevron-left" size={18} color={currentTheme.primary} />
         </TouchableOpacity>
         <Text style={[styles.pageNum, { color: currentTheme.text, marginLeft: 4, fontSize: 13 }]}>{page} / {totalPages}</Text>
-        <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)} style={[styles.roundControl, { marginLeft: 4 }]} accessibilityLabel={language === 'ta' ? 'அடுத்த பக்கம்' : 'Next page'} accessibilityHint={language === 'ta' ? 'அடுத்த பக்கத்திற்குச் செல்ல' : 'Go to next page'}>
+        <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)} style={[styles.roundControl, { marginLeft: 4 }]}>
           <MaterialIcons name="chevron-right" size={18} color={currentTheme.primary} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]} accessibilityLabel={language === 'ta' ? 'எழுத்து அளவு குறை' : 'Decrease font size'} accessibilityHint={language === 'ta' ? 'எழுத்து அளவை குறைக்கும்' : 'Decrease the font size'}>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
           <Text style={{ fontSize: 13 }}>A-</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]} accessibilityLabel={language === 'ta' ? 'எழுத்து அளவு அதிகரிக்க' : 'Increase font size'} accessibilityHint={language === 'ta' ? 'எழுத்து அளவை அதிகரிக்கும்' : 'Increase the font size'}>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
           <Text style={{ fontSize: 13 }}>A+</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]} accessibilityLabel={language === 'ta' ? 'தடித்த எழுத்து' : 'Bold text'} accessibilityHint={language === 'ta' ? 'எழுத்தை தடித்தமாக மாற்றும்' : 'Toggle bold text'}>
+        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
           <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]} accessibilityLabel={language === 'ta' ? 'பொது தகவல்' : 'General info'} accessibilityHint={language === 'ta' ? 'பொது தகவலை காண' : 'Show general information about the poem'}> 
+        <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
           <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
         </TouchableOpacity>
       </View>

@@ -6,7 +6,6 @@ import { useSettings } from '../SettingsProvider';
 import poems_ta from '../assets/abirami_anthathi_ta.json';
 import poems_en from '../assets/abirami_anthathi_en.json';
 import icon from '../assets/images/Abirami.png';
-import Tooltip from 'react-native-walkthrough-tooltip';
 
 const POEMS_PER_PAGE = 10;
 
@@ -60,19 +59,6 @@ export default function AbiramiAnthathiScreen() {
 
   const currentTheme = themes[theme] || themes.light;
 
-  const [showTooltipPrev, setShowTooltipPrev] = useState(false);
-  const [showTooltipNext, setShowTooltipNext] = useState(false);
-  const [showTooltipDec, setShowTooltipDec] = useState(false);
-  const [showTooltipInc, setShowTooltipInc] = useState(false);
-  const [showTooltipBold, setShowTooltipBold] = useState(false);
-  const [showTooltipInfo, setShowTooltipInfo] = useState(false);
-
-  // Tooltip auto-close helpers
-  const showAndAutoClose = (setter) => {
-    setter(true);
-    setTimeout(() => setter(false), 1500);
-  };
-
   return (
     <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}>
       <Image
@@ -124,37 +110,25 @@ export default function AbiramiAnthathiScreen() {
       })}
       {/* Pagination Controls and Zoom */}
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 16 }}>
-        <Tooltip isVisible={showTooltipPrev} content={<Text>{language === 'ta' ? 'முந்தைய பக்கம்' : 'Previous page'}</Text>} placement="top" onClose={() => setShowTooltipPrev(false)}>
-          <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} style={styles.roundControl} onPressIn={() => showAndAutoClose(setShowTooltipPrev)}>
-            <MaterialIcons name="chevron-left" size={18} color={currentTheme.primary} />
-          </TouchableOpacity>
-        </Tooltip>
+        <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} style={styles.roundControl}>
+          <MaterialIcons name="chevron-left" size={18} color={currentTheme.primary} />
+        </TouchableOpacity>
         <Text style={[styles.pageNum, { color: currentTheme.text, marginLeft: 4, fontSize: 13 }]}>{page} / {totalPages}</Text>
-        <Tooltip isVisible={showTooltipNext} content={<Text>{language === 'ta' ? 'அடுத்த பக்கம்' : 'Next page'}</Text>} placement="top" onClose={() => setShowTooltipNext(false)}>
-          <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)} style={[styles.roundControl, { marginLeft: 4 }]} onPressIn={() => showAndAutoClose(setShowTooltipNext)}>
-            <MaterialIcons name="chevron-right" size={18} color={currentTheme.primary} />
-          </TouchableOpacity>
-        </Tooltip>
-        <Tooltip isVisible={showTooltipDec} content={<Text>{language === 'ta' ? 'எழுத்து அளவு குறை' : 'Decrease font size'}</Text>} placement="top" onClose={() => setShowTooltipDec(false)}>
-          <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]} onPressIn={() => showAndAutoClose(setShowTooltipDec)}>
-            <Text style={{ fontSize: 13 }}>A-</Text>
-          </TouchableOpacity>
-        </Tooltip>
-        <Tooltip isVisible={showTooltipInc} content={<Text>{language === 'ta' ? 'எழுத்து அளவு அதிகரிக்க' : 'Increase font size'}</Text>} placement="top" onClose={() => setShowTooltipInc(false)}>
-          <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]} onPressIn={() => showAndAutoClose(setShowTooltipInc)}>
-            <Text style={{ fontSize: 13 }}>A+</Text>
-          </TouchableOpacity>
-        </Tooltip>
-        <Tooltip isVisible={showTooltipBold} content={<Text>{language === 'ta' ? 'தடித்த எழுத்து' : 'Bold text'}</Text>} placement="top" onClose={() => setShowTooltipBold(false)}>
-          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]} onPressIn={() => showAndAutoClose(setShowTooltipBold)}>
-            <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
-          </TouchableOpacity>
-        </Tooltip>
-        <Tooltip isVisible={showTooltipInfo} content={<Text>{language === 'ta' ? 'பொது தகவல்' : 'General info'}</Text>} placement="top" onClose={() => setShowTooltipInfo(false)}>
-          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]} onPressIn={() => showAndAutoClose(setShowTooltipInfo)}>
-            <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
-          </TouchableOpacity>
-        </Tooltip>
+        <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)} style={[styles.roundControl, { marginLeft: 4 }]}>
+          <MaterialIcons name="chevron-right" size={18} color={currentTheme.primary} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+          <Text style={{ fontSize: 13 }}>A-</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+          <Text style={{ fontSize: 13 }}>A+</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
+          <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
+          <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
+        </TouchableOpacity>
       </View>
       {/* General Info Section at the bottom */}
       {showGeneralInfo && (
