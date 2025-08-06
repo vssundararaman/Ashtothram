@@ -6,7 +6,7 @@ import content_ta from '../assets/AksharaPaamalai_ta.json';
 import mahaperiyavaImg from '../assets/images/Mahaperiyava.jpg';
 
 export default function AksharaPaamalaiScreen() {
-  const { language, theme, themes } = useSettings();
+  const { language, theme, themes, showRuler } = useSettings();
   const window = useWindowDimensions();
   const isWide = window.width >= 600;
   const currentTheme = themes?.[theme] || { background: '#fff', text: '#222', card: '#f7f7f7', primary: '#007bff', accent: '#e0e0e0' };
@@ -69,29 +69,38 @@ export default function AksharaPaamalaiScreen() {
                 if (language === 'en' && line.includes('I will come')) {
                   const parts = line.split(/(I will come)/);
                   return (
-                    <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
-                      {parts.map((part, idx) =>
-                        part === 'I will come'
-                          ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
-                          : part
-                      )}
-                    </Text>
+                    <View key={i}>
+                      <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
+                        {parts.map((part, idx) =>
+                          part === 'I will come'
+                            ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
+                            : part
+                        )}
+                      </Text>
+                      {showRuler && <View style={styles.ruler} />}
+                    </View>
                   );
                 }
                 if (language === 'ta' && line.includes('வருவேன்')) {
                   const parts = line.split(/(வருவேன்)/);
                   return (
-                    <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
-                      {parts.map((part, idx) =>
-                        part === 'வருவேன்'
-                          ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
-                          : part
-                      )}
-                    </Text>
+                    <View key={i}>
+                      <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
+                        {parts.map((part, idx) =>
+                          part === 'வருவேன்'
+                            ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
+                            : part
+                        )}
+                      </Text>
+                      {showRuler && <View style={styles.ruler} />}
+                    </View>
                   );
                 }
                 return (
-                  <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
+                  <View key={i}>
+                    <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
+                    {showRuler && <View style={styles.ruler} />}
+                  </View>
                 );
               })
             ) : (
@@ -190,4 +199,5 @@ const styles = StyleSheet.create({
     borderColor: '#aaa',
     padding: 0,
   },
+  ruler: { height: 1, backgroundColor: '#ccc', marginVertical: 4, alignSelf: 'stretch', opacity: 0.7 },
 }); 

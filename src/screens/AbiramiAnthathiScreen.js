@@ -11,7 +11,7 @@ const POEMS_PER_PAGE = 10;
 
 export default function AbiramiAnthathiScreen() {
   const [expanded, setExpanded] = useState(null);
-  const { language, theme, themes } = useSettings();
+  const { language, theme, themes, showRuler } = useSettings();
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [fontSize, setFontSize] = useState(16);
@@ -84,7 +84,10 @@ export default function AbiramiAnthathiScreen() {
             <Text style={[styles.poemHeading, { color: currentTheme.primary, fontSize: fontSize + 2, fontWeight: bold ? 'bold' : 'normal' }]}>{item.title}</Text>
             <View style={styles.linesPanel}>
               {item.lines.map((line, i) => (
-                <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
+                <View key={i}>
+                  <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
+                  {showRuler && <View style={{ height: 1, backgroundColor: '#ccc', marginVertical: 4, alignSelf: 'stretch', opacity: 0.7 }} />}
+                </View>
               ))}
             </View>
             {item.meaning && item.meaning.length > 0 && (

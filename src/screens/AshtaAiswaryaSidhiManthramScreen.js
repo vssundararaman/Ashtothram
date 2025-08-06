@@ -7,7 +7,7 @@ import mahaperiyavaImg from '../assets/images/Mahaperiyava.jpg';
 import { Button } from 'react-native-paper';
 
 export default function AshtaAiswaryaSidhiManthramScreen() {
-  const { language, theme, themes } = useSettings();
+  const { language, theme, themes, showRuler } = useSettings();
   const window = useWindowDimensions();
   const isWide = window.width >= 600;
   const currentTheme = themes?.[theme] || { background: '#fff', text: '#222', card: '#f7f7f7', primary: '#007bff', accent: '#e0e0e0' };
@@ -68,7 +68,10 @@ export default function AshtaAiswaryaSidhiManthramScreen() {
           <View style={styles.linesPanel}>
             {filteredPoem.lines.length > 0 ? (
               filteredPoem.lines.map((line, i) => (
-                <Text key={i} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
+                <View key={i}>
+                  <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
+                  {showRuler && <View style={styles.ruler} />}
+                </View>
               ))
             ) : (
               <Text style={[styles.poemLine, { color: currentTheme.text, fontStyle: 'italic', fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{language === 'ta' ? 'பாடல் இல்லை' : 'No matching lines'}</Text>
@@ -140,4 +143,5 @@ const styles = StyleSheet.create({
     borderColor: '#aaa',
     padding: 0,
   },
+  ruler: { height: 1, backgroundColor: '#ccc', marginVertical: 4, alignSelf: 'stretch', opacity: 0.7 },
 });

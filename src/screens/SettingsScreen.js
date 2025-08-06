@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Switch } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useSettings } from '../SettingsProvider';
 import { Picker } from '@react-native-picker/picker';
 
 export default function SettingsScreen() {
-  const { language, changeLanguage, theme, setTheme, themes } = useSettings();
+  const { language, changeLanguage, theme, setTheme, themes, showRuler, setShowRuler } = useSettings();
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Settings</Text>
@@ -26,6 +26,14 @@ export default function SettingsScreen() {
           ))}
         </Picker>
       </View>
+      <Text style={styles.label}>Show Ruler</Text>
+      <View style={styles.rulerToggle}>
+        <Switch
+          value={showRuler}
+          onValueChange={setShowRuler}
+        />
+        <Text style={{ marginLeft: 10 }}>{showRuler ? 'On' : 'Off'}</Text>
+      </View>
     </View>
   );
 }
@@ -36,4 +44,5 @@ const styles = StyleSheet.create({
   label: { fontSize: 18, marginBottom: 8, marginTop: 16 },
   langToggle: { flexDirection: 'row', gap: 8 },
   themePicker: { marginTop: 8, width: 220 },
+  rulerToggle: { flexDirection: 'row', alignItems: 'center', marginTop: 8 },
 }); 

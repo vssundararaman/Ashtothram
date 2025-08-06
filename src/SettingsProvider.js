@@ -11,6 +11,7 @@ export const SettingsProvider = ({ children }) => {
   const [language, setLanguage] = useState('en');
   const [theme, setTheme] = useState('light');
   const [loading, setLoading] = useState(true);
+  const [showRuler, setShowRuler] = useState(true);
 
   const themes = {
     light: {
@@ -132,13 +133,16 @@ export const SettingsProvider = ({ children }) => {
       try {
         const savedLang = await AsyncStorage.getItem('language');
         const savedTheme = await AsyncStorage.getItem('theme');
+        const savedShowRuler = await AsyncStorage.getItem('showRuler');
         let lang = savedLang || Localization.getLocales()[0]?.languageCode || 'en';
         i18n.locale = lang;
         setLanguage(lang);
         setTheme(savedTheme || 'light');
+        setShowRuler(savedShowRuler === null ? true : savedShowRuler === 'true');
       } catch (e) {
         setLanguage('en');
         setTheme('light');
+        setShowRuler(true);
       } finally {
         setLoading(false);
       }
@@ -157,10 +161,15 @@ export const SettingsProvider = ({ children }) => {
     await AsyncStorage.setItem('theme', themeName);
   };
 
+  const changeShowRuler = async (value) => {
+    setShowRuler(value);
+    await AsyncStorage.setItem('showRuler', value ? 'true' : 'false');
+  };
+
   if (loading) return <>{'Loading...'}</>;
 
   return (
-    <SettingsContext.Provider value={{ language, theme, setTheme: changeTheme, themes, changeLanguage }}>
+    <SettingsContext.Provider value={{ language, theme, setTheme: changeTheme, themes, changeLanguage, showRuler, setShowRuler: changeShowRuler }}>
       {children}
     </SettingsContext.Provider>
   );
