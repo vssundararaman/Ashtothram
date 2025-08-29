@@ -3,6 +3,7 @@
     "name": "Mandiram",
     "slug": "AS",
     "version": "1.0.0",
+    "description": "Mandiram is an app for reading and learning various Slogams and Anthathis in Tamil and English.",
     "orientation": "portrait",
     "icon": "./src/assets/images/Logo.png",
     "userInterfaceStyle": "light",
@@ -14,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.vssundararaman.slogam",
+      "bundleIdentifier": "com.vssundararaman.mandiram",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -25,7 +26,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.vssundararaman.slogam"
+      "package": "com.vssundararaman.mandiram"
     },
     "web": {
       "favicon": "./assets/favicon.png"
