@@ -1,5 +1,5 @@
-import 'react-native-gesture-handler';
 import React from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Image, TouchableOpacity } from 'react-native';
@@ -19,6 +19,7 @@ import shivaImg from './src/assets/images/shiva.png';
 import aboutImg from './src/assets/images/abount.png';
 import introImg from './src/assets/images/Intro.png';
 import { MaterialIcons } from '@expo/vector-icons';
+import PinchZoomView from './PinchZoomView';
 
 const Drawer = createDrawerNavigator();
 
@@ -143,8 +144,10 @@ function AppShell() {
 
 export default function App() {
   return (
-    <SettingsProvider>
-      <AppShell />
-    </SettingsProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SettingsProvider>
+        <AppShell />
+      </SettingsProvider>
+    </GestureHandlerRootView>
   );
 }

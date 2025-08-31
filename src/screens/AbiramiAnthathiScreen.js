@@ -6,6 +6,7 @@ import { useSettings } from '../SettingsProvider';
 import poems_ta from '../assets/abirami_anthathi_ta.json';
 import poems_en from '../assets/abirami_anthathi_en.json';
 import icon from '../assets/images/Abirami.png';
+import PinchZoomView from '../../PinchZoomView';
 
 const POEMS_PER_PAGE = 10;
 
@@ -60,92 +61,92 @@ export default function AbiramiAnthathiScreen() {
   const currentTheme = themes[theme] || themes.light;
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}>
-      <Image
-        source={icon}
-        style={{ width: 80, height: 80, borderRadius: 24, marginTop: 12, marginBottom: 8 }}
-        resizeMode="cover"
-      />
-      <Text style={[styles.title, { color: currentTheme.text }]}>{heading}</Text>
-      {/* Test local image */}
-      {/* Test different remote image */}
-      <TextInput
-        style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
-        placeholder={searchPlaceholder}
-        value={search}
-        onChangeText={setSearch}
-        placeholderTextColor={currentTheme.accent}
-      />
-      {/* Top Menu Bar Controls */}
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 8, marginBottom: 12 }}>
-        <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} style={styles.roundControl}>
-          <MaterialIcons name="chevron-left" size={18} color={currentTheme.primary} />
-        </TouchableOpacity>
-        <Text style={[styles.pageNum, { color: currentTheme.text, marginLeft: 4, fontSize: 13 }]}>{page} / {totalPages}</Text>
-        <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)} style={[styles.roundControl, { marginLeft: 4 }]}>
-          <MaterialIcons name="chevron-right" size={18} color={currentTheme.primary} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-          <Text style={{ fontSize: 13 }}>A-</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-          <Text style={{ fontSize: 13 }}>A+</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> 
-          <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
-          <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
-        </TouchableOpacity>
-      </View>
-      {paginatedPoems.map((item, idx) => {
-        const poemIndex = idx + 1 + (page - 1) * POEMS_PER_PAGE;
-        const isExpanded = expanded === poemIndex;
-        return (
-          <View key={poemIndex} style={[styles.poemBlock, { backgroundColor: currentTheme.card }]}>
-            <Text style={[styles.poemHeading, { color: currentTheme.primary, fontSize: fontSize + 2, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{item.title}</Text>
-            <View style={styles.linesPanel}>
-              {item.lines.map((line, i) => (
-                <View key={i}>
-                  <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{line}</Text>
-                  {showRuler && <View style={{ height: 1, backgroundColor: '#ccc', marginVertical: 4, alignSelf: 'stretch', opacity: 0.7 }} />}
-                </View>
-              ))}
-            </View>
-            {item.meaning && item.meaning.length > 0 && (
-              <View>
-                <Text
-                  style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: bold ? 'bold' : 'normal', fontSize }}
-                  onPress={() => setExpanded(isExpanded ? null : poemIndex)}
-                  selectable={true}
-                >
-                  {isExpanded ? (language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning') : (language === 'ta' ? 'விளக்கம்' : 'Show Meaning')}
-                </Text>
-                {isExpanded && (
-                  <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
-                    {(Array.isArray(item.meaning) ? item.meaning : [item.meaning]).map((meaningLine, i) => (
-                      <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{meaningLine}</Text>
-                    ))}
-                  </View>
-                )}
-              </View>
-            )}
-            <Text style={styles.blankLine}>{' '}</Text>
-          </View>
-        );
-      })}
-      {/* General Info Section at the bottom */}
-      {showGeneralInfo && (
-        <View style={{ width: isWide ? 600 : '100%', alignSelf: 'center', marginTop: 20, marginBottom: 16 }}>
-          <View style={{ backgroundColor: currentTheme.card, borderRadius: 8, padding: 12, borderWidth: 1, borderColor: '#eee' }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'பொது தகவல்' : 'General Info'}</Text>
-            <Text style={{ fontSize: 15, color: currentTheme.text, lineHeight: 22 }}>
-              {language === 'ta' ? generalInfo_ta : generalInfo_en}
-            </Text>
-          </View>
+    <PinchZoomView>
+      <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}>
+        <Image
+          source={icon}
+          style={{ width: 80, height: 80, borderRadius: 24, marginTop: 12, marginBottom: 8 }}
+          resizeMode="cover"
+        />
+        <Text style={[styles.title, { color: currentTheme.text }]}>{heading}</Text>
+        <TextInput
+          style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
+          placeholder={searchPlaceholder}
+          value={search}
+          onChangeText={setSearch}
+          placeholderTextColor={currentTheme.accent}
+        />
+        {/* Top Menu Bar Controls */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 8, marginBottom: 12 }}>
+          <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} style={styles.roundControl}>
+            <MaterialIcons name="chevron-left" size={18} color={currentTheme.primary} />
+          </TouchableOpacity>
+          <Text style={[styles.pageNum, { color: currentTheme.text, marginLeft: 4, fontSize: 13 }]}>{page} / {totalPages}</Text>
+          <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)} style={[styles.roundControl, { marginLeft: 4 }]}>
+            <MaterialIcons name="chevron-right" size={18} color={currentTheme.primary} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+            <Text style={{ fontSize: 13 }}>A-</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+            <Text style={{ fontSize: 13 }}>A+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> 
+            <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
+            <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
+          </TouchableOpacity>
         </View>
-      )}
-    </ScrollView>
+        {paginatedPoems.map((item, idx) => {
+          const poemIndex = idx + 1 + (page - 1) * POEMS_PER_PAGE;
+          const isExpanded = expanded === poemIndex;
+          return (
+            <View key={poemIndex} style={[styles.poemBlock, { backgroundColor: currentTheme.card }]}>
+              <Text style={[styles.poemHeading, { color: currentTheme.primary, fontSize: fontSize + 2, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{item.title}</Text>
+              <View style={styles.linesPanel}>
+                {item.lines.map((line, i) => (
+                  <View key={i}>
+                    <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{line}</Text>
+                    {showRuler && <View style={{ height: 1, backgroundColor: '#ccc', marginVertical: 4, alignSelf: 'stretch', opacity: 0.7 }} />}
+                  </View>
+                ))}
+              </View>
+              {item.meaning && item.meaning.length > 0 && (
+                <View>
+                  <Text
+                    style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: bold ? 'bold' : 'normal', fontSize }}
+                    onPress={() => setExpanded(isExpanded ? null : poemIndex)}
+                    selectable={true}
+                  >
+                    {isExpanded ? (language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning') : (language === 'ta' ? 'விளக்கம்' : 'Show Meaning')}
+                  </Text>
+                  {isExpanded && (
+                    <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
+                      {(Array.isArray(item.meaning) ? item.meaning : [item.meaning]).map((meaningLine, i) => (
+                        <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{meaningLine}</Text>
+                      ))}
+                    </View>
+                  )}
+                </View>
+              )}
+              <Text style={styles.blankLine}>{' '}</Text>
+            </View>
+          );
+        })}
+        {/* General Info Section at the bottom */}
+        {showGeneralInfo && (
+          <View style={{ width: isWide ? 600 : '100%', alignSelf: 'center', marginTop: 20, marginBottom: 16 }}>
+            <View style={{ backgroundColor: currentTheme.card, borderRadius: 8, padding: 12, borderWidth: 1, borderColor: '#eee' }}>
+              <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'பொது தகவல்' : 'General Info'}</Text>
+              <Text style={{ fontSize: 15, color: currentTheme.text, lineHeight: 22 }}>
+                {language === 'ta' ? generalInfo_ta : generalInfo_en}
+              </Text>
+            </View>
+          </View>
+        )}
+      </ScrollView>
+    </PinchZoomView>
   );
 }
 

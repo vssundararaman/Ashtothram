@@ -5,6 +5,7 @@ import content_en from '../assets/AksharaPaamalai_en.json';
 import content_ta from '../assets/AksharaPaamalai_ta.json';
 import mahaperiyavaImg from '../assets/images/Mahaperiyava.jpg';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import PinchZoomView from '../../PinchZoomView';
 
 export default function AksharaPaamalaiScreen() {
   const { language, theme, themes, showRuler } = useSettings();
@@ -40,138 +41,140 @@ export default function AksharaPaamalaiScreen() {
   }, [search, poems]);
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}> 
-      <Image source={mahaperiyavaImg} style={styles.image} resizeMode="cover" />
-      <Text style={[styles.title, { color: currentTheme.text, fontWeight: bold ? 'bold' : 'normal' }]}>{heading}</Text>
-      <TextInput
-        style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
-        placeholder={searchPlaceholder}
-        value={search}
-        onChangeText={setSearch}
-        placeholderTextColor={currentTheme.accent}
-      />
-      {/* Top Menu Bar Controls - Remove pagination controls, keep only font size, bold, and info */}
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 8, marginBottom: 12 }}>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-          <Text style={{ fontSize: 13 }}>A-</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-          <Text style={{ fontSize: 13 }}>A+</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> 
-          <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
-          <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
-        </TouchableOpacity>
-      </View>
-      {filteredPoem && (
-        <View style={[styles.poemBlock, { backgroundColor: currentTheme.card, width: isWide ? 600 : '100%' }]}> 
-          <Text
-            style={[
-              styles.poemHeading,
-              {
-                backgroundColor: currentTheme.primary,
-                color: '#fff',
-                borderRadius: 6,
-                paddingVertical: 6,
-                paddingHorizontal: 8,
-                fontSize: fontSize + 3,
-              },
-            ]}
-          >
-            {filteredPoem.title}
-          </Text>
-          <View style={styles.linesPanel}>
-            {filteredPoem.lines.length > 0 ? (
-              filteredPoem.lines.map((line, i) => {
-                if (language === 'en' && line.includes('I will come')) {
-                  const parts = line.split(/(I will come)/);
-                  return (
-                    <View key={i}>
-                      <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
-                        {parts.map((part, idx) =>
-                          part === 'I will come'
-                            ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
-                            : part
-                        )}
-                      </Text>
-                      {showRuler && <View style={styles.ruler} />}
-                    </View>
-                  );
-                }
-                if (language === 'ta' && line.includes('வருவேன்')) {
-                  const parts = line.split(/(வருவேன்)/);
-                  return (
-                    <View key={i}>
-                      <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
-                        {parts.map((part, idx) =>
-                          part === 'வருவேன்'
-                            ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
-                            : part
-                        )}
-                      </Text>
-                      {showRuler && <View style={styles.ruler} />}
-                    </View>
-                  );
-                }
-                return (
-                  <View key={i}>
-                    <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
-                    {showRuler && <View style={styles.ruler} />}
-                  </View>
-                );
-              })
-            ) : (
-              <Text style={[styles.poemLine, { color: currentTheme.text, fontStyle: 'italic', fontSize }]}>{language === 'ta' ? 'பாடல் இல்லை' : 'No matching lines'}</Text>
-            )}
-          </View>
-          {filteredPoem.meaning && filteredPoem.meaning.length > 0 && (
-            <View>
-              <TouchableOpacity onPress={() => setExpanded(expanded === 0 ? null : 0)}>
-                <Text style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold', fontSize }}>
-                  {expanded === 0 ? hideLabel : showLabel}
-                </Text>
-              </TouchableOpacity>
-              {expanded === 0 && (
-                <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
-                  {filteredPoem.meaning.map((meaningLine, i) => {
-                    if (language === 'en' && meaningLine.includes('I will come')) {
-                      const parts = meaningLine.split(/(I will come)/);
-                      return (
-                        <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
+    <PinchZoomView>
+      <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}> 
+        <Image source={mahaperiyavaImg} style={styles.image} resizeMode="cover" />
+        <Text style={[styles.title, { color: currentTheme.text, fontWeight: bold ? 'bold' : 'normal' }]}>{heading}</Text>
+        <TextInput
+          style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
+          placeholder={searchPlaceholder}
+          value={search}
+          onChangeText={setSearch}
+          placeholderTextColor={currentTheme.accent}
+        />
+        {/* Top Menu Bar Controls - Remove pagination controls, keep only font size, bold, and info */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 8, marginBottom: 12 }}>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+            <Text style={{ fontSize: 13 }}>A-</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+            <Text style={{ fontSize: 13 }}>A+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> 
+            <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
+            <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
+          </TouchableOpacity>
+        </View>
+        {filteredPoem && (
+          <View style={[styles.poemBlock, { backgroundColor: currentTheme.card, width: isWide ? 600 : '100%' }]}> 
+            <Text
+              style={[
+                styles.poemHeading,
+                {
+                  backgroundColor: currentTheme.primary,
+                  color: '#fff',
+                  borderRadius: 6,
+                  paddingVertical: 6,
+                  paddingHorizontal: 8,
+                  fontSize: fontSize + 3,
+                },
+              ]}
+            >
+              {filteredPoem.title}
+            </Text>
+            <View style={styles.linesPanel}>
+              {filteredPoem.lines.length > 0 ? (
+                filteredPoem.lines.map((line, i) => {
+                  if (language === 'en' && line.includes('I will come')) {
+                    const parts = line.split(/(I will come)/);
+                    return (
+                      <View key={i}>
+                        <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
                           {parts.map((part, idx) =>
                             part === 'I will come'
                               ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
                               : part
                           )}
                         </Text>
-                      );
-                    }
-                    if (language === 'ta' && meaningLine.includes('வருவேன்')) {
-                      const parts = meaningLine.split(/(வருவேன்)/);
-                      return (
-                        <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
+                        {showRuler && <View style={styles.ruler} />}
+                      </View>
+                    );
+                  }
+                  if (language === 'ta' && line.includes('வருவேன்')) {
+                    const parts = line.split(/(வருவேன்)/);
+                    return (
+                      <View key={i}>
+                        <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
                           {parts.map((part, idx) =>
                             part === 'வருவேன்'
                               ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
                               : part
                           )}
                         </Text>
-                      );
-                    }
-                    return (
-                      <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{meaningLine}</Text>
+                        {showRuler && <View style={styles.ruler} />}
+                      </View>
                     );
-                  })}
-                </View>
+                  }
+                  return (
+                    <View key={i}>
+                      <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
+                      {showRuler && <View style={styles.ruler} />}
+                    </View>
+                  );
+                })
+              ) : (
+                <Text style={[styles.poemLine, { color: currentTheme.text, fontStyle: 'italic', fontSize }]}>{language === 'ta' ? 'பாடல் இல்லை' : 'No matching lines'}</Text>
               )}
             </View>
-          )}
-          <Text style={styles.blankLine}>{' '}</Text>
-        </View>
-      )}
-    </ScrollView>
+            {filteredPoem.meaning && filteredPoem.meaning.length > 0 && (
+              <View>
+                <TouchableOpacity onPress={() => setExpanded(expanded === 0 ? null : 0)}>
+                  <Text style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold', fontSize }}>
+                    {expanded === 0 ? hideLabel : showLabel}
+                  </Text>
+                </TouchableOpacity>
+                {expanded === 0 && (
+                  <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
+                    {filteredPoem.meaning.map((meaningLine, i) => {
+                      if (language === 'en' && meaningLine.includes('I will come')) {
+                        const parts = meaningLine.split(/(I will come)/);
+                        return (
+                          <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
+                            {parts.map((part, idx) =>
+                              part === 'I will come'
+                                ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
+                                : part
+                            )}
+                          </Text>
+                        );
+                      }
+                      if (language === 'ta' && meaningLine.includes('வருவேன்')) {
+                        const parts = meaningLine.split(/(வருவேன்)/);
+                        return (
+                          <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}> 
+                            {parts.map((part, idx) =>
+                              part === 'வருவேன்'
+                                ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
+                                : part
+                            )}
+                          </Text>
+                        );
+                      }
+                      return (
+                        <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{meaningLine}</Text>
+                      );
+                    })}
+                  </View>
+                )}
+              </View>
+            )}
+            <Text style={styles.blankLine}>{' '}</Text>
+          </View>
+        )}
+      </ScrollView>
+    </PinchZoomView>
   );
 }
 

@@ -15,10 +15,10 @@ export default function SettingsScreen() {
         <Button mode={language === 'en' ? 'contained' : 'outlined'} onPress={() => changeLanguage('en')}>English</Button>
       </View>
       <Text style={styles.label} selectable={true}>Theme</Text>
-      <View style={styles.themePicker}>
+      <View style={[styles.themePicker, { width: 320 }]}>
         <Picker
           selectedValue={theme}
-          style={{ width: 220, height: 44 }}
+          style={{ width: 320, height: 56 }}
           onValueChange={(itemValue) => setTheme(itemValue)}
         >
           {Object.keys(themes).map((themeKey) => (
@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
   title: { fontSize: 24, fontWeight: 'bold', marginBottom: 16 },
   label: { fontSize: 18, marginBottom: 8, marginTop: 16 },
   langToggle: { flexDirection: 'row', gap: 8 },
-  themePicker: { marginTop: 8, width: 220 },
+  themePicker: { marginTop: 8, width: 320 },
   rulerToggle: { flexDirection: 'row', alignItems: 'center', marginTop: 8 },
 }); 

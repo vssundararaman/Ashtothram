@@ -8,6 +8,7 @@ import mahaperiyavaImg from '../assets/images/Mahaperiyava.jpg';
 import introImg from '../assets/images/Intro.png';
 import aboutImg from '../assets/images/abount.png';
 import settingsImg from '../assets/images/settings.png';
+import PinchZoomView from '../../PinchZoomView';
 
 export default function IntroductionScreen() {
   const navigation = useNavigation();
@@ -29,60 +30,62 @@ export default function IntroductionScreen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Image source={introImg} style={styles.introImage} />
-      <Text selectable={true} style={[styles.title, { fontSize: fontSize + 8, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.title}</Text>
-      <Text selectable={true} style={[styles.subtitle, { fontSize, fontWeight: bold ? 'bold' : 'normal', marginBottom: 0 }]}>{labels.subtitle}</Text>
-      {/* Menu Bar Controls - now immediately below subtitle */}
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 0, marginBottom: 12 }}>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={{ marginLeft: 4, padding: 6, borderRadius: 16, borderWidth: 1, borderColor: '#aaa' }}>
-          <Text style={{ fontSize: 13 }}>A-</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={{ marginLeft: 4, padding: 6, borderRadius: 16, borderWidth: 1, borderColor: '#aaa' }}>
-          <Text style={{ fontSize: 13 }}>A+</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setBold(b => !b)} style={{ marginLeft: 4, padding: 6, borderRadius: 16, borderWidth: bold ? 2 : 1, borderColor: bold ? '#007bff' : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? '#007bff' : '#333', textAlign: 'center' }}>B</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.iconRow}>
-        <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('AbiramiAnthathi')}>
-          <Image source={abiramiImg} style={styles.iconImg} />
-          <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.abirami}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('KolaruPathigam')}>
-          <Image source={shivaImg} style={styles.iconImg} />
-          <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.kolaru}</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.iconRow}>
-        <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('AksharaPaamalai')}>
-          <Image source={mahaperiyavaImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
-          <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.akshara}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('AshtaAiswaryaSidhiManthram')}>
-          <Image source={mahaperiyavaImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
-          <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.aiswarya}</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.iconRow}>
-        <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('BairavaRundram')}>
-          <Image source={shivaImg} style={styles.iconImg} />
-          <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.bairava}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('About')}>
-          <Image source={aboutImg} style={styles.iconImg} />
-          <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.about}</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.iconRow}>
-        <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('Settings')}>
-          <Image source={settingsImg} style={styles.iconImg} />
-          <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.settings}</Text>
-        </TouchableOpacity>
-        <View style={styles.iconBlock} />
-      </View>
-    </ScrollView>
+    <PinchZoomView>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Image source={introImg} style={styles.introImage} />
+        <Text selectable={true} style={[styles.title, { fontSize: fontSize + 8, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.title}</Text>
+        <Text selectable={true} style={[styles.subtitle, { fontSize, fontWeight: bold ? 'bold' : 'normal', marginBottom: 0 }]}>{labels.subtitle}</Text>
+        {/* Menu Bar Controls - now immediately below subtitle */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 0, marginBottom: 12 }}>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={{ marginLeft: 4, padding: 6, borderRadius: 16, borderWidth: 1, borderColor: '#aaa' }}>
+            <Text style={{ fontSize: 13 }}>A-</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={{ marginLeft: 4, padding: 6, borderRadius: 16, borderWidth: 1, borderColor: '#aaa' }}>
+            <Text style={{ fontSize: 13 }}>A+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setBold(b => !b)} style={{ marginLeft: 4, padding: 6, borderRadius: 16, borderWidth: bold ? 2 : 1, borderColor: bold ? '#007bff' : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? '#007bff' : '#333', textAlign: 'center' }}>B</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.iconRow}>
+          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('AbiramiAnthathi')}>
+            <Image source={abiramiImg} style={styles.iconImg} />
+            <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.abirami}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('KolaruPathigam')}>
+            <Image source={shivaImg} style={styles.iconImg} />
+            <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.kolaru}</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.iconRow}>
+          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('AksharaPaamalai')}>
+            <Image source={mahaperiyavaImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
+            <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.akshara}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('AshtaAiswaryaSidhiManthram')}>
+            <Image source={mahaperiyavaImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
+            <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.aiswarya}</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.iconRow}>
+          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('BairavaRundram')}>
+            <Image source={shivaImg} style={styles.iconImg} />
+            <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.bairava}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('About')}>
+            <Image source={aboutImg} style={styles.iconImg} />
+            <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.about}</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.iconRow}>
+          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('Settings')}>
+            <Image source={settingsImg} style={styles.iconImg} />
+            <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.settings}</Text>
+          </TouchableOpacity>
+          <View style={styles.iconBlock} />
+        </View>
+      </ScrollView>
+    </PinchZoomView>
   );
 }
 

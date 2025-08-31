@@ -6,6 +6,7 @@ import content_ta from '../assets/BairavaRundram_ta.json';
 import shivaImg from '../assets/images/shiva.png';
 import { Button } from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import PinchZoomView from '../../PinchZoomView';
 
 export default function BairavaRundramScreen() {
   const { language, theme, themes, showRuler } = useSettings();
@@ -40,81 +41,83 @@ export default function BairavaRundramScreen() {
   }, [search, poems]);
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}> 
-      <Image source={shivaImg} style={styles.image} resizeMode="cover" />
-      <Text style={[styles.title, { color: currentTheme.text, fontWeight: bold ? 'bold' : 'normal' }]}>{heading}</Text>
-      <TextInput
-        style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
-        placeholder={searchPlaceholder}
-        value={search}
-        onChangeText={setSearch}
-        placeholderTextColor={currentTheme.accent}
-      />
-      {/* Top Menu Bar Controls - Remove pagination controls, keep only font size, bold, and info */}
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 8, marginBottom: 12 }}>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-          <Text style={{ fontSize: 13 }}>A-</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-          <Text style={{ fontSize: 13 }}>A+</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> 
-          <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
-          <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
-        </TouchableOpacity>
-      </View>
-      {filteredPoem && (
-        <View style={[styles.poemBlock, { backgroundColor: currentTheme.card, width: isWide ? 600 : '100%' }]}> 
-          <Text
-            style={[
-              styles.poemHeading,
-              {
-                backgroundColor: currentTheme.primary,
-                color: '#fff',
-                borderRadius: 6,
-                paddingVertical: 6,
-                paddingHorizontal: 8,
-                fontSize: fontSize + 3,
-                fontWeight: bold ? 'bold' : 'normal',
-              },
-            ]}
-          >
-            {filteredPoem.title}
-          </Text>
-          <View style={styles.linesPanel}>
-            {filteredPoem.lines.length > 0 ? (
-              filteredPoem.lines.map((line, i) => (
-                <View key={i}>
-                  <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
-                  {showRuler && <View style={styles.ruler} />}
-                </View>
-              ))
-            ) : (
-              <Text style={[styles.poemLine, { color: currentTheme.text, fontStyle: 'italic', fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{language === 'ta' ? 'பாடல் இல்லை' : 'No matching lines'}</Text>
-            )}
-          </View>
-          {filteredPoem.meaning && filteredPoem.meaning.length > 0 && (
-            <View>
-              <TouchableOpacity onPress={() => setExpanded(expanded === 0 ? null : 0)}>
-                <Text style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold', fontSize, fontWeight: bold ? 'bold' : 'normal' }}>
-                  {expanded === 0 ? hideLabel : showLabel}
-                </Text>
-              </TouchableOpacity>
-              {expanded === 0 && (
-                <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
-                  {filteredPoem.meaning.map((meaningLine, i) => (
-                    <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{meaningLine}</Text>
-                  ))}
-                </View>
+    <PinchZoomView>
+      <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}> 
+        <Image source={shivaImg} style={styles.image} resizeMode="cover" />
+        <Text style={[styles.title, { color: currentTheme.text, fontWeight: bold ? 'bold' : 'normal' }]}>{heading}</Text>
+        <TextInput
+          style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
+          placeholder={searchPlaceholder}
+          value={search}
+          onChangeText={setSearch}
+          placeholderTextColor={currentTheme.accent}
+        />
+        {/* Top Menu Bar Controls - Remove pagination controls, keep only font size, bold, and info */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 8, marginBottom: 12 }}>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+            <Text style={{ fontSize: 13 }}>A-</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+            <Text style={{ fontSize: 13 }}>A+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> 
+            <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
+            <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
+          </TouchableOpacity>
+        </View>
+        {filteredPoem && (
+          <View style={[styles.poemBlock, { backgroundColor: currentTheme.card, width: isWide ? 600 : '100%' }]}> 
+            <Text
+              style={[
+                styles.poemHeading,
+                {
+                  backgroundColor: currentTheme.primary,
+                  color: '#fff',
+                  borderRadius: 6,
+                  paddingVertical: 6,
+                  paddingHorizontal: 8,
+                  fontSize: fontSize + 3,
+                  fontWeight: bold ? 'bold' : 'normal',
+                },
+              ]}
+            >
+              {filteredPoem.title}
+            </Text>
+            <View style={styles.linesPanel}>
+              {filteredPoem.lines.length > 0 ? (
+                filteredPoem.lines.map((line, i) => (
+                  <View key={i}>
+                    <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
+                    {showRuler && <View style={styles.ruler} />}
+                  </View>
+                ))
+              ) : (
+                <Text style={[styles.poemLine, { color: currentTheme.text, fontStyle: 'italic', fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{language === 'ta' ? 'பாடல் இல்லை' : 'No matching lines'}</Text>
               )}
             </View>
-          )}
-          <Text style={styles.blankLine}>{' '}</Text>
-        </View>
-      )}
-    </ScrollView>
+            {filteredPoem.meaning && filteredPoem.meaning.length > 0 && (
+              <View>
+                <TouchableOpacity onPress={() => setExpanded(expanded === 0 ? null : 0)}>
+                  <Text style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold', fontSize, fontWeight: bold ? 'bold' : 'normal' }}>
+                    {expanded === 0 ? hideLabel : showLabel}
+                  </Text>
+                </TouchableOpacity>
+                {expanded === 0 && (
+                  <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
+                    {filteredPoem.meaning.map((meaningLine, i) => (
+                      <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{meaningLine}</Text>
+                    ))}
+                  </View>
+                )}
+              </View>
+            )}
+            <Text style={styles.blankLine}>{' '}</Text>
+          </View>
+        )}
+      </ScrollView>
+    </PinchZoomView>
   );
 }
 

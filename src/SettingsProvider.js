@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18n from './services/i18n';
 import * as Localization from 'expo-localization';
+import { Text } from 'react-native';
 
 const SettingsContext = createContext();
 
@@ -166,7 +167,7 @@ export const SettingsProvider = ({ children }) => {
     await AsyncStorage.setItem('showRuler', value ? 'true' : 'false');
   };
 
-  if (loading) return <>{'Loading...'}</>;
+  if (loading) return <Text>Loading...</Text>;
 
   return (
     <SettingsContext.Provider value={{ language, theme, setTheme: changeTheme, themes, changeLanguage, showRuler, setShowRuler: changeShowRuler }}>
