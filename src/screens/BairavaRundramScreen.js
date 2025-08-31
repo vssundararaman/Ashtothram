@@ -5,6 +5,7 @@ import content_en from '../assets/BairavaRundram_en.json';
 import content_ta from '../assets/BairavaRundram_ta.json';
 import shivaImg from '../assets/images/shiva.png';
 import { Button } from 'react-native-paper';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export default function BairavaRundramScreen() {
   const { language, theme, themes, showRuler } = useSettings();
@@ -22,6 +23,9 @@ export default function BairavaRundramScreen() {
   const [search, setSearch] = useState('');
   const [fontSize, setFontSize] = useState(17);
   const [bold, setBold] = useState(false);
+  const [showGeneralInfo, setShowGeneralInfo] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const filteredPoem = useMemo(() => {
     if (!poems.length) return null;
@@ -46,6 +50,21 @@ export default function BairavaRundramScreen() {
         onChangeText={setSearch}
         placeholderTextColor={currentTheme.accent}
       />
+      {/* Top Menu Bar Controls - Remove pagination controls, keep only font size, bold, and info */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 8, marginBottom: 12 }}>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+          <Text style={{ fontSize: 13 }}>A-</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+          <Text style={{ fontSize: 13 }}>A+</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> 
+          <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
+          <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
+        </TouchableOpacity>
+      </View>
       {filteredPoem && (
         <View style={[styles.poemBlock, { backgroundColor: currentTheme.card, width: isWide ? 600 : '100%' }]}> 
           <Text
@@ -95,17 +114,6 @@ export default function BairavaRundramScreen() {
           <Text style={styles.blankLine}>{' '}</Text>
         </View>
       )}
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 16 }}>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={styles.roundControl}>
-          <Text style={{ fontSize: 13 }}>A-</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-          <Text style={{ fontSize: 13 }}>A+</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? '#007AFF' : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
-          <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? '#007AFF' : '#333', textAlign: 'center' }}>B</Text>
-        </TouchableOpacity>
-      </View>
     </ScrollView>
   );
 }
@@ -141,6 +149,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#aaa',
     padding: 0,
+  },
+  pageNum: {
+    fontWeight: 'bold',
+    fontSize: 13,
+    color: '#333',
   },
   ruler: { height: 1, backgroundColor: '#ccc', marginVertical: 4, alignSelf: 'stretch', opacity: 0.7 },
 });

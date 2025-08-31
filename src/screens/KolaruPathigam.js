@@ -67,7 +67,7 @@ Accepting the queen's request, Sambandar wished to go to Madurai and went to bid
   return (
     <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}> 
       <Image source={shivaImg} style={styles.image} resizeMode="cover" />
-      <Text style={[styles.title, { color: currentTheme.text }]}>{heading}</Text>
+      <Text style={[styles.title, { color: currentTheme.text }]} selectable={true}>{heading}</Text>
       <TextInput
         style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
         placeholder={searchPlaceholder}
@@ -75,11 +75,33 @@ Accepting the queen's request, Sambandar wished to go to Madurai and went to bid
         onChangeText={setSearch}
         placeholderTextColor={currentTheme.accent}
       />
-      {/* Explanation Section */}
-      <View style={{ width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 12 }}>
-        <TouchableOpacity onPress={() => setShowExplanation(v => !v)} style={[styles.roundControl, { alignSelf: 'flex-end', marginBottom: 4, borderWidth: showExplanation ? 2 : 1, borderColor: showExplanation ? currentTheme.primary : '#aaa', backgroundColor: showExplanation ? '#e6f0ff' : 'transparent' }]}> 
+      {/* Top Menu Bar Controls - all in one row */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 0, marginBottom: 12 }}>
+        <TouchableOpacity onPress={() => setShowExplanation(v => !v)} style={[styles.roundControl, { marginRight: 4, borderWidth: showExplanation ? 2 : 1, borderColor: showExplanation ? currentTheme.primary : '#aaa', backgroundColor: showExplanation ? '#e6f0ff' : 'transparent' }]}> 
           <Text style={{ fontWeight: 'bold', fontSize: 13, color: showExplanation ? currentTheme.primary : currentTheme.text }}>?</Text>
         </TouchableOpacity>
+        <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} style={styles.roundControl}>
+          <MaterialIcons name="chevron-left" size={18} color={currentTheme.primary} />
+        </TouchableOpacity>
+        <Text style={[styles.pageNum, { color: currentTheme.text, marginLeft: 4, fontSize: 13 }]} selectable={true}>{page} / {totalPages}</Text>
+        <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)} style={[styles.roundControl, { marginLeft: 4 }]}>
+          <MaterialIcons name="chevron-right" size={18} color={currentTheme.primary} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+          <Text style={{ fontSize: 13 }}>A-</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
+          <Text style={{ fontSize: 13 }}>A+</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> 
+          <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
+          <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
+        </TouchableOpacity>
+      </View>
+      {/* Explanation Section */}
+      <View style={{ width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 12 }}>
         {showExplanation && (
           <View style={{ backgroundColor: currentTheme.card, borderRadius: 8, padding: 12, borderWidth: 1, borderColor: '#eee' }}>
             <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'விளக்கம்' : 'Explanation'}</Text>
@@ -94,11 +116,11 @@ Accepting the queen's request, Sambandar wished to go to Madurai and went to bid
         const isExpanded = expanded === poemIndex;
         return (
           <View key={poemIndex} style={[styles.poemBlock, { backgroundColor: currentTheme.card }]}> 
-            <Text style={[styles.poemHeading, { color: currentTheme.primary, fontSize: fontSize + 2, fontWeight: bold ? 'bold' : 'normal' }]}>{item.title}</Text>
+            <Text style={[styles.poemHeading, { color: currentTheme.primary, fontSize: fontSize + 2, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{item.title}</Text>
             <View style={styles.linesPanel}>
               {item.lines.map((line, i) => (
                 <View key={i}>
-                  <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
+                  <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{line}</Text>
                   {showRuler && <View style={{ height: 1, backgroundColor: '#ccc', marginVertical: 4, alignSelf: 'stretch', opacity: 0.7 }} />}
                 </View>
               ))}
@@ -123,35 +145,13 @@ Accepting the queen's request, Sambandar wished to go to Madurai and went to bid
             {isExpanded && (
               <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
                 {item.meaning.map((meaningLine, i) => (
-                  <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{meaningLine}</Text>
+                  <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{meaningLine}</Text>
                 ))}
               </View>
             )}
           </View>
         );
       })}
-      {/* Pagination Controls and Zoom */}
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 16 }}>
-        <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} style={styles.roundControl}>
-          <MaterialIcons name="chevron-left" size={18} color={currentTheme.primary} />
-        </TouchableOpacity>
-        <Text style={[styles.pageNum, { color: currentTheme.text, marginLeft: 4, fontSize: 13 }]}>{page} / {totalPages}</Text>
-        <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)} style={[styles.roundControl, { marginLeft: 4 }]}>
-          <MaterialIcons name="chevron-right" size={18} color={currentTheme.primary} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-          <Text style={{ fontSize: 13 }}>A-</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-          <Text style={{ fontSize: 13 }}>A+</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
-          <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
-          <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
-        </TouchableOpacity>
-      </View>
       {/* General Info Section at the bottom */}
       {showGeneralInfo && (
         <View style={{ width: isWide ? 600 : '100%', alignSelf: 'center', marginTop: 20, marginBottom: 16 }}>

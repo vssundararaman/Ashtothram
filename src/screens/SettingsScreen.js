@@ -8,13 +8,13 @@ export default function SettingsScreen() {
   const { language, changeLanguage, theme, setTheme, themes, showRuler, setShowRuler } = useSettings();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Settings</Text>
-      <Text style={styles.label}>Language</Text>
+      <Text style={styles.title} selectable={true}>Settings</Text>
+      <Text style={styles.label} selectable={true}>Language</Text>
       <View style={styles.langToggle}>
         <Button mode={language === 'ta' ? 'contained' : 'outlined'} onPress={() => changeLanguage('ta')}>தமிழ்</Button>
         <Button mode={language === 'en' ? 'contained' : 'outlined'} onPress={() => changeLanguage('en')}>English</Button>
       </View>
-      <Text style={styles.label}>Theme</Text>
+      <Text style={styles.label} selectable={true}>Theme</Text>
       <View style={styles.themePicker}>
         <Picker
           selectedValue={theme}
@@ -26,7 +26,7 @@ export default function SettingsScreen() {
           ))}
         </Picker>
       </View>
-      <Text style={styles.label}>Show Ruler</Text>
+      <Text style={styles.label} selectable={true}>Show Ruler</Text>
       <View style={styles.rulerToggle}>
         <Switch
           value={showRuler}
