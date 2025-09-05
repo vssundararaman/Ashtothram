@@ -16,6 +16,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.vssundararaman.mandiram",
+      "buildNumber": "1",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -26,7 +27,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.vssundararaman.mandiram"
+      "package": "com.vssundararaman.mandiram",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
