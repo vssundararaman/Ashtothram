@@ -42,8 +42,8 @@ export default function BairavaRundramScreen() {
     };
   }, [search, poems]);
 
-  const generalInfo_ta = `பைரவர் ருந்திரம் என்பது சிவபெருமானின் பைரவர் வடிவத்தைப் போற்றும் தமிழ் பாடலாகும். இது பக்தர்களுக்கு பாதுகாப்பும், சக்தியும், ஆன்மிக நன்மைகளும் தரும் என்று நம்பப்படுகிறது.`;
-  const generalInfo_en = `Bairava Rundram is a Tamil hymn praising Lord Shiva in his Bairava form. It is believed to grant protection, strength, and spiritual benefits to devotees.`;
+  const generalInfo_ta = poems_ta[0]?.meaning?.join('\n\n') || '';
+  const generalInfo_en = poems_en[0]?.meaning?.join('\n\n') || '';
 
   return (
     <PinchZoomView>
@@ -76,8 +76,8 @@ export default function BairavaRundramScreen() {
         {showGeneralInfo && (
           <View style={[styles.accordion, { backgroundColor: currentTheme.accent, width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 16, marginTop: 8 }]}>
             <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'பொது தகவல்' : 'General Info'}</Text>
-            <Text style={{ fontSize: 15, color: currentTheme.text, lineHeight: 22, fontWeight: bold ? 'bold' : 'normal' }}>
-              {generalInfo_ta}
+            <Text style={{ fontSize, color: currentTheme.text, lineHeight: 22, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left', alignSelf: 'stretch' }}>
+              {language === 'ta' ? generalInfo_ta : generalInfo_en}
             </Text>
           </View>
         )}

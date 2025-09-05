@@ -104,11 +104,11 @@ Accepting the queen's request, Sambandar wished to go to Madurai and went to bid
         {showGeneralInfo && (
           <View style={[styles.accordion, { backgroundColor: currentTheme.accent, width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 16, marginTop: 8 }]}>
             <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'பொது தகவல்' : 'General Info'}</Text>
-            <Text style={{ fontSize: 15, color: currentTheme.text, lineHeight: 22, marginBottom: 10, fontWeight: bold ? 'bold' : 'normal' }}>
+            <Text style={{ fontSize, color: currentTheme.text, lineHeight: 22, marginBottom: 10, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left', alignSelf: 'stretch' }}>
               {generalInfo_ta}
             </Text>
             <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'விளக்கம்' : 'Explanation'}</Text>
-            <Text style={{ fontSize: 15, color: currentTheme.text, lineHeight: 22, fontWeight: bold ? 'bold' : 'normal' }}>
+            <Text style={{ fontSize, color: currentTheme.text, lineHeight: 22, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left', alignSelf: 'stretch' }}>
               {language === 'ta' ? explanation_ta : explanation_en}
             </Text>
           </View>

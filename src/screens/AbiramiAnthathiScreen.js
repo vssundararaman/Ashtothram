@@ -26,13 +26,8 @@ export default function AbiramiAnthathiScreen() {
   const explanationLabel = language === 'ta' ? 'விளக்கம்' : 'Explanation';
   const searchPlaceholder = language === 'ta' ? 'தேடு...' : 'Search...';
 
-  const generalInfo_ta = `அபிராமி அந்தாதி என்பது அபிராமி பட்டரால் பாடப்பட்ட 100 பாடல்களின் தொகுப்பாகும். 
-                          தேவியின் அருளை வேண்டி பாடப்பட்ட இந்த அந்தாதி, சங்கீத மற்றும் ஆன்மீக வளங்களை ஒன்றிணைத்தது. "அந்தாதி" எனப்படும் பாட்டுவகையில், 
-                          ஒவ்வொரு பாடலும் முந்தைய பாடலின் இறுதி சொல்லால் தொடங்குகிறது. இதனை ஓதுவதால் மன அமைதி, அறிவு வளர்ச்சி, துன்பநிவாரணம் மற்றும் பக்தியில் நிலைத்தன்மை கிடைக்கும் என நம்பப்படுகிறது. 
-                          அபிராமி தேவியின் அருள் பெறவும், வாழ்க்கையில் வளம், ஆரோக்கியம், நல்ல மனநிலை பெறவும் அபிராமி அந்தாதி ஓதுதல் ஒரு ஆன்மீக வழிபாடாக கருதப்படுகிறது.`;
-  const generalInfo_en = `Abirami Anthathi is a collection of 100 devotional verses composed by Abirami Pattar in praise of Goddess Abirami. It belongs to the poetic style "Anthathi," 
-                          where each verse begins with the ending word of the previous one. Reciting Abirami Anthathi is believed to bring peace of mind, wisdom, relief from difficulties, and deep devotion. 
-                          Tradition holds that chanting these verses invokes the blessings of Goddess Abirami, granting prosperity, health, and mental strength to devotees.`;
+  const generalInfo_ta = `அபிராமி அந்தாதி என்பது அபிராமி பட்டரால் பாடப்பட்ட 100 பாடல்களின் தொகுப்பாகும். தேவியின் அருளை வேண்டி பாடப்பட்ட இந்த அந்தாதி, சங்கீத மற்றும் ஆன்மீக வளங்களை ஒன்றிணைத்தது. "அந்தாதி" எனப்படும் பாட்டுவகையில், ஒவ்வொரு பாடலும் முந்தைய பாடலின் இறுதி சொல்லால் தொடங்குகிறது. இதனை ஓதுவதால் மன அமைதி, அறிவு வளர்ச்சி, துன்பநிவாரணம் மற்றும் பக்தியில் நிலைத்தன்மை கிடைக்கும் என நம்பப்படுகிறது. அபிராமி தேவியின் அருள் பெறவும், வாழ்க்கையில் வளம், ஆரோக்கியம், நல்ல மனநிலை பெறவும் அபிராமி அந்தாதி ஓதுதல் ஒரு ஆன்மீக வழிபாடாக கருதப்படுகிறது.`;
+  const generalInfo_en = `Abirami Anthathi is a collection of 100 devotional verses composed by Abirami Pattar in praise of Goddess Abirami. It belongs to the poetic style "Anthathi," where each verse begins with the ending word of the previous one. Reciting Abirami Anthathi is believed to bring peace of mind, wisdom, relief from difficulties, and deep devotion. Tradition holds that chanting these verses invokes the blessings of Goddess Abirami, granting prosperity, health, and mental strength to devotees.`;
 
   const poems = language === 'ta' ? poems_ta : poems_en;
 
@@ -105,9 +100,9 @@ export default function AbiramiAnthathiScreen() {
         </View>
         {/* Info Section at the top, styled like AksharaPaamalaiScreen */}
         {showGeneralInfo && (
-          <View style={[styles.accordion, { backgroundColor: currentTheme.accent, width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 16, marginTop: 8 }]}>
+          <View style={[styles.accordion, { backgroundColor: currentTheme.accent, width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 16, marginTop: 8, paddingHorizontal: 12 }]}>
             <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'பொது தகவல்' : 'General Info'}</Text>
-            <Text style={{ fontSize: 15, color: currentTheme.text, lineHeight: 22, fontWeight: bold ? 'bold' : 'normal' }}>
+            <Text style={{ fontSize, color: currentTheme.text, lineHeight: 22, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left', alignSelf: 'stretch' }}>
               {language === 'ta' ? generalInfo_ta : generalInfo_en}
             </Text>
           </View>

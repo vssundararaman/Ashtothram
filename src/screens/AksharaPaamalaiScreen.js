@@ -75,10 +75,22 @@ export default function AksharaPaamalaiScreen() {
             <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>
               {language === 'ta' ? 'பொது தகவல்' : 'General Info'}
             </Text>
-            <Text style={{ fontSize: 15, color: currentTheme.text, lineHeight: 22, fontWeight: bold ? 'bold' : 'normal' }}>
+            <Text style={{ fontSize, color: currentTheme.text, lineHeight: 22, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left', alignSelf: 'stretch' }}>
               {language === 'ta'
-                ? 'அட்க்ஷரப் பாமாலை என்பது ஸ்ரீ சந்திரசேகரேந்திர சரஸ்வதி மகா ஸ்வாமிகள் அவர்களுக்கு அர்ப்பணிக்கப்பட்ட ஒரு பக்தி பாடல் தொகுப்பாகும். இதில் உள்ள ஒவ்வொரு வரியும் பக்தர்களுக்கு ஆன்மிக உற்சாகம் மற்றும் ஆனந்தம் அளிக்கிறது.'
-                : 'Akshara Paamalai is a devotional hymn dedicated to Sri Chandrasekharendra Saraswati Mahaswamigal. Each line in this collection inspires spiritual joy and devotion in the hearts of devotees.'}
+                ? [
+                  'அட்க்ஷரப் பாமாலை என்பது ஸ்ரீ சந்திரசேகரேந்திர சரஸ்வதி மகா ஸ்வாமிகள் அவர்களுக்கு அர்ப்பணிக்கப்பட்ட ஒரு பக்தி பாடல் தொகுப்பாகும். இதில் உள்ள ஒவ்வொரு வரியும் பக்தர்களுக்கு ஆன்மிக உற்சாகம் மற்றும் ஆனந்தம் அளிக்கிறது.\n\nஇந்த பாடலை 1983-ல் ஸ்ரீ வெங்கடேசன் அவர்கள் ஸ்ரீ மகா பெரியவா முன்னிலையில் பாடினார். பாடல் முடிந்ததும், "',
+                  <Text key="bold" style={{ fontWeight: 'bold', fontSize }}>
+                    பெரியவா வருவேன்
+                  </Text>,
+                  '" என்று ஸ்ரீ பெரியவா ஆசீர்வதித்தார்.'
+                ]
+                : [
+                  'Akshara Paamalai is a devotional hymn dedicated to Sri Chandrasekharendra Saraswati Mahaswamigal. Each line in this collection inspires spiritual joy and devotion in the hearts of devotees.\n\nThis song was sung by Sri Venkatesan in front of Sri Mahaperiyava in 1983. After singing, he humbly requested Sri Periyava that whenever anyone sings this song, Periyava should come there. Sri Mahaperiyava blessed him saying, "',
+                  <Text key="bold" style={{ fontWeight: 'bold', fontSize }}>
+                    I will come
+                  </Text>,
+                  '".'
+                ]}
             </Text>
           </View>
         )}
