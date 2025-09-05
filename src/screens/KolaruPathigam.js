@@ -1,35 +1,30 @@
 import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TextInput, useWindowDimensions, TouchableOpacity } from 'react-native';
-import { List, Button } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSettings } from '../SettingsProvider';
-import poems_ta from '../assets/abirami_anthathi_ta.json';
-import poems_en from '../assets/abirami_anthathi_en.json';
-import icon from '../assets/images/Abirami.png';
+import poems_ta from '../assets/kolaru_pathigam_ta.json';
+import poems_en from '../assets/kolaru_pathigam_en.json';
+import shivaImg from '../assets/images/shiva.png';
 import PinchZoomView from '../../PinchZoomView';
 
 const POEMS_PER_PAGE = 10;
 
-export default function AbiramiAnthathiScreen() {
+export default function KolaruPathigamScreen() {
   const [expanded, setExpanded] = useState(null);
   const { language, theme, themes, showRuler } = useSettings();
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [fontSize, setFontSize] = useState(16);
   const [bold, setBold] = useState(false);
+  const [showExplanation, setShowExplanation] = useState(false);
   const [showGeneralInfo, setShowGeneralInfo] = useState(false);
   const window = useWindowDimensions();
-  const isWide = window.width >= 600; // Responsive breakpoint
-
-  const heading = language === 'ta' ? 'அபிராமி அந்தாதி' : 'Abirami Anthathi';
-  const verseLabel = language === 'ta' ? 'பாடல்' : 'Verse';
-  const explanationLabel = language === 'ta' ? 'விளக்கம்' : 'Explanation';
-  const searchPlaceholder = language === 'ta' ? 'தேடு...' : 'Search...';
-
-  const generalInfo_ta = `அபிராமி அந்தாதி என்பது அபிராமி பட்டர் அருளிய புகழ்பெற்ற தமிழ் பாடலாகும். இது தாயான அபிராமி அம்மனின் மகிமையைப் புகழ்ந்து, பக்தர்களுக்கு ஆன்மிக நன்மை மற்றும் வாழ்வில் வெற்றி தரும் பாடல்களாகும்.`;
-  const generalInfo_en = `Abirami Anthathi is a famous Tamil hymn composed by Abirami Pattar. It praises Goddess Abirami and is believed to bring spiritual benefits and success in life to devotees.`;
+  const isWide = window.width >= 600;
 
   const poems = language === 'ta' ? poems_ta : poems_en;
+  const heading = language === 'ta' ? 'கோளறு பதிகம்' : 'Kolaru Pathigam';
+  const searchPlaceholder = language === 'ta' ? 'தேடு...' : 'Search...';
 
   // Filter poems by search
   const filteredPoems = useMemo(() => {
@@ -60,15 +55,21 @@ export default function AbiramiAnthathiScreen() {
 
   const currentTheme = themes[theme] || themes.light;
 
+  const explanation_ta = `மதுரை பாண்டிய மன்னன் நின்ற சீர்நெடுமாறன் சமண மதத்தில் பற்று கொண்டு, மற்ற சமயங்களைப் புறக்கணித்து வந்தார். அவர் மனைவி மங்கையர்க்கரசியார் சைவ சமயத்தில் பற்று கொண்டிருந்தார். சமணர்களின் அடாத செயல்களால் நாட்டில் குழப்பங்கள் நிலவ, அதைத் தடுக்கும் பொருட்டு திருஞான சம்பந்தர் மதுரைக்கு எழுந்தருளி சைவம் தழைக்கவும் நாட்டில் நல்லாட்சி நிலவவும் அழைப்பு விடுத்தார். திருஞான சம்பந்தரும், திருநாவுக்கரச பெருமானும் அப்போது திருமறைக்காட்டில் இருந்தனர்.
+
+மதுரையம்பதி அரசியாரின் வேண்டுகோளை ஏற்று திருஞான சம்பந்தர் மதுரை செல்ல விரும்பி திருநாவுக்கரசரிடம் விடைபெறச் சென்றார். திருநாவுக்கரசரோ, அச்சமயம் நிலவிய கோள்களின் அமைப்பும் போக்கும் தீமை பயக்கும் என்று கூறி சம்பந்தரின் பயணத்தை ஒத்திப்போடச் சொன்னார்.`;
+  const explanation_en = `King Nedumaran of Madurai, a Pandya ruler, became attached to Jainism and disregarded other faiths. His wife, Mangayarkkarasiyar, remained devoted to Saivism. Due to the improper actions of the Jains, confusion prevailed in the kingdom. To restore order and promote Saivism, Thirugnana Sambandar was invited to Madurai. At that time, both Sambandar and Thirunavukkarasar were at Thirumaraikkaadu.
+
+Accepting the queen's request, Sambandar wished to go to Madurai and went to bid farewell to Thirunavukkarasar. Thirunavukkarasar, however, warned that the planetary positions at that time were inauspicious and advised Sambandar to postpone his journey.`;
+
+  const generalInfo_ta = `கோளறு பதிகம் என்பது திருஞானசம்பந்தர் அருளிய பதிகமாகும். இது நவகிரகங்களின் தீமைகளை நீக்கி, பக்தர்களுக்கு நன்மை செய்யும் பாடல்களாகும். இந்த பதிகம் சிவபெருமானின் மகிமையைப் புகழ்ந்து, பக்தர்களுக்கு வாழ்வில் நல்லது நிகழும் என்று உறுதி அளிக்கிறது.`;
+  const generalInfo_en = `Kolaru Pathigam is a hymn composed by Thirugnana Sambandar. It is believed to remove the malefic effects of the nine planets and bring good fortune to devotees. The hymn praises Lord Shiva and assures devotees of auspiciousness and well-being.`;
+
   return (
     <PinchZoomView>
-      <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}>
-        <Image
-          source={icon}
-          style={{ width: 80, height: 80, borderRadius: 24, marginTop: 12, marginBottom: 8 }}
-          resizeMode="cover"
-        />
-        <Text style={[styles.title, { color: currentTheme.text }]}>{heading}</Text>
+      <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}> 
+        <Image source={shivaImg} style={styles.image} resizeMode="cover" />
+        <Text style={[styles.title, { color: currentTheme.text }]} selectable={true}>{heading}</Text>
         <TextInput
           style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
           placeholder={searchPlaceholder}
@@ -76,12 +77,15 @@ export default function AbiramiAnthathiScreen() {
           onChangeText={setSearch}
           placeholderTextColor={currentTheme.accent}
         />
-        {/* Top Menu Bar Controls */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 8, marginBottom: 12 }}>
+        {/* Top Menu Bar Controls - all in one row */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 0, marginBottom: 12 }}>
+          <TouchableOpacity onPress={() => setShowExplanation(v => !v)} style={[styles.roundControl, { marginRight: 4, borderWidth: showExplanation ? 2 : 1, borderColor: showExplanation ? currentTheme.primary : '#aaa', backgroundColor: showExplanation ? '#e6f0ff' : 'transparent' }]}> 
+            <Text style={{ fontWeight: 'bold', fontSize: 13, color: showExplanation ? currentTheme.primary : currentTheme.text }}>?</Text>
+          </TouchableOpacity>
           <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} style={styles.roundControl}>
             <MaterialIcons name="chevron-left" size={18} color={currentTheme.primary} />
           </TouchableOpacity>
-          <Text style={[styles.pageNum, { color: currentTheme.text, marginLeft: 4, fontSize: 13 }]}>{page} / {totalPages}</Text>
+          <Text style={[styles.pageNum, { color: currentTheme.text, marginLeft: 4, fontSize: 13 }]} selectable={true}>{page} / {totalPages}</Text>
           <TouchableOpacity disabled={page === totalPages} onPress={() => setPage(page + 1)} style={[styles.roundControl, { marginLeft: 4 }]}>
             <MaterialIcons name="chevron-right" size={18} color={currentTheme.primary} />
           </TouchableOpacity>
@@ -98,11 +102,22 @@ export default function AbiramiAnthathiScreen() {
             <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
           </TouchableOpacity>
         </View>
+        {/* Explanation Section */}
+        <View style={{ width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 12 }}>
+          {showExplanation && (
+            <View style={{ backgroundColor: currentTheme.card, borderRadius: 8, padding: 12, borderWidth: 1, borderColor: '#eee' }}>
+              <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'விளக்கம்' : 'Explanation'}</Text>
+              <Text style={{ fontSize: 15, color: currentTheme.text, lineHeight: 22 }}>
+                {language === 'ta' ? explanation_ta : explanation_en}
+              </Text>
+            </View>
+          )}
+        </View>
         {paginatedPoems.map((item, idx) => {
           const poemIndex = idx + 1 + (page - 1) * POEMS_PER_PAGE;
           const isExpanded = expanded === poemIndex;
           return (
-            <View key={poemIndex} style={[styles.poemBlock, { backgroundColor: currentTheme.card }]}>
+            <View key={poemIndex} style={[styles.poemBlock, { backgroundColor: currentTheme.card }]}> 
               <Text style={[styles.poemHeading, { color: currentTheme.primary, fontSize: fontSize + 2, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{item.title}</Text>
               <View style={styles.linesPanel}>
                 {item.lines.map((line, i) => (
@@ -113,24 +128,29 @@ export default function AbiramiAnthathiScreen() {
                 ))}
               </View>
               {item.meaning && item.meaning.length > 0 && (
-                <View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginVertical: 0 }}>
                   <Text
-                    style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: bold ? 'bold' : 'normal', fontSize }}
+                    style={{ padding: 0, margin: 0 }}
                     onPress={() => setExpanded(isExpanded ? null : poemIndex)}
-                    selectable={true}
+                    accessibilityLabel={isExpanded
+                      ? (language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning')
+                      : (language === 'ta' ? 'விளக்கம்' : 'Show Meaning')}
                   >
-                    {isExpanded ? (language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning') : (language === 'ta' ? 'விளக்கம்' : 'Show Meaning')}
+                    <MaterialIcons
+                      name={isExpanded ? 'expand-less' : 'expand-more'}
+                      size={28}
+                      color={currentTheme.primary}
+                    />
                   </Text>
-                  {isExpanded && (
-                    <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
-                      {(Array.isArray(item.meaning) ? item.meaning : [item.meaning]).map((meaningLine, i) => (
-                        <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{meaningLine}</Text>
-                      ))}
-                    </View>
-                  )}
                 </View>
               )}
-              <Text style={styles.blankLine}>{' '}</Text>
+              {isExpanded && (
+                <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
+                  {item.meaning.map((meaningLine, i) => (
+                    <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{meaningLine}</Text>
+                  ))}
+                </View>
+              )}
             </View>
           );
         })}
@@ -157,13 +177,7 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
     width: '100%',
   },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 12,
-    marginTop: 8,
-  },
+  image: { width: 120, height: 120, borderRadius: 60, marginTop: 12, marginBottom: 16 },
   title: {
     fontSize: 22,
     fontWeight: 'bold',
