@@ -21,9 +21,9 @@ export default function SettingsScreen() {
           <Button mode={language === 'en' ? 'contained' : 'outlined'} onPress={() => changeLanguage('en')} style={styles.langBtn}>English</Button>
         </View>
       </View>
-      {/* Ruler + Theme Section (responsive row/column) */}
-      <View style={[styles.cardSection, isWide ? styles.rowSection : styles.colSection]}> 
-        <View style={[styles.rulerRowHeader, isWide ? { flex: 1, marginRight: 16 } : { width: '100%', marginBottom: 16 }]}>
+      {/* Ruler Section */}
+      <View style={styles.cardSection}>
+        <View style={styles.rulerRowHeader}>
           <Text style={styles.sectionHeader}>Show Ruler</Text>
           <View style={styles.rulerRow}>
             <Switch
@@ -33,8 +33,11 @@ export default function SettingsScreen() {
             <Text style={{ marginLeft: 12, fontSize: 16 }}>{showRuler ? 'On' : 'Off'}</Text>
           </View>
         </View>
-        <View style={[styles.themeRow, isWide ? { flex: 1, minWidth: 200, maxWidth: 400 } : { width: '100%' }]}> 
-          <Text style={styles.sectionHeader}>Theme</Text>
+      </View>
+      {/* Theme Section (now in its own card) */}
+      <View style={styles.cardSection}>
+        <Text style={styles.sectionHeader}>Theme</Text>
+        <View style={styles.themeRow}>
           <Picker
             selectedValue={theme}
             style={[styles.themePicker, { fontSize: 18 }]}

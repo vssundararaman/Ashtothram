@@ -1,2 +1,9 @@
 {
+    "editor.fontSize": 13,
+    "editor.wrappingStrategy": "advanced",
+    "workbench.view.alwaysShowHeaderActions": true,
+    "zenMode.restore": false,
+    "zenMode.centerLayout": false,
+    "zenMode.fullScreen": false,
+    "zenMode.hideActivityBar": false
 }
