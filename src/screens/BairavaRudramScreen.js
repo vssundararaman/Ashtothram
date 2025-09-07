@@ -1,19 +1,19 @@
 import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, useWindowDimensions, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useSettings } from '../SettingsProvider';
-import poems_ta from '../assets/BairavaRundram_ta.json';
-import poems_en from '../assets/BairavaRundram_en.json';
+import poems_ta from '../assets/BairavaRudram_ta.json';
+import poems_en from '../assets/BairavaRudram_en.json';
 import shivaImg from '../assets/images/shiva.png';
 import { Button } from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import PinchZoomView from '../../PinchZoomView';
 
-export default function BairavaRundramScreen() {
+export default function BairavaRudramScreen() {
   const { language, theme, themes, showRuler } = useSettings();
   const window = useWindowDimensions();
   const isWide = window.width >= 600;
   const currentTheme = themes?.[theme] || { background: '#fff', text: '#222', card: '#f7f7f7', primary: '#007bff', accent: '#e0e0e0' };
-  const heading = language === 'ta' ? 'பைரவர் ருந்திரம்' : 'Bairava Rundram';
+  const heading = language === 'ta' ? 'பைரவ ருத்ர மந்திரம்' : 'BairavaRudram';
   const explanationLabel = language === 'ta' ? 'விளக்கம்' : 'Meaning';
   const hideLabel = language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning';
   const showLabel = language === 'ta' ? 'விளக்கம்' : 'Show Meaning';
