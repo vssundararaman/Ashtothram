@@ -26,8 +26,8 @@ export default function AbiramiAnthathiScreen() {
   const explanationLabel = language === 'ta' ? 'விளக்கம்' : 'Explanation';
   const searchPlaceholder = language === 'ta' ? 'தேடு...' : 'Search...';
 
-  const generalInfo_ta = `அபிராமி அந்தாதி என்பது அபிராமி பட்டர் அருளிய புகழ்பெற்ற தமிழ் பாடலாகும். இது தாயான அபிராமி அம்மனின் மகிமையைப் புகழ்ந்து, பக்தர்களுக்கு ஆன்மிக நன்மை மற்றும் வாழ்வில் வெற்றி தரும் பாடல்களாகும்.`;
-  const generalInfo_en = `Abirami Anthathi is a famous Tamil hymn composed by Abirami Pattar. It praises Goddess Abirami and is believed to bring spiritual benefits and success in life to devotees.`;
+  const generalInfo_ta = `அபிராமி அந்தாதி என்பது அபிராமி பட்டரால் பாடப்பட்ட 100 பாடல்களின் தொகுப்பாகும். தேவியின் அருளை வேண்டி பாடப்பட்ட இந்த அந்தாதி, சங்கீத மற்றும் ஆன்மீக வளங்களை ஒன்றிணைத்தது. "அந்தாதி" எனப்படும் பாட்டுவகையில், ஒவ்வொரு பாடலும் முந்தைய பாடலின் இறுதி சொல்லால் தொடங்குகிறது. இதனை ஓதுவதால் மன அமைதி, அறிவு வளர்ச்சி, துன்பநிவாரணம் மற்றும் பக்தியில் நிலைத்தன்மை கிடைக்கும் என நம்பப்படுகிறது. அபிராமி தேவியின் அருள் பெறவும், வாழ்க்கையில் வளம், ஆரோக்கியம், நல்ல மனநிலை பெறவும் அபிராமி அந்தாதி ஓதுதல் ஒரு ஆன்மீக வழிபாடாக கருதப்படுகிறது.`;
+  const generalInfo_en = `Abirami Anthathi is a collection of 100 devotional verses composed by Abirami Pattar in praise of Goddess Abirami. It belongs to the poetic style "Anthathi," where each verse begins with the ending word of the previous one. Reciting Abirami Anthathi is believed to bring peace of mind, wisdom, relief from difficulties, and deep devotion. Tradition holds that chanting these verses invokes the blessings of Goddess Abirami, granting prosperity, health, and mental strength to devotees.`;
 
   const poems = language === 'ta' ? poems_ta : poems_en;
 
@@ -91,13 +91,22 @@ export default function AbiramiAnthathiScreen() {
           <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
             <Text style={{ fontSize: 13 }}>A+</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> 
+          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
             <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
+          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}>
             <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
           </TouchableOpacity>
         </View>
+        {/* Info Section at the top, styled like AksharaPaamalaiScreen */}
+        {showGeneralInfo && (
+          <View style={[styles.accordion, { backgroundColor: currentTheme.accent, width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 16, marginTop: 8, paddingHorizontal: 12 }]}>
+            <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'பொது தகவல்' : 'General Info'}</Text>
+            <Text style={{ fontSize, color: currentTheme.text, lineHeight: 22, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left', alignSelf: 'stretch' }}>
+              {language === 'ta' ? generalInfo_ta : generalInfo_en}
+            </Text>
+          </View>
+        )}
         {paginatedPoems.map((item, idx) => {
           const poemIndex = idx + 1 + (page - 1) * POEMS_PER_PAGE;
           const isExpanded = expanded === poemIndex;
@@ -122,7 +131,7 @@ export default function AbiramiAnthathiScreen() {
                     {isExpanded ? (language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning') : (language === 'ta' ? 'விளக்கம்' : 'Show Meaning')}
                   </Text>
                   {isExpanded && (
-                    <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
+                    <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}>
                       {(Array.isArray(item.meaning) ? item.meaning : [item.meaning]).map((meaningLine, i) => (
                         <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{meaningLine}</Text>
                       ))}
@@ -134,17 +143,6 @@ export default function AbiramiAnthathiScreen() {
             </View>
           );
         })}
-        {/* General Info Section at the bottom */}
-        {showGeneralInfo && (
-          <View style={{ width: isWide ? 600 : '100%', alignSelf: 'center', marginTop: 20, marginBottom: 16 }}>
-            <View style={{ backgroundColor: currentTheme.card, borderRadius: 8, padding: 12, borderWidth: 1, borderColor: '#eee' }}>
-              <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'பொது தகவல்' : 'General Info'}</Text>
-              <Text style={{ fontSize: 15, color: currentTheme.text, lineHeight: 22 }}>
-                {language === 'ta' ? generalInfo_ta : generalInfo_en}
-              </Text>
-            </View>
-          </View>
-        )}
       </ScrollView>
     </PinchZoomView>
   );

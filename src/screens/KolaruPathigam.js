@@ -17,12 +17,13 @@ export default function KolaruPathigamScreen() {
   const [page, setPage] = useState(1);
   const [fontSize, setFontSize] = useState(16);
   const [bold, setBold] = useState(false);
-  const [showExplanation, setShowExplanation] = useState(false);
   const [showGeneralInfo, setShowGeneralInfo] = useState(false);
   const window = useWindowDimensions();
   const isWide = window.width >= 600;
 
-  const poems = language === 'ta' ? poems_ta : poems_en;
+  const poemsData = language === 'ta' ? poems_ta : poems_en;
+  // const generalInfo = poemsData.generalInfo; // Not present in JSON, handled below
+  const poems = poemsData; // Use the array directly
   const heading = language === 'ta' ? 'கோளறு பதிகம்' : 'Kolaru Pathigam';
   const searchPlaceholder = language === 'ta' ? 'தேடு...' : 'Search...';
 
@@ -67,7 +68,7 @@ Accepting the queen's request, Sambandar wished to go to Madurai and went to bid
 
   return (
     <PinchZoomView>
-      <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}> 
+      <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}>
         <Image source={shivaImg} style={styles.image} resizeMode="cover" />
         <Text style={[styles.title, { color: currentTheme.text }]} selectable={true}>{heading}</Text>
         <TextInput
@@ -79,9 +80,6 @@ Accepting the queen's request, Sambandar wished to go to Madurai and went to bid
         />
         {/* Top Menu Bar Controls - all in one row */}
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 0, marginBottom: 12 }}>
-          <TouchableOpacity onPress={() => setShowExplanation(v => !v)} style={[styles.roundControl, { marginRight: 4, borderWidth: showExplanation ? 2 : 1, borderColor: showExplanation ? currentTheme.primary : '#aaa', backgroundColor: showExplanation ? '#e6f0ff' : 'transparent' }]}> 
-            <Text style={{ fontWeight: 'bold', fontSize: 13, color: showExplanation ? currentTheme.primary : currentTheme.text }}>?</Text>
-          </TouchableOpacity>
           <TouchableOpacity disabled={page === 1} onPress={() => setPage(page - 1)} style={styles.roundControl}>
             <MaterialIcons name="chevron-left" size={18} color={currentTheme.primary} />
           </TouchableOpacity>
@@ -95,29 +93,31 @@ Accepting the queen's request, Sambandar wished to go to Madurai and went to bid
           <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
             <Text style={{ fontSize: 13 }}>A+</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> 
+          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
             <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
+          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}>
             <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
           </TouchableOpacity>
         </View>
-        {/* Explanation Section */}
-        <View style={{ width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 12 }}>
-          {showExplanation && (
-            <View style={{ backgroundColor: currentTheme.card, borderRadius: 8, padding: 12, borderWidth: 1, borderColor: '#eee' }}>
-              <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'விளக்கம்' : 'Explanation'}</Text>
-              <Text style={{ fontSize: 15, color: currentTheme.text, lineHeight: 22 }}>
-                {language === 'ta' ? explanation_ta : explanation_en}
-              </Text>
-            </View>
-          )}
-        </View>
+        {/* Info Section at the top, styled like AksharaPaamalaiScreen */}
+        {showGeneralInfo && (
+          <View style={[styles.accordion, { backgroundColor: currentTheme.accent, width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 16, marginTop: 8 }]}>
+            <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'பொது தகவல்' : 'General Info'}</Text>
+            <Text style={{ fontSize, color: currentTheme.text, lineHeight: 22, marginBottom: 10, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left', alignSelf: 'stretch' }}>
+              {generalInfo_ta}
+            </Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'விளக்கம்' : 'Explanation'}</Text>
+            <Text style={{ fontSize, color: currentTheme.text, lineHeight: 22, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left', alignSelf: 'stretch' }}>
+              {language === 'ta' ? explanation_ta : explanation_en}
+            </Text>
+          </View>
+        )}
         {paginatedPoems.map((item, idx) => {
           const poemIndex = idx + 1 + (page - 1) * POEMS_PER_PAGE;
           const isExpanded = expanded === poemIndex;
           return (
-            <View key={poemIndex} style={[styles.poemBlock, { backgroundColor: currentTheme.card }]}> 
+            <View key={poemIndex} style={[styles.poemBlock, { backgroundColor: currentTheme.card }]}>
               <Text style={[styles.poemHeading, { color: currentTheme.primary, fontSize: fontSize + 2, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{item.title}</Text>
               <View style={styles.linesPanel}>
                 {item.lines.map((line, i) => (
@@ -145,7 +145,7 @@ Accepting the queen's request, Sambandar wished to go to Madurai and went to bid
                 </View>
               )}
               {isExpanded && (
-                <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
+                <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}>
                   {item.meaning.map((meaningLine, i) => (
                     <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]} selectable={true}>{meaningLine}</Text>
                   ))}
@@ -155,7 +155,7 @@ Accepting the queen's request, Sambandar wished to go to Madurai and went to bid
           );
         })}
         {/* General Info Section at the bottom */}
-        {showGeneralInfo && (
+        {/* showGeneralInfo && (
           <View style={{ width: isWide ? 600 : '100%', alignSelf: 'center', marginTop: 20, marginBottom: 16 }}>
             <View style={{ backgroundColor: currentTheme.card, borderRadius: 8, padding: 12, borderWidth: 1, borderColor: '#eee' }}>
               <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'பொது தகவல்' : 'General Info'}</Text>
@@ -164,7 +164,7 @@ Accepting the queen's request, Sambandar wished to go to Madurai and went to bid
               </Text>
             </View>
           </View>
-        )}
+        ) */}
       </ScrollView>
     </PinchZoomView>
   );

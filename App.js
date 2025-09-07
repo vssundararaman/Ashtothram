@@ -10,7 +10,7 @@ import AbiramiAnthathiScreen from './src/screens/AbiramiAnthathiScreen';
 import AksharaPaamalaiScreen from './src/screens/AksharaPaamalaiScreen';
 import KolaruPathigamScreen from './src/screens/KolaruPathigam';
 import AshtaAiswaryaSidhiManthramScreen from './src/screens/AshtaAiswaryaSidhiManthramScreen';
-import BairavaRundramScreen from './src/screens/BairavaRundramScreen';
+import BairavaRudramScreen from './src/screens/BairavaRudramScreen';
 import { SettingsProvider, useSettings } from './src/SettingsProvider';
 import abiramiImg from './src/assets/images/Abirami.png';
 import mahaperiyavaImg from './src/assets/images/Mahaperiyava.jpg';
@@ -108,10 +108,10 @@ function AppShell() {
           }}
         />
         <Drawer.Screen
-          name="BairavaRundram"
-          component={BairavaRundramScreen}
+          name="BairavaRudram"
+          component={BairavaRudramScreen}
           options={{
-            title: language === 'ta' ? 'பைரவர் ருந்திரம்' : 'Bairava Rundram',
+            title: language === 'ta' ? 'பைரவ ருத்ர மந்திரம்' : 'BairavaRudram',
             drawerIcon: ({ size }) => (
               <Image source={shivaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
             ),

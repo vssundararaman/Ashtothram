@@ -22,9 +22,9 @@ export default function IntroductionScreen() {
     subtitle: isTamil ? 'மந்திரம் செயலிக்கு வரவேற்கிறோம்!' : 'Welcome to the Mandiram App!',
     abirami: isTamil ? 'அபிராமி அந்தாதி' : 'Abirami Anthathi',
     kolaru: isTamil ? 'கோளறு பதிகம்' : 'Kolaru Pathigam',
-    akshara: isTamil ? 'அக்ஷர பாமாலை' : 'Akshara Paamalai',
+    akshara: isTamil ? 'அட்க்ஷரப்பாமாலை' : 'Akshara Paamalai',
     aiswarya: isTamil ? 'அஷ்ட ஐஸ்வர்ய சித்தி மந்திரம்' : 'Ashta Aiswarya Sidhi',
-    bairava: isTamil ? 'பைரவ ருத்ர மந்திரம்' : 'Bairava Rundram',
+    bairava: isTamil ? 'பைரவ ருத்ர மந்திரம்' : 'Bairava Rudram',
     about: isTamil ? 'பற்றி' : 'About',
     settings: isTamil ? 'அமைப்புகள்' : 'Settings',
   };
@@ -68,7 +68,7 @@ export default function IntroductionScreen() {
           </TouchableOpacity>
         </View>
         <View style={styles.iconRow}>
-          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('BairavaRundram')}>
+          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('BairavaRudram')}>
             <Image source={shivaImg} style={styles.iconImg} />
             <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.bairava}</Text>
           </TouchableOpacity>

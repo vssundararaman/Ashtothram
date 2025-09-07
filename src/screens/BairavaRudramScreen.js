@@ -1,32 +1,34 @@
 import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, useWindowDimensions, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useSettings } from '../SettingsProvider';
-import content_en from '../assets/BairavaRundram_en.json';
-import content_ta from '../assets/BairavaRundram_ta.json';
+import poems_ta from '../assets/BairavaRudram_ta.json';
+import poems_en from '../assets/BairavaRudram_en.json';
 import shivaImg from '../assets/images/shiva.png';
 import { Button } from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import PinchZoomView from '../../PinchZoomView';
 
-export default function BairavaRundramScreen() {
+export default function BairavaRudramScreen() {
   const { language, theme, themes, showRuler } = useSettings();
   const window = useWindowDimensions();
   const isWide = window.width >= 600;
   const currentTheme = themes?.[theme] || { background: '#fff', text: '#222', card: '#f7f7f7', primary: '#007bff', accent: '#e0e0e0' };
-  const heading = language === 'ta' ? 'பைரவர் ருந்திரம்' : 'Bairava Rundram';
+  const heading = language === 'ta' ? 'பைரவ ருத்ர மந்திரம்' : 'BairavaRudram';
   const explanationLabel = language === 'ta' ? 'விளக்கம்' : 'Meaning';
   const hideLabel = language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning';
   const showLabel = language === 'ta' ? 'விளக்கம்' : 'Show Meaning';
   const searchPlaceholder = language === 'ta' ? 'தேடு...' : 'Search...';
-  const poems = language === 'ta' ? content_ta : content_en;
+  const poemsData = language === 'ta' ? poems_ta : poems_en;
+  // const generalInfo = poemsData.generalInfo; // Not present in JSON, handled below
+  const poems = poemsData; // Use the array directly
 
   const [expanded, setExpanded] = useState(null);
   const [search, setSearch] = useState('');
   const [fontSize, setFontSize] = useState(17);
   const [bold, setBold] = useState(false);
-  const [showGeneralInfo, setShowGeneralInfo] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [showGeneralInfo, setShowGeneralInfo] = useState(false);
 
   const filteredPoem = useMemo(() => {
     if (!poems.length) return null;
@@ -40,9 +42,12 @@ export default function BairavaRundramScreen() {
     };
   }, [search, poems]);
 
+  const generalInfo_ta = poems_ta[0]?.meaning?.join('\n\n') || '';
+  const generalInfo_en = poems_en[0]?.meaning?.join('\n\n') || '';
+
   return (
     <PinchZoomView>
-      <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}> 
+      <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}>
         <Image source={shivaImg} style={styles.image} resizeMode="cover" />
         <Text style={[styles.title, { color: currentTheme.text, fontWeight: bold ? 'bold' : 'normal' }]}>{heading}</Text>
         <TextInput
@@ -60,15 +65,24 @@ export default function BairavaRundramScreen() {
           <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
             <Text style={{ fontSize: 13 }}>A+</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> 
+          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
             <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
+          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}>
             <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
           </TouchableOpacity>
         </View>
+        {/* Info Section at the top, styled like AksharaPaamalaiScreen */}
+        {showGeneralInfo && (
+          <View style={[styles.accordion, { backgroundColor: currentTheme.accent, width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 16, marginTop: 8 }]}>
+            <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'பொது தகவல்' : 'General Info'}</Text>
+            <Text style={{ fontSize, color: currentTheme.text, lineHeight: 22, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left', alignSelf: 'stretch' }}>
+              {language === 'ta' ? generalInfo_ta : generalInfo_en}
+            </Text>
+          </View>
+        )}
         {filteredPoem && (
-          <View style={[styles.poemBlock, { backgroundColor: currentTheme.card, width: isWide ? 600 : '100%' }]}> 
+          <View style={[styles.poemBlock, { backgroundColor: currentTheme.card, width: isWide ? 600 : '100%' }]}>
             <Text
               style={[
                 styles.poemHeading,
@@ -99,13 +113,13 @@ export default function BairavaRundramScreen() {
             </View>
             {filteredPoem.meaning && filteredPoem.meaning.length > 0 && (
               <View>
-                <TouchableOpacity onPress={() => setExpanded(expanded === 0 ? null : 0)}>
+                <TouchableOpacity onPress={() => setExpanded(expanded === 1 ? null : 1)}>
                   <Text style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold', fontSize, fontWeight: bold ? 'bold' : 'normal' }}>
-                    {expanded === 0 ? hideLabel : showLabel}
+                    {expanded === 1 ? hideLabel : showLabel}
                   </Text>
                 </TouchableOpacity>
-                {expanded === 0 && (
-                  <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
+                {expanded === 1 && (
+                  <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}>
                     {filteredPoem.meaning.map((meaningLine, i) => (
                       <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{meaningLine}</Text>
                     ))}

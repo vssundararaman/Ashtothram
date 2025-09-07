@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, useWindowDimensions, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useSettings } from '../SettingsProvider';
-import content_en from '../assets/AshtaAiswaryaSidhiManthram_en.json';
-import content_ta from '../assets/AshtaAiswaryaSidhiManthram_ta.json';
+import poems_ta from '../assets/AshtaAiswaryaSidhiManthram_ta.json';
+import poems_en from '../assets/AshtaAiswaryaSidhiManthram_en.json';
 import mahaperiyavaImg from '../assets/images/Mahaperiyava.jpg';
 import { Button } from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -18,7 +18,9 @@ export default function AshtaAiswaryaSidhiManthramScreen() {
   const hideLabel = language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning';
   const showLabel = language === 'ta' ? 'விளக்கம்' : 'Show Meaning';
   const searchPlaceholder = language === 'ta' ? 'தேடு...' : 'Search...';
-  const poems = language === 'ta' ? content_ta : content_en;
+  const poemsData = language === 'ta' ? poems_ta : poems_en;
+  // const generalInfo = poemsData.generalInfo; // Not present in JSON, handled below
+  const poems = poemsData; // Use the array directly
 
   const [expanded, setExpanded] = useState(null);
   const [search, setSearch] = useState('');
@@ -41,9 +43,12 @@ export default function AshtaAiswaryaSidhiManthramScreen() {
     };
   }, [search, poems]);
 
+  const generalInfo_ta = `அஷ்ட ஐஸ்வர்ய சித்தி மந்திரம் என்பது மகா பெரியவா அருளிய தமிழ் மந்திரமாகும். இது ஐஸ்வர்யம், சித்தி மற்றும் ஆன்மிக நன்மைகளைப் பெறும் வகையில் பக்தர்களால் பாராயணம் செய்யப்படுகிறது.`;
+  const generalInfo_en = `Ashta Aiswarya Sidhi Manthram is a Tamil mantra composed by Maha Periyava. It is recited by devotees to attain prosperity, spiritual powers, and well-being.`;
+
   return (
     <PinchZoomView>
-      <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}> 
+      <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}>
         <Image source={mahaperiyavaImg} style={styles.image} resizeMode="cover" />
         <Text style={[styles.title, { color: currentTheme.text, fontWeight: bold ? 'bold' : 'normal' }]}>{heading}</Text>
         <TextInput
@@ -61,15 +66,24 @@ export default function AshtaAiswaryaSidhiManthramScreen() {
           <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
             <Text style={{ fontSize: 13 }}>A+</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> 
+          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
             <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> 
+          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}>
             <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
           </TouchableOpacity>
         </View>
+        {/* Info Section at the top, styled like AksharaPaamalaiScreen */}
+        {showGeneralInfo && (
+          <View style={[styles.accordion, { backgroundColor: currentTheme.accent, width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 16, marginTop: 8 }]}>
+            <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>{language === 'ta' ? 'பொது தகவல்' : 'General Info'}</Text>
+            <Text style={{ fontSize, color: currentTheme.text, lineHeight: 22, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left', alignSelf: 'stretch' }}>
+              {generalInfo_ta}
+            </Text>
+          </View>
+        )}
         {filteredPoem && (
-          <View style={[styles.poemBlock, { backgroundColor: currentTheme.card, width: isWide ? 600 : '100%' }]}> 
+          <View style={[styles.poemBlock, { backgroundColor: currentTheme.card, width: isWide ? 600 : '100%' }]}>
             <Text
               style={[
                 styles.poemHeading,
@@ -99,20 +113,7 @@ export default function AshtaAiswaryaSidhiManthramScreen() {
               )}
             </View>
             {filteredPoem.meaning && filteredPoem.meaning.length > 0 && (
-              <View>
-                <TouchableOpacity onPress={() => setExpanded(expanded === 0 ? null : 0)}>
-                  <Text style={{ color: currentTheme.primary, textAlign: 'center', marginVertical: 6, fontWeight: 'bold', fontSize, fontWeight: bold ? 'bold' : 'normal' }}>
-                    {expanded === 0 ? hideLabel : showLabel}
-                  </Text>
-                </TouchableOpacity>
-                {expanded === 0 && (
-                  <View style={[styles.accordion, { backgroundColor: currentTheme.accent }]}> 
-                    {filteredPoem.meaning.map((meaningLine, i) => (
-                      <Text key={i} style={[styles.meaningText, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{meaningLine}</Text>
-                    ))}
-                  </View>
-                )}
-              </View>
+              <View />
             )}
             <Text style={styles.blankLine}>{' '}</Text>
           </View>
