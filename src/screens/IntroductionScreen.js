@@ -9,6 +9,7 @@ import introImg from '../assets/images/Intro.png';
 import aboutImg from '../assets/images/abount.png';
 import settingsImg from '../assets/images/settings.png';
 import PinchZoomView from '../../PinchZoomView';
+import logoImg from '../assets/images/Logo.png';
 
 export default function IntroductionScreen() {
   const navigation = useNavigation();
@@ -27,6 +28,7 @@ export default function IntroductionScreen() {
     bairava: isTamil ? 'பைரவ ருத்ர மந்திரம்' : 'Bairava Rudram',
     about: isTamil ? 'பற்றி' : 'About',
     settings: isTamil ? 'அமைப்புகள்' : 'Settings',
+    vinayagar: isTamil ? 'விநாயகர் அஷ்டோத்திரம்' : 'Vinayagar Ashtothram',
   };
 
   return (
@@ -58,6 +60,10 @@ export default function IntroductionScreen() {
           </TouchableOpacity>
         </View>
         <View style={styles.iconRow}>
+          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('VinayagarAshtothram')}>
+            <Image source={logoImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
+            <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.vinayagar}</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('AksharaPaamalai')}>
             <Image source={mahaperiyavaImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
             <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.akshara}</Text>
