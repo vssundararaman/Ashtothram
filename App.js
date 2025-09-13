@@ -11,6 +11,7 @@ import AksharaPaamalaiScreen from './src/screens/AksharaPaamalaiScreen';
 import KolaruPathigamScreen from './src/screens/KolaruPathigam';
 import AshtaAiswaryaSidhiManthramScreen from './src/screens/AshtaAiswaryaSidhiManthramScreen';
 import BairavaRudramScreen from './src/screens/BairavaRudramScreen';
+import VinayagarAshtothramScreen from './src/screens/VinayagarAshtothram';
 import { SettingsProvider, useSettings } from './src/SettingsProvider';
 import abiramiImg from './src/assets/images/Abirami.png';
 import mahaperiyavaImg from './src/assets/images/Mahaperiyava.jpg';
@@ -20,6 +21,8 @@ import aboutImg from './src/assets/images/abount.png';
 import introImg from './src/assets/images/Intro.png';
 import { MaterialIcons } from '@expo/vector-icons';
 import PinchZoomView from './PinchZoomView';
+import logoImg from './src/assets/images/Logo.png';
+import SeedFirestoreScreen from './src/screens/SeedFirestoreScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -30,6 +33,7 @@ const translations = {
     kolaru: 'கோளறு பதிகம்',
     poem3: 'கவிதை 3',
     akshara: 'அட்க்ஷரப்பாமாலை',
+    vinayagar: 'விநாயகர் அஷ்டோத்திரம்',
     settings: 'அமைப்புகள்',
     about: 'பற்றி',
   },
@@ -39,6 +43,7 @@ const translations = {
     kolaru: 'Kolaru Pathigam',
     poem3: 'Poem 3',
     akshara: 'Akshara Paamalai',
+    vinayagar: 'Vinayagar Ashtothram',
     settings: 'Settings',
     about: 'About',
   },
@@ -48,6 +53,7 @@ function AppShell() {
   const { language, theme, themes } = useSettings();
   const t = translations[language];
   const currentTheme = themes?.[theme] || themes.light;
+  const VinayagarHeading = language === 'ta' ? 'விநாயகர் அஷ்டோத்திரம்' : 'Vinayagar Ashtothram';
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -98,6 +104,16 @@ function AppShell() {
           }}
         />
         <Drawer.Screen
+          name="VinayagarAshtothram"
+          component={VinayagarAshtothramScreen}
+          options={{
+            title: VinayagarHeading,
+            drawerIcon: ({ size }) => (
+              <Image source={logoImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+            ),
+          }}
+        />
+        <Drawer.Screen
           name="AshtaAiswaryaSidhiManthram"
           component={AshtaAiswaryaSidhiManthramScreen}
           options={{
@@ -134,6 +150,16 @@ function AppShell() {
             title: t.settings,
             drawerIcon: ({ size, color }) => (
               <MaterialIcons name="settings" size={size} color={color || '#007bff'} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="SeedFirestore"
+          component={SeedFirestoreScreen}
+          options={{
+            title: 'Seed Firestore (Dev)',
+            drawerIcon: ({ size }) => (
+              <Image source={require('./src/assets/images/settings.png')} style={{ width: size, height: size, borderRadius: size / 2 }} />
             ),
           }}
         />

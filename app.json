@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.vssundararaman.mandiram",
+      "bundleIdentifier": "com.vssundararaman.ashtothram",
       "buildNumber": "2",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
@@ -27,7 +27,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.vssundararaman.mandiram",
+      "package": "com.vssundararaman.ashtothram",
       "versionCode": 2
     },
     "web": {
