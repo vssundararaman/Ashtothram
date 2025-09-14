@@ -30,6 +30,7 @@ export default function IntroductionScreen() {
     about: isTamil ? 'பற்றி' : 'About',
     settings: isTamil ? 'அமைப்புகள்' : 'Settings',
     vinayagar: isTamil ? 'விநாயகர் அஷ்டோத்திரம்' : 'Vinayagar Ashtothram',
+    shiva: isTamil ? 'சிவ அஷ்டோத்திரம்' : 'Shiva Ashtothram',
   };
 
   return (
@@ -61,6 +62,10 @@ export default function IntroductionScreen() {
           </TouchableOpacity>
         </View>
         <View style={styles.iconRow}>
+          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('ShivaAshtothram')}>
+            <Image source={shivaImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
+            <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.shiva}</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('VinayagarAshtothram')}>
             <Image source={vinayagarImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
             <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.vinayagar}</Text>
@@ -68,10 +73,6 @@ export default function IntroductionScreen() {
           <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('AksharaPaamalai')}>
             <Image source={mahaperiyavaImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
             <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.akshara}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('AshtaAiswaryaSidhiManthram')}>
-            <Image source={mahaperiyavaImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
-            <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.aiswarya}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.iconRow}>

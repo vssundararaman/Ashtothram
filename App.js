@@ -24,6 +24,7 @@ import PinchZoomView from './PinchZoomView';
 import logoImg from './src/assets/images/Logo.png';
 import SeedFirestoreScreen from './src/screens/SeedFirestoreScreen';
 import vinayagarImg from './src/assets/images/Vinayagar.png';
+import ShivaAshtothramScreen from './src/screens/ShivaAshtothramScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -161,6 +162,16 @@ function AppShell() {
             title: 'Seed Firestore (Dev)',
             drawerIcon: ({ size }) => (
               <Image source={require('./src/assets/images/settings.png')} style={{ width: size, height: size, borderRadius: size / 2 }} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="ShivaAshtothram"
+          component={ShivaAshtothramScreen}
+          options={{
+            title: language === 'ta' ? 'சிவ அஷ்டோத்திரம்' : 'Shiva Ashtothram',
+            drawerIcon: ({ size }) => (
+              <Image source={shivaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
             ),
           }}
         />
