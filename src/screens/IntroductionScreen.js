@@ -10,6 +10,7 @@ import aboutImg from '../assets/images/abount.png';
 import settingsImg from '../assets/images/settings.png';
 import PinchZoomView from '../../PinchZoomView';
 import logoImg from '../assets/images/Logo.png';
+import vinayagarImg from '../assets/images/Vinayagar.png';
 
 export default function IntroductionScreen() {
   const navigation = useNavigation();
@@ -61,7 +62,7 @@ export default function IntroductionScreen() {
         </View>
         <View style={styles.iconRow}>
           <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('VinayagarAshtothram')}>
-            <Image source={logoImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
+            <Image source={vinayagarImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
             <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.vinayagar}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('AksharaPaamalai')}>

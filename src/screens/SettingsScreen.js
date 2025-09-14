@@ -17,8 +17,17 @@ export default function SettingsScreen() {
       <View style={styles.cardSection}>
         <Text style={styles.sectionHeader}>Language</Text>
         <View style={styles.langToggleRow}>
-          <Button mode={language === 'ta' ? 'contained' : 'outlined'} onPress={() => changeLanguage('ta')} style={styles.langBtn}>தமிழ்</Button>
-          <Button mode={language === 'en' ? 'contained' : 'outlined'} onPress={() => changeLanguage('en')} style={styles.langBtn}>English</Button>
+          <Picker
+            selectedValue={language}
+            style={{ flex: 1, minWidth: 220, maxWidth: 400, fontSize: 20 }}
+            onValueChange={changeLanguage}
+            itemStyle={{ fontSize: 20 }}
+          >
+            <Picker.Item label="தமிழ் (Tamil)" value="ta" />
+            <Picker.Item label="English" value="en" />
+            <Picker.Item label="తెలుగు (Telugu)" value="te" />
+            <Picker.Item label="संस्कृतम् (Sanskrit)" value="sa" />
+          </Picker>
         </View>
       </View>
       {/* Ruler Section */}

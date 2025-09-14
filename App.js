@@ -23,6 +23,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import PinchZoomView from './PinchZoomView';
 import logoImg from './src/assets/images/Logo.png';
 import SeedFirestoreScreen from './src/screens/SeedFirestoreScreen';
+import vinayagarImg from './src/assets/images/Vinayagar.png';
 
 const Drawer = createDrawerNavigator();
 
@@ -51,7 +52,7 @@ const translations = {
 
 function AppShell() {
   const { language, theme, themes } = useSettings();
-  const t = translations[language];
+  const t = translations[language] || translations["en"];
   const currentTheme = themes?.[theme] || themes.light;
   const VinayagarHeading = language === 'ta' ? 'விநாயகர் அஷ்டோத்திரம்' : 'Vinayagar Ashtothram';
   return (
@@ -109,7 +110,7 @@ function AppShell() {
           options={{
             title: VinayagarHeading,
             drawerIcon: ({ size }) => (
-              <Image source={logoImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+              <Image source={vinayagarImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
             ),
           }}
         />

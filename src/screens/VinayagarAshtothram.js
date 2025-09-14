@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, useWindowDimensions, TouchableOpacity, Image, TextInput, ActivityIndicator } from 'react-native';
 import { useSettings } from '../SettingsProvider';
-import mahaperiyavaImg from '../assets/images/Logo.png';
+import vinayagarImg from '../assets/images/Vinayagar.png';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import PinchZoomView from '../../PinchZoomView';
 import { db } from '../services/firebase';
@@ -128,7 +128,7 @@ export default function VinayagarAshtothramScreen() {
     return (
         <PinchZoomView>
             <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}>
-                <Image source={mahaperiyavaImg} style={styles.image} resizeMode="cover" />
+                <Image source={vinayagarImg} style={styles.image} resizeMode="cover" />
                 <Text style={[styles.title, { color: currentTheme.text, fontWeight: bold ? 'bold' : 'normal' }]}>{heading}</Text>
                 <TextInput
                     style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
