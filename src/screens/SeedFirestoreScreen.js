@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Button, ActivityIndicator, StyleSheet } from 'react-native';
 import { seedVinayagarContent } from '../services/seedVinayagarFirestore';
-import { seedShivaContent } from '../services/seedShivaFirestore';
+import { seedShivaContent, seedAksharaContent } from '../services/seedShivaFirestore';
 
 export default function SeedFirestoreScreen() {
     const [loading, setLoading] = useState(false);
@@ -35,12 +35,28 @@ export default function SeedFirestoreScreen() {
         }
     };
 
+    const handleSeedAkshara = async () => {
+        setLoading(true);
+        setStatus('Seeding Akshara Paamalai data...');
+        try {
+            await seedAksharaContent();
+            setStatus('Success! Akshara Paamalai data seeded to Firestore.');
+        } catch (error) {
+            setStatus(`Error seeding Akshara Paamalai data: ${error.message}`);
+            console.error('Error seeding Akshara Paamalai data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Seed Firestore Data</Text>
             <Button title="Seed Vinayagar Data" onPress={handleSeedVinayagar} disabled={loading} />
             <View style={{ height: 16 }} />
             <Button title="Seed Shiva Data" onPress={handleSeedShiva} disabled={loading} />
+            <View style={{ height: 16 }} />
+            <Button title="Seed Akshara Paamalai Data" onPress={handleSeedAkshara} disabled={loading} />
             {loading && <ActivityIndicator size="large" style={{ marginTop: 16 }} />}
             {!!status && <Text style={styles.status}>{status}</Text>}
         </View>
