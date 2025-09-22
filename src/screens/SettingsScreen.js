@@ -9,6 +9,7 @@ export default function SettingsScreen() {
   const { language, changeLanguage, theme, setTheme, themes, showRuler, setShowRuler } = useSettings();
   const { width } = useWindowDimensions();
   const isWide = width >= 600;
+  const currentTheme = themes?.[theme] || { background: '#fff', text: '#222', card: '#f7f7f7', primary: '#007bff', accent: '#e0e0e0' };
   return (
     <View style={styles.container}>
       <Image source={settingsImg} style={styles.logo} />
@@ -19,14 +20,15 @@ export default function SettingsScreen() {
         <View style={styles.langToggleRow}>
           <Picker
             selectedValue={language}
-            style={{ flex: 1, minWidth: 220, maxWidth: 400, fontSize: 20 }}
+            style={[styles.themePicker, { backgroundColor: currentTheme.card, borderColor: currentTheme.accent }]}
             onValueChange={changeLanguage}
-            itemStyle={{ fontSize: 20 }}
+            itemStyle={{ fontSize: 20, color: currentTheme.text }}
+            dropdownIconColor={currentTheme.text}
           >
-            <Picker.Item label="தமிழ் (Tamil)" value="ta" />
-            <Picker.Item label="English" value="en" />
-            <Picker.Item label="తెలుగు (Telugu)" value="te" />
-            <Picker.Item label="संस्कृतम् (Sanskrit)" value="sa" />
+            <Picker.Item label="தமிழ் (Tamil)" value="ta" color={currentTheme.text} />
+            <Picker.Item label="English" value="en" color={currentTheme.text} />
+            <Picker.Item label="తెలుగు (Telugu)" value="te" color={currentTheme.text} />
+            <Picker.Item label="संस्कृतम् (Sanskrit)" value="sa" color={currentTheme.text} />
           </Picker>
         </View>
       </View>

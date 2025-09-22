@@ -1,0 +1,34 @@
+[
+    {
+        "title": "Venkateswara Ashtottara Sata Namavali",
+        "lines": [
+            {
+                "text": "1. Om Venkatesaya Namah",
+                "pronunciation": "Om Venkatesaya Namaha"
+            },
+            {
+                "text": "2. Om Srinivasaya Namah",
+                "pronunciation": "Om Srinivasaya Namaha"
+            },
+            {
+                "text": "3. Om Lakshmipataye Namah",
+                "pronunciation": "Om Lakshmipataye Namaha"
+            },
+            {
+                "text": "4. Om Pradyumnaya Namah",
+                "pronunciation": "Om Pradyumnaya Namaha"
+            },
+            {
+                "text": "5. Om Anantaya Namah",
+                "pronunciation": "Om Anantaya Namaha"
+            }
+        ],
+        "meaning": [
+            "Salutations to Venkateswara.",
+            "Salutations to Srinivasa.",
+            "Salutations to the consort of Lakshmi.",
+            "Salutations to Pradyumna.",
+            "Salutations to the infinite one."
+        ]
+    }
+]

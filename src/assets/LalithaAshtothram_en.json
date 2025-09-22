@@ -1,0 +1,34 @@
+[
+    {
+        "title": "Lalitha Ashtottara Sata Namavali",
+        "lines": [
+            {
+                "text": "1. Om Lalithambikayai Namah",
+                "pronunciation": "Om Lalithambikayai Namaha"
+            },
+            {
+                "text": "2. Om Rajarajeshwaryai Namah",
+                "pronunciation": "Om Rajarajeshwaryai Namaha"
+            },
+            {
+                "text": "3. Om Tripurasundaryai Namah",
+                "pronunciation": "Om Tripurasundaryai Namaha"
+            },
+            {
+                "text": "4. Om Kameshwarayai Namah",
+                "pronunciation": "Om Kameshwarayai Namaha"
+            },
+            {
+                "text": "5. Om Shyamalaayai Namah",
+                "pronunciation": "Om Shyamalaayai Namaha"
+            }
+        ],
+        "meaning": [
+            "Salutations to Lalithambika.",
+            "Salutations to Rajarajeshwari.",
+            "Salutations to Tripurasundari.",
+            "Salutations to Kameshwari.",
+            "Salutations to Shyamala."
+        ]
+    }
+]

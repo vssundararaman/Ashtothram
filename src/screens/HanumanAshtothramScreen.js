@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, useWindowDimensions, TouchableOpacity, Image, TextInput, ActivityIndicator } from 'react-native';
 import { useSettings } from '../SettingsProvider';
-import vinayagarImg from '../assets/images/Vinayagar.png';
+import shivaImg from '../assets/images/shiva.png'; // TODO: Replace with Hanuman image
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import PinchZoomView from '../../PinchZoomView';
 import { db } from '../services/firebase';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 
-export default function VinayagarAshtothramScreen() {
+export default function HanumanAshtothramScreen() {
     const { language, theme, themes, showRuler } = useSettings();
     const window = useWindowDimensions();
     const isWide = window.width >= 600;
     const currentTheme = themes?.[theme] || { background: '#fff', text: '#222', card: '#f7f7f7', primary: '#007bff', accent: '#e0e0e0' };
-    const heading = language === 'ta' ? 'விநாயகர் அஷ்டோத்திரம்' : 'Vinayagar Ashtothram';
+    const heading = language === 'ta' ? 'ஹனுமான் அஷ்டோத்திரம்' : 'Hanuman Ashtothram';
     const explanationLabel = language === 'ta' ? 'விளக்கம்' : 'Meaning';
     const hideLabel = language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning';
     const showLabel = language === 'ta' ? 'விளக்கம்' : 'Show Meaning';
@@ -24,74 +24,23 @@ export default function VinayagarAshtothramScreen() {
     const [fontSize, setFontSize] = useState(17);
     const [bold, setBold] = useState(false);
     const [showGeneralInfo, setShowGeneralInfo] = useState(false);
-    const [showAllPronunciation, setShowAllPronunciation] = useState(false);
     const [expandedPronunciation, setExpandedPronunciation] = useState({});
-
-    // TEMP: Seed Firestore if empty
-    useEffect(() => {
-        async function seedIfEmpty() {
-            const docRef = doc(db, 'vinayagarAshtothram', 'content');
-            const docSnap = await getDoc(docRef);
-            if (!docSnap.exists()) {
-                const taContent = [
-                    {
-                        title: "விநாயகர் அஷ்டோத்திரம்",
-                        lines: [
-                            { text: "ஓம் விநாயகாய நமஹ", pronunciation: "Om Vinayakaya Namaha" },
-                            { text: "ஓம் விக்னராஜாய நமஹ", pronunciation: "Om Vighnarajaya Namaha" },
-                            { text: "ஓம் கௌரிபுத்ராய நமஹ", pronunciation: "Om Gauriputraya Namaha" },
-                            { text: "ஓம் கணேஷ்வராய நமஹ", pronunciation: "Om Ganeshvaraya Namaha" }
-                        ],
-                        meaning: [
-                            "விநாயகருக்கு வணக்கம்.",
-                            "விக்னங்களின் அரசருக்கு வணக்கம்.",
-                            "கௌரியின் மகனுக்கு வணக்கம்.",
-                            "கணங்களின் ஆண்டவருக்கு வணக்கம்."
-                        ]
-                    }
-                ];
-                const enContent = [
-                    {
-                        title: "Vinayagar Ashtothram",
-                        lines: [
-                            { text: "Om Vinayakaya Namaha", pronunciation: "Om Vinayakaya Namaha" },
-                            { text: "Om Vighnarajaya Namaha", pronunciation: "Om Vighnarajaya Namaha" },
-                            { text: "Om Gauriputraya Namaha", pronunciation: "Om Gauriputraya Namaha" },
-                            { text: "Om Ganeshvaraya Namaha", pronunciation: "Om Ganeshvaraya Namaha" }
-                        ],
-                        meaning: [
-                            "Salutations to Vinayaka.",
-                            "Salutations to the king of obstacles.",
-                            "Salutations to the son of Gauri.",
-                            "Salutations to the lord of the Ganas."
-                        ]
-                    }
-                ];
-                await setDoc(docRef, { ta: taContent, en: enContent });
-            }
-        }
-        seedIfEmpty();
-    }, []);
+    const [showAllPronunciation, setShowAllPronunciation] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             setLoading(true);
             try {
-                const docRef = doc(db, 'vinayagarAshtothram', 'content');
+                const docRef = doc(db, 'hanumanAshtothram', 'content');
                 const docSnap = await getDoc(docRef);
-                console.log('language:', language);
                 if (docSnap.exists()) {
-                    console.log('Firestore data:', docSnap.data());
                     const poemsData = docSnap.data()[language] || [];
                     setPoems(poemsData);
-                    console.log('poems:', poemsData);
                 } else {
                     setPoems([]);
-                    console.log('Firestore document does not exist');
                 }
             } catch (e) {
                 setPoems([]);
-                console.log('Firestore fetch error:', e);
             }
             setLoading(false);
         }
@@ -129,8 +78,8 @@ export default function VinayagarAshtothramScreen() {
 
     return (
         <PinchZoomView>
-            <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}>
-                <Image source={vinayagarImg} style={styles.image} resizeMode="cover" />
+            <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}> 
+                <Image source={shivaImg} style={styles.image} resizeMode="cover" />
                 <Text style={[styles.title, { color: currentTheme.text, fontWeight: bold ? 'bold' : 'normal' }]}>{heading}</Text>
                 <TextInput
                     style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
@@ -148,19 +97,19 @@ export default function VinayagarAshtothramScreen() {
                     <TouchableOpacity onPress={() => setShowAllPronunciation(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showAllPronunciation ? 2 : 1, borderColor: showAllPronunciation ? currentTheme.primary : '#aaa', backgroundColor: showAllPronunciation ? '#e6f0ff' : 'transparent' }]}> <MaterialIcons name="record-voice-over" size={18} color={showAllPronunciation ? currentTheme.primary : currentTheme.text} /> </TouchableOpacity>
                 </View>
                 {showGeneralInfo && (
-                    <View style={[styles.accordion, { backgroundColor: currentTheme.accent, width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 16, marginTop: 8 }]}>
+                    <View style={[styles.accordion, { backgroundColor: currentTheme.accent, width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 16, marginTop: 8 }]}> 
                         <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>
                             {language === 'ta' ? 'பொது தகவல்' : 'General Info'}
                         </Text>
                         <Text style={{ fontSize, color: currentTheme.text, lineHeight: 22, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left', alignSelf: 'stretch' }}>
                             {language === 'ta'
-                                ? 'விநாயகர் அஷ்டோத்திரம் என்பது விநாயகர் பக்தர்களால் விரும்பி பாடப்படும் பாடல் தொகுப்பு. (இங்கு விவரங்களை மாற்றவும்)'
-                                : 'Vinayagar Ashtothram is a popular devotional hymn dedicated to Lord Ganesha. (Update this info as needed)'}
+                                ? 'ஹனுமான் அஷ்டோத்திரம் என்பது ஹனுமான் பக்தர்களால் விரும்பி பாடப்படும் பாடல் தொகுப்பு.'
+                                : 'Hanuman Ashtothram is a popular devotional hymn dedicated to Lord Hanuman.'}
                         </Text>
                     </View>
                 )}
                 {filteredPoem && (
-                    <View style={[styles.poemBlock, { backgroundColor: currentTheme.card, width: isWide ? 600 : '100%' }]}>
+                    <View style={[styles.poemBlock, { backgroundColor: currentTheme.card, width: isWide ? 600 : '100%' }]}> 
                         <Text
                             selectable={true}
                             style={[
@@ -182,7 +131,7 @@ export default function VinayagarAshtothramScreen() {
                                 filteredPoem.lines.map((line, i) => (
                                     <View key={i} style={{ marginBottom: 6 }}>
                                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                            <Text selectable={true} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal', flex: 1 }]}>{line.text || line}</Text>
+                                            <Text selectable={true} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal', flex: 1 }]}>{line.text}</Text>
                                             {line.pronunciation && (
                                                 <TouchableOpacity
                                                     onPress={() => setExpandedPronunciation(prev => ({ ...prev, [i]: !prev[i] }))}

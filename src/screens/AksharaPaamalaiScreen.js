@@ -24,6 +24,8 @@ export default function AksharaPaamalaiScreen() {
   const [fontSize, setFontSize] = useState(17);
   const [bold, setBold] = useState(false);
   const [showGeneralInfo, setShowGeneralInfo] = useState(false);
+  const [showAllPronunciation, setShowAllPronunciation] = useState(false);
+  const [expandedPronunciation, setExpandedPronunciation] = useState({});
 
   useEffect(() => {
     async function fetchData() {
@@ -86,19 +88,13 @@ export default function AksharaPaamalaiScreen() {
           onChangeText={setSearch}
           placeholderTextColor={currentTheme.accent}
         />
+        {/* Top Control Bar */}
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 8, marginBottom: 12 }}>
-          <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-            <Text style={{ fontSize: 13 }}>A-</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-            <Text style={{ fontSize: 13 }}>A+</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
-            <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}>
-            <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
-          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}> <Text style={{ fontSize: 13 }}>A-</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}> <Text style={{ fontSize: 13 }}>A+</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowAllPronunciation(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showAllPronunciation ? 2 : 1, borderColor: showAllPronunciation ? currentTheme.primary : '#aaa', backgroundColor: showAllPronunciation ? '#e6f0ff' : 'transparent' }]}> <MaterialIcons name="record-voice-over" size={18} color={showAllPronunciation ? currentTheme.primary : currentTheme.text} /> </TouchableOpacity>
         </View>
         {showGeneralInfo && (
           <View style={[styles.accordion, { backgroundColor: currentTheme.accent, width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 16, marginTop: 8 }]}>
@@ -144,13 +140,30 @@ export default function AksharaPaamalaiScreen() {
             <View style={styles.linesPanel}>
               {Array.isArray(filteredPoem.lines) && filteredPoem.lines.length > 0 ? (
                 filteredPoem.lines.map((line, i) => (
-                  <View key={i}>
-                    <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
+                  <View key={i} style={{ marginBottom: 6 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <Text selectable={true} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal', flex: 1 }]}>{line.text || line}</Text>
+                      {line.pronunciation && (
+                        <TouchableOpacity
+                          onPress={() => setExpandedPronunciation(prev => ({ ...prev, [i]: !prev[i] }))}
+                          style={{ marginLeft: 8 }}
+                        >
+                          <MaterialIcons
+                            name="info-outline"
+                            size={20}
+                            color={expandedPronunciation[i] ? currentTheme.primary : currentTheme.text}
+                          />
+                        </TouchableOpacity>
+                      )}
+                    </View>
+                    {(showAllPronunciation || expandedPronunciation[i]) && line.pronunciation ? (
+                      <Text style={{ color: '#888', fontSize: fontSize - 2, marginLeft: 8, marginTop: 2 }}>{line.pronunciation}</Text>
+                    ) : null}
                     {showRuler && <View style={styles.ruler} />}
                   </View>
                 ))
               ) : (
-                <Text style={[styles.poemLine, { color: currentTheme.text, fontStyle: 'italic', fontSize }]}>{language === 'ta' ? 'பாடல் இல்லை' : 'No matching lines'}</Text>
+                <Text selectable={true} style={[styles.poemLine, { color: currentTheme.text, fontStyle: 'italic', fontSize }]}>{language === 'ta' ? 'பாடல் இல்லை' : 'No matching lines'}</Text>
               )}
             </View>
             {filteredPoem.meaning && filteredPoem.meaning.length > 0 && (
@@ -159,6 +172,14 @@ export default function AksharaPaamalaiScreen() {
             <Text style={styles.blankLine}>{' '}</Text>
           </View>
         )}
+        {/* Bottom Control Bar */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 16, marginBottom: 12 }}>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}> <Text style={{ fontSize: 13 }}>A-</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}> <Text style={{ fontSize: 13 }}>A+</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowAllPronunciation(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showAllPronunciation ? 2 : 1, borderColor: showAllPronunciation ? currentTheme.primary : '#aaa', backgroundColor: showAllPronunciation ? '#e6f0ff' : 'transparent' }]}> <MaterialIcons name="record-voice-over" size={18} color={showAllPronunciation ? currentTheme.primary : currentTheme.text} /> </TouchableOpacity>
+        </View>
       </ScrollView>
     </PinchZoomView>
   );

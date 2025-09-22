@@ -21,6 +21,10 @@ import logoImg from './src/assets/images/Logo.png';
 import SeedFirestoreScreen from './src/screens/SeedFirestoreScreen';
 import vinayagarImg from './src/assets/images/Vinayagar.png';
 import ShivaAshtothramScreen from './src/screens/ShivaAshtothramScreen';
+import VenkateswaraAshtothramScreen from './src/screens/VenkateswaraAshtothramScreen';
+import LakshmiAshtothramScreen from './src/screens/LakshmiAshtothramScreen';
+import HanumanAshtothramScreen from './src/screens/HanumanAshtothramScreen';
+import SaiBabaAshtothramScreen from './src/screens/SaiBabaAshtothramScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -86,6 +90,46 @@ function AppShell() {
           component={ShivaAshtothramScreen}
           options={{
             title: language === 'ta' ? 'சிவ அஷ்டோத்திரம்' : 'Shiva Ashtothram',
+            drawerIcon: ({ size }) => (
+              <Image source={shivaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="VenkateswaraAshtothram"
+          component={VenkateswaraAshtothramScreen}
+          options={{
+            title: language === 'ta' ? 'வெங்கடேஸ்வர அஷ்டோத்திரம்' : 'Venkateswara Ashtothram',
+            drawerIcon: ({ size }) => (
+              <Image source={shivaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="LakshmiAshtothram"
+          component={LakshmiAshtothramScreen}
+          options={{
+            title: language === 'ta' ? 'மகா லட்சுமி அஷ்டோத்திரம்' : 'Lakshmi Ashtothram',
+            drawerIcon: ({ size }) => (
+              <Image source={shivaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="HanumanAshtothram"
+          component={HanumanAshtothramScreen}
+          options={{
+            title: language === 'ta' ? 'ஹனுமான் அஷ்டோத்திரம்' : 'Hanuman Ashtothram',
+            drawerIcon: ({ size }) => (
+              <Image source={shivaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="SaiBabaAshtothram"
+          component={SaiBabaAshtothramScreen}
+          options={{
+            title: language === 'ta' ? 'சாய்பாபா அஷ்டோத்திரம்' : 'Sai Baba Ashtothram',
             drawerIcon: ({ size }) => (
               <Image source={shivaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
             ),

@@ -26,6 +26,10 @@ export default function IntroductionScreen() {
     settings: isTamil ? 'அமைப்புகள்' : 'Settings',
     vinayagar: isTamil ? 'விநாயகர் அஷ்டோத்திரம்' : 'Vinayagar Ashtothram',
     shiva: isTamil ? 'சிவ அஷ்டோத்திரம்' : 'Shiva Ashtothram',
+    venkateswara: isTamil ? 'வெங்கடேஸ்வர அஷ்டோத்திரம்' : 'Venkateswara Ashtothram',
+    lakshmi: isTamil ? 'மகா லட்சுமி அஷ்டோத்திரம்' : 'Lakshmi Ashtothram',
+    hanuman: isTamil ? 'ஹனுமான் அஷ்டோத்திரம்' : 'Hanuman Ashtothram',
+    saibaba: isTamil ? 'சாய்பாபா அஷ்டோத்திரம்' : 'Sai Baba Ashtothram',
   };
 
   return (
@@ -46,19 +50,39 @@ export default function IntroductionScreen() {
             <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? '#007bff' : '#333', textAlign: 'center' }}>B</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.iconRow}>
-          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('ShivaAshtothram')}>
-            <Image source={shivaImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
-            <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.shiva}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('VinayagarAshtothram')}>
-            <Image source={vinayagarImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
-            <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.vinayagar}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('AksharaPaamalai')}>
-            <Image source={mahaperiyavaImg} style={[styles.iconImg, styles.mahaperiyavaImg]} />
-            <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.akshara}</Text>
-          </TouchableOpacity>
+        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'flex-start' }}>
+          <View style={{ flex: 1, alignItems: 'flex-start', paddingLeft: 24 }}>
+            <TouchableOpacity style={[styles.iconBlock, { flexDirection: 'row', alignItems: 'center', marginBottom: 20 }]} onPress={() => navigation.navigate('VenkateswaraAshtothram')}>
+              <Image source={shivaImg} style={[styles.iconImg, styles.mahaperiyavaImg, { marginRight: 16 }]} />
+              <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left' }]}>{labels.venkateswara}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.iconBlock, { flexDirection: 'row', alignItems: 'center', marginBottom: 20 }]} onPress={() => navigation.navigate('HanumanAshtothram')}>
+              <Image source={shivaImg} style={[styles.iconImg, styles.mahaperiyavaImg, { marginRight: 16 }]} />
+              <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left' }]}>{labels.hanuman}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.iconBlock, { flexDirection: 'row', alignItems: 'center', marginBottom: 20 }]} onPress={() => navigation.navigate('ShivaAshtothram')}>
+              <Image source={shivaImg} style={[styles.iconImg, styles.mahaperiyavaImg, { marginRight: 16 }]} />
+              <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left' }]}>{labels.shiva}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.iconBlock, { flexDirection: 'row', alignItems: 'center', marginBottom: 20 }]} onPress={() => navigation.navigate('AksharaPaamalaiScreen')}>
+              <Image source={mahaperiyavaImg} style={[styles.iconImg, styles.mahaperiyavaImg, { marginRight: 16 }]} />
+              <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left' }]}>{labels.akshara}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: 1, alignItems: 'flex-start', paddingLeft: 24 }}>
+            <TouchableOpacity style={[styles.iconBlock, { flexDirection: 'row', alignItems: 'center', marginBottom: 20 }]} onPress={() => navigation.navigate('LakshmiAshtothram')}>
+              <Image source={shivaImg} style={[styles.iconImg, styles.mahaperiyavaImg, { marginRight: 16 }]} />
+              <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left' }]}>{labels.lakshmi}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.iconBlock, { flexDirection: 'row', alignItems: 'center', marginBottom: 20 }]} onPress={() => navigation.navigate('SaiBabaAshtothram')}>
+              <Image source={shivaImg} style={[styles.iconImg, styles.mahaperiyavaImg, { marginRight: 16 }]} />
+              <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left' }]}>{labels.saibaba}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.iconBlock, { flexDirection: 'row', alignItems: 'center', marginBottom: 20 }]} onPress={() => navigation.navigate('VinayagarAshtothram')}>
+              <Image source={vinayagarImg} style={[styles.iconImg, styles.mahaperiyavaImg, { marginRight: 16 }]} />
+              <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left' }]}>{labels.vinayagar}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.iconRow}>
           <TouchableOpacity style={styles.iconBlock} onPress={() => navigation.navigate('About')}>
@@ -77,9 +101,9 @@ export default function IntroductionScreen() {
 
 const styles = StyleSheet.create({
   introImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 24,
+    width: 90,
+    height: 90,
+    borderRadius: 18,
     marginBottom: 8, // reduced from 12
     marginTop: 0, // remove extra top space
     alignSelf: 'center',
@@ -89,7 +113,7 @@ const styles = StyleSheet.create({
   subtitle: { fontSize: 16, marginBottom: 24, color: '#555' },
   iconRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
     marginBottom: 18,
     width: '100%',
