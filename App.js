@@ -6,11 +6,7 @@ import { Image, TouchableOpacity } from 'react-native';
 import IntroductionScreen from './src/screens/IntroductionScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import AboutScreen from './src/screens/AboutScreen';
-import AbiramiAnthathiScreen from './src/screens/AbiramiAnthathiScreen';
 import AksharaPaamalaiScreen from './src/screens/AksharaPaamalaiScreen';
-import KolaruPathigamScreen from './src/screens/KolaruPathigam';
-import AshtaAiswaryaSidhiManthramScreen from './src/screens/AshtaAiswaryaSidhiManthramScreen';
-import BairavaRudramScreen from './src/screens/BairavaRudramScreen';
 import VinayagarAshtothramScreen from './src/screens/VinayagarAshtothram';
 import { SettingsProvider, useSettings } from './src/SettingsProvider';
 import abiramiImg from './src/assets/images/Abirami.png';
@@ -23,12 +19,18 @@ import { MaterialIcons } from '@expo/vector-icons';
 import PinchZoomView from './PinchZoomView';
 import logoImg from './src/assets/images/Logo.png';
 import SeedFirestoreScreen from './src/screens/SeedFirestoreScreen';
+import vinayagarImg from './src/assets/images/Vinayagar.png';
+import ShivaAshtothramScreen from './src/screens/ShivaAshtothramScreen';
+import VenkateswaraAshtothramScreen from './src/screens/VenkateswaraAshtothramScreen';
+import LakshmiAshtothramScreen from './src/screens/LakshmiAshtothramScreen';
+import HanumanAshtothramScreen from './src/screens/HanumanAshtothramScreen';
+import SaiBabaAshtothramScreen from './src/screens/SaiBabaAshtothramScreen';
 
 const Drawer = createDrawerNavigator();
 
 const translations = {
   ta: {
-    introduction: 'அறிமுகம்',
+    introduction: 'அஷ்டோத்திரம்',
     abirami: 'அபிராமி அந்தாதி',
     kolaru: 'கோளறு பதிகம்',
     poem3: 'கவிதை 3',
@@ -51,7 +53,7 @@ const translations = {
 
 function AppShell() {
   const { language, theme, themes } = useSettings();
-  const t = translations[language];
+  const t = translations[language] || translations["en"];
   const currentTheme = themes?.[theme] || themes.light;
   const VinayagarHeading = language === 'ta' ? 'விநாயகர் அஷ்டோத்திரம்' : 'Vinayagar Ashtothram';
   return (
@@ -74,20 +76,60 @@ function AppShell() {
           }}
         />
         <Drawer.Screen
-          name="AbiramiAnthathi"
-          component={AbiramiAnthathiScreen}
+          name="VinayagarAshtothram"
+          component={VinayagarAshtothramScreen}
           options={{
-            title: t.abirami,
+            title: VinayagarHeading,
             drawerIcon: ({ size }) => (
-              <Image source={abiramiImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+              <Image source={vinayagarImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
             ),
           }}
         />
         <Drawer.Screen
-          name="KolaruPathigam"
-          component={KolaruPathigamScreen}
+          name="ShivaAshtothram"
+          component={ShivaAshtothramScreen}
           options={{
-            title: t.kolaru,
+            title: language === 'ta' ? 'சிவ அஷ்டோத்திரம்' : 'Shiva Ashtothram',
+            drawerIcon: ({ size }) => (
+              <Image source={shivaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="VenkateswaraAshtothram"
+          component={VenkateswaraAshtothramScreen}
+          options={{
+            title: language === 'ta' ? 'வெங்கடேஸ்வர அஷ்டோத்திரம்' : 'Venkateswara Ashtothram',
+            drawerIcon: ({ size }) => (
+              <Image source={shivaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="LakshmiAshtothram"
+          component={LakshmiAshtothramScreen}
+          options={{
+            title: language === 'ta' ? 'மகா லட்சுமி அஷ்டோத்திரம்' : 'Lakshmi Ashtothram',
+            drawerIcon: ({ size }) => (
+              <Image source={shivaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="HanumanAshtothram"
+          component={HanumanAshtothramScreen}
+          options={{
+            title: language === 'ta' ? 'ஹனுமான் அஷ்டோத்திரம்' : 'Hanuman Ashtothram',
+            drawerIcon: ({ size }) => (
+              <Image source={shivaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="SaiBabaAshtothram"
+          component={SaiBabaAshtothramScreen}
+          options={{
+            title: language === 'ta' ? 'சாய்பாபா அஷ்டோத்திரம்' : 'Sai Baba Ashtothram',
             drawerIcon: ({ size }) => (
               <Image source={shivaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
             ),
@@ -100,36 +142,6 @@ function AppShell() {
             title: t.akshara,
             drawerIcon: ({ size }) => (
               <Image source={mahaperiyavaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="VinayagarAshtothram"
-          component={VinayagarAshtothramScreen}
-          options={{
-            title: VinayagarHeading,
-            drawerIcon: ({ size }) => (
-              <Image source={logoImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="AshtaAiswaryaSidhiManthram"
-          component={AshtaAiswaryaSidhiManthramScreen}
-          options={{
-            title: language === 'ta' ? 'அஷ்ட ஐஸ்வர்ய சித்தி மந்திரம்' : 'Ashta Aiswarya Sidhi Manthram',
-            drawerIcon: ({ size }) => (
-              <Image source={mahaperiyavaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="BairavaRudram"
-          component={BairavaRudramScreen}
-          options={{
-            title: language === 'ta' ? 'பைரவ ருத்ர மந்திரம்' : 'BairavaRudram',
-            drawerIcon: ({ size }) => (
-              <Image source={shivaImg} style={{ width: size, height: size, borderRadius: size / 2 }} />
             ),
           }}
         />

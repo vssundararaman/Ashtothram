@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, useWindowDimensions, TouchableOpacity, Image, TextInput, ActivityIndicator } from 'react-native';
 import { useSettings } from '../SettingsProvider';
-import mahaperiyavaImg from '../assets/images/Logo.png';
+import vinayagarImg from '../assets/images/Vinayagar.png';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import PinchZoomView from '../../PinchZoomView';
 import { db } from '../services/firebase';
@@ -24,6 +24,8 @@ export default function VinayagarAshtothramScreen() {
     const [fontSize, setFontSize] = useState(17);
     const [bold, setBold] = useState(false);
     const [showGeneralInfo, setShowGeneralInfo] = useState(false);
+    const [showAllPronunciation, setShowAllPronunciation] = useState(false);
+    const [expandedPronunciation, setExpandedPronunciation] = useState({});
 
     // TEMP: Seed Firestore if empty
     useEffect(() => {
@@ -35,10 +37,10 @@ export default function VinayagarAshtothramScreen() {
                     {
                         title: "விநாயகர் அஷ்டோத்திரம்",
                         lines: [
-                            "ஓம் விநாயகாய நமஹ",
-                            "ஓம் விக்னராஜாய நமஹ",
-                            "ஓம் கௌரிபுத்ராய நமஹ",
-                            "ஓம் கணேஷ்வராய நமஹ"
+                            { text: "ஓம் விநாயகாய நமஹ", pronunciation: "Om Vinayakaya Namaha" },
+                            { text: "ஓம் விக்னராஜாய நமஹ", pronunciation: "Om Vighnarajaya Namaha" },
+                            { text: "ஓம் கௌரிபுத்ராய நமஹ", pronunciation: "Om Gauriputraya Namaha" },
+                            { text: "ஓம் கணேஷ்வராய நமஹ", pronunciation: "Om Ganeshvaraya Namaha" }
                         ],
                         meaning: [
                             "விநாயகருக்கு வணக்கம்.",
@@ -52,10 +54,10 @@ export default function VinayagarAshtothramScreen() {
                     {
                         title: "Vinayagar Ashtothram",
                         lines: [
-                            "Om Vinayakaya Namaha",
-                            "Om Vighnarajaya Namaha",
-                            "Om Gauriputraya Namaha",
-                            "Om Ganeshvaraya Namaha"
+                            { text: "Om Vinayakaya Namaha", pronunciation: "Om Vinayakaya Namaha" },
+                            { text: "Om Vighnarajaya Namaha", pronunciation: "Om Vighnarajaya Namaha" },
+                            { text: "Om Gauriputraya Namaha", pronunciation: "Om Gauriputraya Namaha" },
+                            { text: "Om Ganeshvaraya Namaha", pronunciation: "Om Ganeshvaraya Namaha" }
                         ],
                         meaning: [
                             "Salutations to Vinayaka.",
@@ -104,7 +106,7 @@ export default function VinayagarAshtothramScreen() {
         const s = search.toLowerCase();
         return {
             ...poem,
-            lines: Array.isArray(poem.lines) ? poem.lines.filter(line => line.toLowerCase().includes(s)) : [],
+            lines: Array.isArray(poem.lines) ? poem.lines.filter(line => line.text.toLowerCase().includes(s)) : [],
             meaning: Array.isArray(poem.meaning) ? poem.meaning.filter(meaningLine => meaningLine.toLowerCase().includes(s)) : [],
         };
     }, [search, poems]);
@@ -128,7 +130,7 @@ export default function VinayagarAshtothramScreen() {
     return (
         <PinchZoomView>
             <ScrollView contentContainerStyle={[styles.container, { backgroundColor: currentTheme.background }]}>
-                <Image source={mahaperiyavaImg} style={styles.image} resizeMode="cover" />
+                <Image source={vinayagarImg} style={styles.image} resizeMode="cover" />
                 <Text style={[styles.title, { color: currentTheme.text, fontWeight: bold ? 'bold' : 'normal' }]}>{heading}</Text>
                 <TextInput
                     style={[styles.search, { backgroundColor: currentTheme.card, color: currentTheme.text, borderColor: currentTheme.accent }]}
@@ -137,19 +139,13 @@ export default function VinayagarAshtothramScreen() {
                     onChangeText={setSearch}
                     placeholderTextColor={currentTheme.accent}
                 />
+                {/* Top Control Bar */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 8, marginBottom: 12 }}>
-                    <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-                        <Text style={{ fontSize: 13 }}>A-</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-                        <Text style={{ fontSize: 13 }}>A+</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
-                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}> <Text style={{ fontSize: 13 }}>A-</Text> </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}> <Text style={{ fontSize: 13 }}>A+</Text> </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text> </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text> </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setShowAllPronunciation(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showAllPronunciation ? 2 : 1, borderColor: showAllPronunciation ? currentTheme.primary : '#aaa', backgroundColor: showAllPronunciation ? '#e6f0ff' : 'transparent' }]}> <MaterialIcons name="record-voice-over" size={18} color={showAllPronunciation ? currentTheme.primary : currentTheme.text} /> </TouchableOpacity>
                 </View>
                 {showGeneralInfo && (
                     <View style={[styles.accordion, { backgroundColor: currentTheme.accent, width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 16, marginTop: 8 }]}>
@@ -184,8 +180,25 @@ export default function VinayagarAshtothramScreen() {
                         <View style={styles.linesPanel}>
                             {Array.isArray(filteredPoem.lines) && filteredPoem.lines.length > 0 ? (
                                 filteredPoem.lines.map((line, i) => (
-                                    <View key={i}>
-                                        <Text selectable={true} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
+                                    <View key={i} style={{ marginBottom: 6 }}>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            <Text selectable={true} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal', flex: 1 }]}>{line.text || line}</Text>
+                                            {line.pronunciation && (
+                                                <TouchableOpacity
+                                                    onPress={() => setExpandedPronunciation(prev => ({ ...prev, [i]: !prev[i] }))}
+                                                    style={{ marginLeft: 8 }}
+                                                >
+                                                    <MaterialIcons
+                                                        name="info-outline"
+                                                        size={20}
+                                                        color={expandedPronunciation[i] ? currentTheme.primary : currentTheme.text}
+                                                    />
+                                                </TouchableOpacity>
+                                            )}
+                                        </View>
+                                        {(showAllPronunciation || expandedPronunciation[i]) && line.pronunciation ? (
+                                            <Text style={{ color: '#888', fontSize: fontSize - 2, marginLeft: 8, marginTop: 2 }}>{line.pronunciation}</Text>
+                                        ) : null}
                                         {showRuler && <View style={styles.ruler} />}
                                     </View>
                                 ))
@@ -199,6 +212,14 @@ export default function VinayagarAshtothramScreen() {
                         <Text style={styles.blankLine}>{' '}</Text>
                     </View>
                 )}
+                {/* Bottom Control Bar */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 16, marginBottom: 12 }}>
+                    <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}> <Text style={{ fontSize: 13 }}>A-</Text> </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}> <Text style={{ fontSize: 13 }}>A+</Text> </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text> </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text> </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setShowAllPronunciation(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showAllPronunciation ? 2 : 1, borderColor: showAllPronunciation ? currentTheme.primary : '#aaa', backgroundColor: showAllPronunciation ? '#e6f0ff' : 'transparent' }]}> <MaterialIcons name="record-voice-over" size={18} color={showAllPronunciation ? currentTheme.primary : currentTheme.text} /> </TouchableOpacity>
+                </View>
             </ScrollView>
         </PinchZoomView>
     );

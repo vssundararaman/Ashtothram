@@ -1,0 +1,19 @@
+[
+  {
+    "title": "Hanuman Ashtottara Sata Namavali",
+    "lines": [
+      { "text": "1. Om Hanumate Namah", "pronunciation": "Om Hanumate Namaha" },
+      { "text": "2. Om Anjaneyaya Namah", "pronunciation": "Om Anjaneyaya Namaha" },
+      { "text": "3. Om Vayuputraya Namah", "pronunciation": "Om Vayuputraya Namaha" },
+      { "text": "4. Om Mahabalaya Namah", "pronunciation": "Om Mahabalaya Namaha" },
+      { "text": "5. Om Ramadutaya Namah", "pronunciation": "Om Ramadutaya Namaha" }
+    ],
+    "meaning": [
+      "Salutations to Hanuman.",
+      "Salutations to Anjaneya.",
+      "Salutations to the son of Vayu.",
+      "Salutations to the mighty one.",
+      "Salutations to the messenger of Rama."
+    ]
+  }
+]

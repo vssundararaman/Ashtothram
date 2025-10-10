@@ -4,7 +4,7 @@ import { doc, setDoc } from 'firebase/firestore';
 export async function seedVinayagarContent() {
     const taContent = [
         {
-            title: "விநாயகர் அஷ்டோத்திரம்",
+            title: "விநாயகர் அஷ்டோத்திரம் ஶத நாமாவளி",
             lines: [
                 "1. ஓம் விநாயகாய நம !!!",
                 "2. ஓம் விக்னராஜாய நம !!!",

@@ -1,11 +1,11 @@
-import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, useWindowDimensions, TouchableOpacity, Image, TextInput } from 'react-native';
+import React, { useEffect, useState, useMemo } from 'react';
+import { View, Text, StyleSheet, ScrollView, useWindowDimensions, TouchableOpacity, Image, TextInput, ActivityIndicator } from 'react-native';
 import { useSettings } from '../SettingsProvider';
-import poems_ta from '../assets/AksharaPaamalai_ta.json';
-import poems_en from '../assets/AksharaPaamalai_en.json';
 import mahaperiyavaImg from '../assets/images/Mahaperiyava.jpg';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import PinchZoomView from '../../PinchZoomView';
+import { db } from '../services/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 export default function AksharaPaamalaiScreen() {
   const { language, theme, themes, showRuler } = useSettings();
@@ -17,30 +17,64 @@ export default function AksharaPaamalaiScreen() {
   const hideLabel = language === 'ta' ? 'விளக்கத்தை மறை' : 'Hide Meaning';
   const showLabel = language === 'ta' ? 'விளக்கம்' : 'Show Meaning';
   const searchPlaceholder = language === 'ta' ? 'தேடு...' : 'Search...';
-  const poemsData = language === 'ta' ? poems_ta : poems_en;
-  // const generalInfo = poemsData.generalInfo; // Not present in JSON, handled below
-  const poems = poemsData; // Use the array directly
 
-  const [expanded, setExpanded] = useState(null);
+  const [poems, setPoems] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [fontSize, setFontSize] = useState(17);
   const [bold, setBold] = useState(false);
-  const [showGeneralInfo, setShowGeneralInfo] = useState(false); // Hide info by default
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [showGeneralInfo, setShowGeneralInfo] = useState(false);
+  const [showAllPronunciation, setShowAllPronunciation] = useState(false);
+  const [expandedPronunciation, setExpandedPronunciation] = useState({});
 
-  // For single-poem array: filter lines and meaning lines by search
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      try {
+        const docRef = doc(db, 'aksharaPaamalai', 'content');
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const poemsData = docSnap.data()[language] || [];
+          setPoems(poemsData);
+        } else {
+          setPoems([]);
+        }
+      } catch (e) {
+        setPoems([]);
+      }
+      setLoading(false);
+    }
+    fetchData();
+  }, [language]);
+
   const filteredPoem = useMemo(() => {
-    if (!poems.length) return null;
+    if (!poems || !Array.isArray(poems) || poems.length === 0) return null;
     const poem = poems[0];
+    if (!poem) return null;
     if (!search.trim()) return poem;
     const s = search.toLowerCase();
     return {
       ...poem,
-      lines: poem.lines.filter(line => line.toLowerCase().includes(s)),
-      meaning: poem.meaning ? poem.meaning.filter(meaningLine => meaningLine.toLowerCase().includes(s)) : [],
+      lines: Array.isArray(poem.lines) ? poem.lines.filter(line => line.toLowerCase().includes(s)) : [],
+      meaning: Array.isArray(poem.meaning) ? poem.meaning.filter(meaningLine => meaningLine.toLowerCase().includes(s)) : [],
     };
   }, [search, poems]);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: currentTheme.background }}>
+        <ActivityIndicator size="large" color={currentTheme.primary} />
+        <Text style={{ marginTop: 12, color: currentTheme.text }}>Loading...</Text>
+      </View>
+    );
+  }
+  if (!filteredPoem) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: currentTheme.background }}>
+        <Text style={{ color: currentTheme.text, fontSize: 18 }}>No content found.</Text>
+      </View>
+    );
+  }
 
   return (
     <PinchZoomView>
@@ -54,22 +88,14 @@ export default function AksharaPaamalaiScreen() {
           onChangeText={setSearch}
           placeholderTextColor={currentTheme.accent}
         />
-        {/* Top Menu Bar Controls - Remove pagination controls, keep only font size, bold, and info */}
+        {/* Top Control Bar */}
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 8, marginBottom: 12 }}>
-          <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-            <Text style={{ fontSize: 13 }}>A-</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}>
-            <Text style={{ fontSize: 13 }}>A+</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}>
-            <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}>
-            <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text>
-          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}> <Text style={{ fontSize: 13 }}>A-</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}> <Text style={{ fontSize: 13 }}>A+</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowAllPronunciation(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showAllPronunciation ? 2 : 1, borderColor: showAllPronunciation ? currentTheme.primary : '#aaa', backgroundColor: showAllPronunciation ? '#e6f0ff' : 'transparent' }]}> <MaterialIcons name="record-voice-over" size={18} color={showAllPronunciation ? currentTheme.primary : currentTheme.text} /> </TouchableOpacity>
         </View>
-        {/* Info Section at the top, toggled by i button */}
         {showGeneralInfo && (
           <View style={[styles.accordion, { backgroundColor: currentTheme.accent, width: isWide ? 600 : '100%', alignSelf: 'center', marginBottom: 16, marginTop: 8 }]}>
             <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 6, color: currentTheme.primary }}>
@@ -112,47 +138,32 @@ export default function AksharaPaamalaiScreen() {
               {filteredPoem.title}
             </Text>
             <View style={styles.linesPanel}>
-              {filteredPoem.lines.length > 0 ? (
-                filteredPoem.lines.map((line, i) => {
-                  if (language === 'en' && line.includes('I will come')) {
-                    const parts = line.split(/(I will come)/);
-                    return (
-                      <View key={i}>
-                        <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>
-                          {parts.map((part, idx) =>
-                            part === 'I will come'
-                              ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
-                              : part
-                          )}
-                        </Text>
-                        {showRuler && <View style={styles.ruler} />}
-                      </View>
-                    );
-                  }
-                  if (language === 'ta' && line.includes('வருவேன்')) {
-                    const parts = line.split(/(வருவேன்)/);
-                    return (
-                      <View key={i}>
-                        <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>
-                          {parts.map((part, idx) =>
-                            part === 'வருவேன்'
-                              ? <Text key={idx} style={{ fontWeight: 'bold' }}>{part}</Text>
-                              : part
-                          )}
-                        </Text>
-                        {showRuler && <View style={styles.ruler} />}
-                      </View>
-                    );
-                  }
-                  return (
-                    <View key={i}>
-                      <Text style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal' }]}>{line}</Text>
-                      {showRuler && <View style={styles.ruler} />}
+              {Array.isArray(filteredPoem.lines) && filteredPoem.lines.length > 0 ? (
+                filteredPoem.lines.map((line, i) => (
+                  <View key={i} style={{ marginBottom: 6 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <Text selectable={true} style={[styles.poemLine, { color: currentTheme.text, fontSize, fontWeight: bold ? 'bold' : 'normal', flex: 1 }]}>{line.text || line}</Text>
+                      {line.pronunciation && (
+                        <TouchableOpacity
+                          onPress={() => setExpandedPronunciation(prev => ({ ...prev, [i]: !prev[i] }))}
+                          style={{ marginLeft: 8 }}
+                        >
+                          <MaterialIcons
+                            name="info-outline"
+                            size={20}
+                            color={expandedPronunciation[i] ? currentTheme.primary : currentTheme.text}
+                          />
+                        </TouchableOpacity>
+                      )}
                     </View>
-                  );
-                })
+                    {(showAllPronunciation || expandedPronunciation[i]) && line.pronunciation ? (
+                      <Text style={{ color: '#888', fontSize: fontSize - 2, marginLeft: 8, marginTop: 2 }}>{line.pronunciation}</Text>
+                    ) : null}
+                    {showRuler && <View style={styles.ruler} />}
+                  </View>
+                ))
               ) : (
-                <Text style={[styles.poemLine, { color: currentTheme.text, fontStyle: 'italic', fontSize }]}>{language === 'ta' ? 'பாடல் இல்லை' : 'No matching lines'}</Text>
+                <Text selectable={true} style={[styles.poemLine, { color: currentTheme.text, fontStyle: 'italic', fontSize }]}>{language === 'ta' ? 'பாடல் இல்லை' : 'No matching lines'}</Text>
               )}
             </View>
             {filteredPoem.meaning && filteredPoem.meaning.length > 0 && (
@@ -161,6 +172,14 @@ export default function AksharaPaamalaiScreen() {
             <Text style={styles.blankLine}>{' '}</Text>
           </View>
         )}
+        {/* Bottom Control Bar */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 16, marginBottom: 12 }}>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.max(12, f - 2))} style={[styles.roundControl, { marginLeft: 4 }]}> <Text style={{ fontSize: 13 }}>A-</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFontSize(f => Math.min(36, f + 2))} style={[styles.roundControl, { marginLeft: 4 }]}> <Text style={{ fontSize: 13 }}>A+</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setBold(b => !b)} style={[styles.roundControl, { marginLeft: 4, borderWidth: bold ? 2 : 1, borderColor: bold ? currentTheme.primary : '#aaa', backgroundColor: bold ? '#e6f0ff' : 'transparent' }]}> <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? currentTheme.primary : currentTheme.text, textAlign: 'center' }}>B</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowGeneralInfo(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showGeneralInfo ? 2 : 1, borderColor: showGeneralInfo ? currentTheme.primary : '#aaa', backgroundColor: showGeneralInfo ? '#e6f0ff' : 'transparent' }]}> <Text style={{ fontWeight: 'bold', fontSize: 13, color: showGeneralInfo ? currentTheme.primary : currentTheme.text }}>i</Text> </TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowAllPronunciation(v => !v)} style={[styles.roundControl, { marginLeft: 4, borderWidth: showAllPronunciation ? 2 : 1, borderColor: showAllPronunciation ? currentTheme.primary : '#aaa', backgroundColor: showAllPronunciation ? '#e6f0ff' : 'transparent' }]}> <MaterialIcons name="record-voice-over" size={18} color={showAllPronunciation ? currentTheme.primary : currentTheme.text} /> </TouchableOpacity>
+        </View>
       </ScrollView>
     </PinchZoomView>
   );

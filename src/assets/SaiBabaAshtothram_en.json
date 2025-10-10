@@ -1,0 +1,34 @@
+[
+    {
+        "title": "Sai Baba Ashtottara Sata Namavali",
+        "lines": [
+            {
+                "text": "1. Om Sai Nathaya Namah",
+                "pronunciation": "Om Sai Nathaya Namaha"
+            },
+            {
+                "text": "2. Om Sai Ramaya Namah",
+                "pronunciation": "Om Sai Ramaya Namaha"
+            },
+            {
+                "text": "3. Om Dwarakamayine Namah",
+                "pronunciation": "Om Dwarakamayine Namaha"
+            },
+            {
+                "text": "4. Om Bhaktavatsalaya Namah",
+                "pronunciation": "Om Bhaktavatsalaya Namaha"
+            },
+            {
+                "text": "5. Om Anantaya Namah",
+                "pronunciation": "Om Anantaya Namaha"
+            }
+        ],
+        "meaning": [
+            "Salutations to Sai Nath.",
+            "Salutations to Sai Ram.",
+            "Salutations to the resident of Dwaraka.",
+            "Salutations to the lover of devotees.",
+            "Salutations to the infinite one."
+        ]
+    }
+]
