@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSettings } from '../SettingsProvider';
 import shivaImg from '../assets/images/shiva.png';
@@ -17,6 +17,7 @@ export default function IntroductionScreen() {
   const isTamil = language === 'ta';
   const [fontSize, setFontSize] = useState(16);
   const [bold, setBold] = useState(false);
+  const [tooltipIdx, setTooltipIdx] = useState(null);
 
   const labels = {
     title: isTamil ? 'அஷ்டோத்திரம்' : 'Mandiram',
@@ -32,10 +33,23 @@ export default function IntroductionScreen() {
     saibaba: isTamil ? 'சாய்பாபா அஷ்டோத்திரம்' : 'Sai Baba Ashtothram',
   };
 
+  const iconData = [
+    { label: labels.vinayagar, img: vinayagarImg, nav: 'VinayagarAshtothram' },
+    { label: labels.venkateswara, img: shivaImg, nav: 'VenkateswaraAshtothram' },
+    { label: labels.lakshmi, img: shivaImg, nav: 'LakshmiAshtothram' },
+    { label: labels.hanuman, img: shivaImg, nav: 'HanumanAshtothram' },
+    { label: labels.saibaba, img: shivaImg, nav: 'SaiBabaAshtothram' },
+    { label: labels.shiva, img: shivaImg, nav: 'ShivaAshtothram' },
+    { label: labels.akshara, img: mahaperiyavaImg, nav: 'AksharaPaamalaiScreen' },
+  ];
+  // Split into 2 columns
+  const col1 = iconData.filter((_, i) => i % 2 === 0);
+  const col2 = iconData.filter((_, i) => i % 2 === 1);
+
   return (
     <PinchZoomView>
       <ScrollView contentContainerStyle={styles.container}>
-        <Image source={introImg} style={styles.introImage} />
+        <Image source={introImg} style={[styles.introImage, { alignSelf: 'center' }]} />
         <Text selectable={true} style={[styles.title, { fontSize: fontSize + 8, fontWeight: bold ? 'bold' : 'normal' }]}>{labels.title}</Text>
         <Text selectable={true} style={[styles.subtitle, { fontSize, fontWeight: bold ? 'bold' : 'normal', marginBottom: 0 }]}>{labels.subtitle}</Text>
         {/* Menu Bar Controls - now immediately below subtitle */}
@@ -50,38 +64,32 @@ export default function IntroductionScreen() {
             <Text style={{ fontWeight: 'bold', fontSize: 13, color: bold ? '#007bff' : '#333', textAlign: 'center' }}>B</Text>
           </TouchableOpacity>
         </View>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'flex-start' }}>
-          <View style={{ flex: 1, alignItems: 'flex-start', paddingLeft: 24 }}>
-            <TouchableOpacity style={[styles.iconBlock, { flexDirection: 'row', alignItems: 'center', marginBottom: 20 }]} onPress={() => navigation.navigate('VenkateswaraAshtothram')}>
-              <Image source={shivaImg} style={[styles.iconImg, styles.mahaperiyavaImg, { marginRight: 16 }]} />
-              <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left' }]}>{labels.venkateswara}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.iconBlock, { flexDirection: 'row', alignItems: 'center', marginBottom: 20 }]} onPress={() => navigation.navigate('HanumanAshtothram')}>
-              <Image source={shivaImg} style={[styles.iconImg, styles.mahaperiyavaImg, { marginRight: 16 }]} />
-              <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left' }]}>{labels.hanuman}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.iconBlock, { flexDirection: 'row', alignItems: 'center', marginBottom: 20 }]} onPress={() => navigation.navigate('ShivaAshtothram')}>
-              <Image source={shivaImg} style={[styles.iconImg, styles.mahaperiyavaImg, { marginRight: 16 }]} />
-              <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left' }]}>{labels.shiva}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.iconBlock, { flexDirection: 'row', alignItems: 'center', marginBottom: 20 }]} onPress={() => navigation.navigate('AksharaPaamalaiScreen')}>
-              <Image source={mahaperiyavaImg} style={[styles.iconImg, styles.mahaperiyavaImg, { marginRight: 16 }]} />
-              <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left' }]}>{labels.akshara}</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ flex: 1, alignItems: 'flex-start', paddingLeft: 24 }}>
-            <TouchableOpacity style={[styles.iconBlock, { flexDirection: 'row', alignItems: 'center', marginBottom: 20 }]} onPress={() => navigation.navigate('LakshmiAshtothram')}>
-              <Image source={shivaImg} style={[styles.iconImg, styles.mahaperiyavaImg, { marginRight: 16 }]} />
-              <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left' }]}>{labels.lakshmi}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.iconBlock, { flexDirection: 'row', alignItems: 'center', marginBottom: 20 }]} onPress={() => navigation.navigate('SaiBabaAshtothram')}>
-              <Image source={shivaImg} style={[styles.iconImg, styles.mahaperiyavaImg, { marginRight: 16 }]} />
-              <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left' }]}>{labels.saibaba}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.iconBlock, { flexDirection: 'row', alignItems: 'center', marginBottom: 20 }]} onPress={() => navigation.navigate('VinayagarAshtothram')}>
-              <Image source={vinayagarImg} style={[styles.iconImg, styles.mahaperiyavaImg, { marginRight: 16 }]} />
-              <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'left' }]}>{labels.vinayagar}</Text>
-            </TouchableOpacity>
+        <View style={{ width: '100%', alignItems: 'center', marginTop: 16, marginBottom: 24 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%' }}>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              {col1.map((icon, idx) => (
+                <TouchableOpacity
+                  key={icon.label}
+                  style={{ alignItems: 'center', marginBottom: 28, width: 110 }}
+                  onPress={() => navigation.navigate(icon.nav)}
+                >
+                  <Image source={icon.img} style={[styles.iconImg, styles.mahaperiyavaImg]} />
+                  <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'center', marginTop: 6 }]}>{icon.label}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              {col2.map((icon, idx) => (
+                <TouchableOpacity
+                  key={icon.label}
+                  style={{ alignItems: 'center', marginBottom: 28, width: 110 }}
+                  onPress={() => navigation.navigate(icon.nav)}
+                >
+                  <Image source={icon.img} style={[styles.iconImg, styles.mahaperiyavaImg]} />
+                  <Text selectable={true} style={[styles.iconLabel, { fontSize, fontWeight: bold ? 'bold' : 'normal', textAlign: 'center', marginTop: 6 }]}>{icon.label}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
           </View>
         </View>
         <View style={styles.iconRow}>
